@@ -1,0 +1,40 @@
+<%
+  const finalPrice = p.discountPrice && p.discountPrice > 0 ? p.discountPrice : p.price;
+  const hasDiscount = p.discountPrice && p.discountPrice > 0 && p.discountPrice < p.price;
+  const discountPercent = hasDiscount ? Math.round(((p.price - p.discountPrice) / p.price) * 100) : 0;
+%>
+<div class="product-card">
+  <div class="product-media">
+    <a href="/product/<%= p.slug %>">
+      <img src="<%= p.thumbnail || (p.images && p.images[0]) || '/images/products/placeholder.svg' %>" alt="<%= p.name %>" loading="lazy" />
+    </a>
+    <div class="product-badges">
+      <% if (p.isNewArrival) { %><span class="sf-badge sf-badge-new">New</span><% } %>
+      <% if (hasDiscount) { %><span class="sf-badge sf-badge-sale">-<%= discountPercent %>%</span><% } %>
+      <% if (p.isBestSeller) { %><span class="sf-badge sf-badge-bestseller">Bestseller</span><% } %>
+    </div>
+    <div class="product-quick-actions">
+      <button class="btn-sm-icon js-toggle-wishlist" data-id="<%= p._id %>" title="Add to wishlist"><i class="bi bi-heart"></i></button>
+      <a class="btn-sm-icon" href="/product/<%= p.slug %>" title="Quick view"><i class="bi bi-eye"></i></a>
+    </div>
+    <button class="btn btn-sisfora btn-sm w-auto add-to-cart-btn js-add-to-cart"
+      data-id="<%= p._id %>" data-name="<%= p.name %>" data-slug="<%= p.slug %>"
+      data-image="<%= p.thumbnail || (p.images && p.images[0]) || '' %>" data-price="<%= finalPrice %>" data-stock="<%= p.stock %>">
+      <i class="bi bi-bag-plus me-1"></i> Add to Bag
+    </button>
+  </div>
+  <div class="product-info">
+    <p class="product-category-label"><%= (p.category && p.category.name) ? p.category.name : p.brand %></p>
+    <h6 class="product-name"><a href="/product/<%= p.slug %>" class="text-dark"><%= p.name %></a></h6>
+    <div class="product-rating mb-1">
+      <% for (let i=1;i<=5;i++){ %>
+        <% if (Math.round(p.ratingsAverage) >= i) { %><i class="bi bi-star-fill"></i><% } else { %><i class="bi bi-star"></i><% } %>
+      <% } %>
+      <span class="text-muted small">(<%= p.ratingsCount || 0 %>)</span>
+    </div>
+    <div class="product-price">
+      <span class="price-current">$<%= finalPrice.toFixed(2) %></span>
+      <% if (hasDiscount) { %><span class="price-old">$<%= p.price.toFixed(2) %></span><% } %>
+    </div>
+  </div>
+</div>

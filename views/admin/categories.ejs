@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="mb-0">Manage Categories</h5>
+  <button class="btn btn-sisfora btn-sm" id="addCategoryBtn"><i class="bi bi-plus-lg me-1"></i> Add Category</button>
+</div>
+
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="table table-sf mb-0">
+      <thead><tr><th>Image</th><th>Name</th><th>Products</th><th>Actions</th></tr></thead>
+      <tbody id="categoriesTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="categoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="categoryForm">
+        <input type="hidden" name="categoryId" />
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input type="text" name="name" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="2"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Image URL</label>
+            <input type="text" name="image" class="form-control" placeholder="/images/products/placeholder.svg" />
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="isFeatured" id="catFeatured">
+            <label class="form-check-label" for="catFeatured">Featured on homepage</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sisfora w-100">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

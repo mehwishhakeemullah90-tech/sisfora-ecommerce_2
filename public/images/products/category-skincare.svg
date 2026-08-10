@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eab8c0" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#f7e7e4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="450" fill="url(#g2)"/>
+  <circle cx="470" cy="80" r="90" fill="#eab8c0" opacity="0.2"/>
+  <circle cx="90" cy="380" r="110" fill="#ffffff" opacity="0.35"/>
+  <text x="300" y="235" font-family="Georgia, 'Times New Roman', serif" font-size="42" fill="#1a1512" text-anchor="middle">Skincare</text>
+</svg>

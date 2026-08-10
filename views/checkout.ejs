@@ -1,0 +1,88 @@
+<section class="section-sm bg-blush">
+  <div class="container">
+    <h1 class="section-title mb-0">Secure Checkout</h1>
+  </div>
+</section>
+
+<section class="section" id="checkoutPage" data-stripe-key="<%= stripePublishableKey %>">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-7">
+        <h5 class="mb-3"><i class="bi bi-geo-alt me-2"></i>Shipping Address</h5>
+        <div class="mb-3">
+          <select id="savedAddressSelect" class="form-select"><option value="">Loading saved addresses...</option></select>
+        </div>
+        <form id="shippingForm">
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="fullName" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone</label>
+              <input type="tel" name="phone" class="form-control" required />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address Line 1</label>
+              <input type="text" name="addressLine1" class="form-control" required />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address Line 2 (optional)</label>
+              <input type="text" name="addressLine2" class="form-control" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">City</label>
+              <input type="text" name="city" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">State/Province</label>
+              <input type="text" name="state" class="form-control" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Postal Code</label>
+              <input type="text" name="postalCode" class="form-control" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Country</label>
+              <input type="text" name="country" class="form-control" value="Pakistan" required />
+            </div>
+          </div>
+        </form>
+
+        <h5 class="mb-3"><i class="bi bi-credit-card me-2"></i>Payment Method</h5>
+        <div class="mb-3">
+          <div class="form-check border-sf rounded-sf p-3 mb-2">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="payCOD" checked>
+            <label class="form-check-label w-100" for="payCOD"><i class="bi bi-cash-coin me-2"></i>Cash on Delivery</label>
+          </div>
+          <div class="form-check border-sf rounded-sf p-3">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="payCARD">
+            <label class="form-check-label w-100" for="payCARD"><i class="bi bi-credit-card-2-front me-2"></i>Credit / Debit Card</label>
+          </div>
+        </div>
+
+        <div id="cardPaymentSection" class="d-none border-sf rounded-sf p-3 mb-4">
+          <div id="stripePaymentElement"></div>
+        </div>
+
+        <button id="placeOrderBtn" class="btn btn-sisfora w-100 py-3">Place Order</button>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="admin-card p-4">
+          <h5 class="mb-3">Order Summary</h5>
+          <div id="checkoutSummaryItems" class="mb-3"></div>
+          <hr />
+          <div class="d-flex justify-content-between mb-2"><span class="text-muted">Subtotal</span><span id="checkoutSubtotal">$0.00</span></div>
+          <div class="d-flex justify-content-between mb-2 text-success d-none" id="checkoutDiscountRow"><span>Discount</span><span id="checkoutDiscount">-$0.00</span></div>
+          <div class="d-flex justify-content-between mb-2"><span class="text-muted">Shipping</span><span id="checkoutShipping">$0.00</span></div>
+          <hr />
+          <div class="d-flex justify-content-between fw-bold fs-5"><span>Total</span><span id="checkoutTotal">$0.00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/js/checkout.js"></script>

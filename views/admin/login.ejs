@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <style>
+    body { background: linear-gradient(160deg, #1a1512, #2b2422); min-height: 100vh; display:flex; align-items:center; justify-content:center; }
+    .login-card { background:#fff; border-radius:8px; max-width:420px; width:100%; padding:3rem; }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="text-center mb-4">
+      <a href="/" class="navbar-brand sf-logo">Sis<span>fora</span></a>
+      <p class="text-muted small mt-1">Admin Dashboard</p>
+    </div>
+    <form id="adminLoginForm">
+      <div class="mb-3">
+        <label class="form-label">Admin Email</label>
+        <input type="email" name="email" class="form-control" required />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-sisfora w-100">Login to Dashboard</button>
+    </form>
+    <p class="text-center small text-muted mt-4 mb-0"><a href="/">&larr; Back to Storefront</a></p>
+  </div>
+  <div id="sfToast" class="toast-sf"></div>
+  <script src="/js/utils.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

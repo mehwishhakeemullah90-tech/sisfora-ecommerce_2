@@ -1,0 +1,170 @@
+<section class="section-sm bg-blush">
+  <div class="container">
+    <h1 class="section-title mb-0">My Account</h1>
+    <p class="text-muted mb-0">Welcome back, <%= user.name %></p>
+  </div>
+</section>
+
+<section class="section" id="profilePage">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-3">
+        <div class="nav flex-column nav-pills" id="profileTabs" role="tablist">
+          <button class="nav-link text-start active" data-bs-toggle="pill" data-bs-target="#tabOverview"><i class="bi bi-person me-2"></i>Overview</button>
+          <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tabOrders"><i class="bi bi-box-seam me-2"></i>Order History</button>
+          <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tabWishlist"><i class="bi bi-heart me-2"></i>Wishlist</button>
+          <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tabAddresses"><i class="bi bi-geo-alt me-2"></i>Shipping Addresses</button>
+          <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tabPassword"><i class="bi bi-lock me-2"></i>Change Password</button>
+        </div>
+      </div>
+
+      <div class="col-lg-9">
+        <div class="tab-content">
+
+          <!-- Overview -->
+          <div class="tab-pane fade show active" id="tabOverview">
+            <div class="admin-card p-4">
+              <h5 class="mb-4">Profile Details</h5>
+              <form id="profileForm">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="name" class="form-control" value="<%= user.name %>" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" value="<%= user.email %>" disabled />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" name="phone" class="form-control" value="<%= user.phone || '' %>" />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-sisfora mt-4">Save Changes</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Orders -->
+          <div class="tab-pane fade" id="tabOrders">
+            <h5 class="mb-4">Order History</h5>
+            <div id="ordersListContainer"><div class="sf-skeleton" style="height:100px;"></div></div>
+          </div>
+
+          <!-- Wishlist -->
+          <div class="tab-pane fade" id="tabWishlist">
+            <h5 class="mb-4">My Wishlist</h5>
+            <div class="row g-4" id="wishlistGridContainer"><div class="col-12"><div class="sf-skeleton" style="height:200px;"></div></div></div>
+          </div>
+
+          <!-- Addresses -->
+          <div class="tab-pane fade" id="tabAddresses">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="mb-0">Shipping Addresses</h5>
+              <button class="btn btn-sisfora-outline btn-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal"><i class="bi bi-plus-lg me-1"></i> Add Address</button>
+            </div>
+            <div id="addressListContainer"><div class="sf-skeleton" style="height:100px;"></div></div>
+          </div>
+
+          <!-- Change Password -->
+          <div class="tab-pane fade" id="tabPassword">
+            <div class="admin-card p-4">
+              <h5 class="mb-4">Change Password</h5>
+              <form id="changePasswordForm" style="max-width:420px;">
+                <div class="mb-3">
+                  <label class="form-label">Current Password</label>
+                  <input type="password" name="currentPassword" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">New Password</label>
+                  <input type="password" name="newPassword" class="form-control" required minlength="6" />
+                </div>
+                <div class="mb-4">
+                  <label class="form-label">Confirm New Password</label>
+                  <input type="password" name="confirmPassword" class="form-control" required minlength="6" />
+                </div>
+                <button type="submit" class="btn btn-sisfora">Update Password</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add Address Modal -->
+<div class="modal fade" id="addAddressModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Shipping Address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="addAddressForm">
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Label</label>
+              <input type="text" name="label" class="form-control" placeholder="Home, Office..." />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="fullName" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone</label>
+              <input type="tel" name="phone" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Country</label>
+              <input type="text" name="country" class="form-control" value="Pakistan" required />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address Line 1</label>
+              <input type="text" name="addressLine1" class="form-control" required />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address Line 2</label>
+              <input type="text" name="addressLine2" class="form-control" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">City</label>
+              <input type="text" name="city" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">State</label>
+              <input type="text" name="state" class="form-control" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Postal Code</label>
+              <input type="text" name="postalCode" class="form-control" />
+            </div>
+            <div class="col-12 form-check">
+              <input type="checkbox" class="form-check-input" name="isDefault" id="isDefaultAddress" />
+              <label class="form-check-label" for="isDefaultAddress">Set as default address</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sisfora w-100">Save Address</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Activate the correct tab based on ?tab= query param (e.g. from navbar links)
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabMap = { overview: '#tabOverview', orders: '#tabOrders', wishlist: '#tabWishlist', addresses: '#tabAddresses', password: '#tabPassword' };
+    const target = tabMap['<%= activeTab %>'];
+    if (target && target !== '#tabOverview') {
+      const trigger = document.querySelector(`[data-bs-target="${target}"]`);
+      if (trigger) new bootstrap.Tab(trigger).show();
+    }
+  });
+</script>
+<script src="/js/product.js"></script>
+<script src="/js/profile.js"></script>

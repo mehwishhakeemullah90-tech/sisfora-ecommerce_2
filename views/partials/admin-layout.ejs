@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <%- typeof extraHead !== 'undefined' ? extraHead : '' %>
+</head>
+<body class="admin-body">
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <a href="/admin/dashboard" class="sf-logo">Sis<span>fora</span> <small class="d-block" style="font-size:0.6rem; letter-spacing:0.2em; color:#8a7f7a;">ADMIN</small></a>
+      <nav class="nav flex-column pb-4">
+        <p class="nav-section-label">Overview</p>
+        <a class="nav-link <%= page === 'dashboard' ? 'active' : '' %>" href="/admin/dashboard"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+        <a class="nav-link <%= page === 'reports' ? 'active' : '' %>" href="/admin/reports"><i class="bi bi-graph-up"></i> Sales Reports</a>
+
+        <p class="nav-section-label">Catalog</p>
+        <a class="nav-link <%= page === 'products' ? 'active' : '' %>" href="/admin/products"><i class="bi bi-bag"></i> Products</a>
+        <a class="nav-link <%= page === 'categories' ? 'active' : '' %>" href="/admin/categories"><i class="bi bi-tags"></i> Categories</a>
+        <a class="nav-link <%= page === 'coupons' ? 'active' : '' %>" href="/admin/coupons"><i class="bi bi-ticket-perforated"></i> Coupons</a>
+
+        <p class="nav-section-label">Sales</p>
+        <a class="nav-link <%= page === 'orders' ? 'active' : '' %>" href="/admin/orders"><i class="bi bi-box-seam"></i> Orders</a>
+        <a class="nav-link <%= page === 'customers' ? 'active' : '' %>" href="/admin/customers"><i class="bi bi-people"></i> Customers</a>
+        <a class="nav-link <%= page === 'reviews' ? 'active' : '' %>" href="/admin/reviews"><i class="bi bi-star"></i> Reviews</a>
+
+        <p class="nav-section-label">&nbsp;</p>
+        <a class="nav-link" href="/" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Store</a>
+        <a class="nav-link" href="#" id="adminLogoutBtn"><i class="bi bi-box-arrow-left"></i> Logout</a>
+      </nav>
+    </aside>
+
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <button class="btn btn-sm border-0 d-lg-none" id="sidebarToggle"><i class="bi bi-list fs-4"></i></button>
+        <h5 class="mb-0 d-none d-lg-block" style="font-family:'Cormorant Garamond',serif;"><%= title.split('|')[0] %></h5>
+        <div class="d-flex align-items-center gap-3">
+          <span class="small text-muted" id="adminName">Admin</span>
+          <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center" style="width:36px;height:36px;"><i class="bi bi-person"></i></div>
+        </div>
+      </div>
+      <div class="admin-content">
+        <%- body %>
+      </div>
+    </div>
+  </div>
+
+  <div id="sfToast" class="toast-sf"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/admin.js"></script>
+  <%- typeof extraScripts !== 'undefined' ? extraScripts : '' %>
+</body>
+</html>

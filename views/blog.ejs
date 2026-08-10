@@ -1,0 +1,30 @@
+<section class="section-sm bg-blush">
+  <div class="container text-center">
+    <p class="eyebrow">Beauty Journal</p>
+    <h1 class="section-title mb-0">The Sisfora Edit</h1>
+    <p class="section-subtitle mx-auto mt-2">Rituals, tips, and stories on the art of natural beauty.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (posts.length === 0) { %>
+      <p class="text-center text-muted">No articles published yet — check back soon!</p>
+    <% } %>
+    <div class="row g-4">
+      <% posts.forEach(post => { %>
+        <div class="col-md-6 col-lg-4 sf-reveal">
+          <a href="/blog/<%= post.slug %>" class="text-decoration-none text-dark">
+            <div class="product-media mb-3" style="aspect-ratio:4/3;">
+              <img src="<%= post.coverImage %>" alt="<%= post.title %>" style="width:100%;height:100%;object-fit:cover;border-radius:4px;" />
+            </div>
+            <p class="product-category-label"><%= new Date(post.createdAt).toLocaleDateString() %> &middot; <%= post.author %></p>
+            <h5><%= post.title %></h5>
+            <p class="text-muted small"><%= post.excerpt %></p>
+            <span class="text-gold small fw-medium">Read More <i class="bi bi-arrow-right"></i></span>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

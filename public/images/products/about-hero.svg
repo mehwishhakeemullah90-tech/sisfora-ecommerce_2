@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+  <defs>
+    <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1512"/>
+      <stop offset="100%" stop-color="#2b2422"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="700" fill="url(#ag)"/>
+  <circle cx="180" cy="140" r="150" fill="#c9a24b" opacity="0.18"/>
+  <circle cx="760" cy="560" r="180" fill="#eab8c0" opacity="0.15"/>
+  <text x="450" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="46" fill="#ffffff" text-anchor="middle">Reveal Your</text>
+  <text x="450" y="390" font-family="Georgia, 'Times New Roman', serif" font-size="46" fill="#e8d3a0" text-anchor="middle" font-style="italic">Natural Beauty</text>
+</svg>

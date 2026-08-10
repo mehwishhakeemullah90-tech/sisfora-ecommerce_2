@@ -1,0 +1,25 @@
+<section class="section text-center bg-blush">
+  <div class="container">
+    <i class="bi bi-check-circle text-gold" style="font-size:3.5rem;"></i>
+    <h1 class="section-title mt-3">Thank You For Your Order!</h1>
+    <p class="section-subtitle mx-auto">Your Sisfora order has been placed successfully. A confirmation email is on its way.</p>
+  </div>
+</section>
+
+<section class="section" id="orderConfirmationPage" data-order-id="<%= orderId %>">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="admin-card p-4 p-md-5" id="orderSummaryContainer">
+          <div class="sf-skeleton" style="height:220px;"></div>
+        </div>
+        <div class="text-center mt-4">
+          <a href="/shop" class="btn btn-sisfora-outline me-2">Continue Shopping</a>
+          <a href="/profile?tab=orders" class="btn btn-sisfora">View My Orders</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/js/order-confirmation.js"></script>

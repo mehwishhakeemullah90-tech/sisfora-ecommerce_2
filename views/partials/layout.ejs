@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Sisfora — Reveal Your Natural Beauty. Luxury cosmetics for skin, face, and soul.' %>" />
+  <meta name="theme-color" content="#1a1512" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= title %>" />
+  <meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Sisfora — Reveal Your Natural Beauty.' %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sisfora" />
+
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Sisfora design system -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <%- typeof extraHead !== 'undefined' ? extraHead : '' %>
+</head>
+<body>
+
+  <%- include('topbar') %>
+  <%- include('navbar') %>
+
+  <main>
+    <%- body %>
+  </main>
+
+  <%- include('footer') %>
+
+  <!-- Toast notification -->
+  <div id="sfToast" class="toast-sf"></div>
+
+  <!-- Bootstrap Bundle (incl. Popper) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <!-- Sisfora core scripts -->
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
+
+  <%- typeof extraScripts !== 'undefined' ? extraScripts : '' %>
+</body>
+</html>

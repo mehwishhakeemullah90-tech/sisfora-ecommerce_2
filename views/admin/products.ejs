@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h5 class="mb-0">Manage Products</h5>
+  <button class="btn btn-sisfora btn-sm" id="addProductBtn"><i class="bi bi-plus-lg me-1"></i> Add Product</button>
+</div>
+
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="table table-sf mb-0">
+      <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody id="productsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Product Modal -->
+<div class="modal fade" id="productModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalTitle">Add Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="productForm">
+        <input type="hidden" name="productId" />
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Product Name</label>
+              <input type="text" name="name" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Brand</label>
+              <input type="text" name="brand" class="form-control" value="Sisfora" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <select name="category" id="productCategorySelect" class="form-select" required></select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Tags (comma separated)</label>
+              <input type="text" name="tags" class="form-control" placeholder="serum, hydrating, vegan" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Short Description</label>
+              <input type="text" name="shortDescription" class="form-control" maxlength="200" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Full Description</label>
+              <textarea name="description" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Price ($)</label>
+              <input type="number" step="0.01" name="price" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Discount Price ($)</label>
+              <input type="number" step="0.01" name="discountPrice" class="form-control" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Stock Quantity</label>
+              <input type="number" name="stock" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Thumbnail URL</label>
+              <input type="text" name="thumbnail" class="form-control" placeholder="/images/products/placeholder.svg" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Or Upload Image</label>
+              <input type="file" id="productImageUpload" class="form-control" accept="image/*" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Gallery Image URLs (comma separated)</label>
+              <input type="text" name="images" class="form-control" placeholder="/images/products/1.svg, /images/products/2.svg" />
+            </div>
+            <div class="col-12 d-flex gap-4 mt-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="isNewArrival" id="isNewArrival">
+                <label class="form-check-label" for="isNewArrival">New Arrival</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="isBestSeller" id="isBestSeller">
+                <label class="form-check-label" for="isBestSeller">Best Seller</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="isFeatured" id="isFeatured">
+                <label class="form-check-label" for="isFeatured">Featured</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="isActive" id="isActive" checked>
+                <label class="form-check-label" for="isActive">Active</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sisfora w-100">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

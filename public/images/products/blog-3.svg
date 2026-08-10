@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#f3ece6"/>
+  <circle cx="650" cy="100" r="120" fill="#c9a24b" opacity="0.25"/>
+  <circle cx="120" cy="500" r="100" fill="#ffffff" opacity="0.4"/>
+  <text x="400" y="310" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#1a1512" text-anchor="middle">Clean Beauty 101</text>
+</svg>

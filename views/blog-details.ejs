@@ -1,0 +1,40 @@
+<section class="section-sm">
+  <div class="container">
+    <p class="breadcrumb-sf mb-3"><a href="/">Home</a> / <a href="/blog">Journal</a> / <span class="text-dark"><%= post.title %></span></p>
+    <p class="product-category-label"><%= new Date(post.createdAt).toLocaleDateString() %> &middot; By <%= post.author %></p>
+    <h1 class="section-title" style="max-width: 800px;"><%= post.title %></h1>
+  </div>
+</section>
+
+<section class="pb-4">
+  <div class="container">
+    <img src="<%= post.coverImage %>" class="img-fluid rounded-sf w-100" style="max-height:480px;object-fit:cover;" alt="<%= post.title %>" />
+  </div>
+</section>
+
+<section class="section pt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="section-subtitle" style="white-space: pre-line; max-width: 100%; color:#2b2422;"><%= post.content %></div>
+        <% if (post.tags && post.tags.length) { %>
+          <div class="mt-4">
+            <% post.tags.forEach(tag => { %><span class="badge bg-light text-dark border me-1"><%= tag %></span><% }) %>
+          </div>
+        <% } %>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="mb-3">More From the Journal</h6>
+        <% recent.forEach(p => { %>
+          <a href="/blog/<%= p.slug %>" class="d-flex gap-3 mb-3 text-decoration-none text-dark">
+            <img src="<%= p.coverImage %>" style="width:70px;height:70px;object-fit:cover;border-radius:4px;" alt="<%= p.title %>" />
+            <div>
+              <div class="small fw-medium"><%= p.title %></div>
+              <div class="small text-muted"><%= new Date(p.createdAt).toLocaleDateString() %></div>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>

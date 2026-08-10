@@ -1,0 +1,69 @@
+<section class="section-sm bg-blush">
+  <div class="container text-center">
+    <p class="eyebrow">We'd Love to Hear From You</p>
+    <h1 class="section-title mb-0">Contact Us</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <h4 class="mb-4">Get in Touch</h4>
+        <p class="section-subtitle mb-4">Have a question about an order, a product recommendation, or just want to say hello? Our team is here to help.</p>
+        <div class="d-flex gap-3 mb-3">
+          <i class="bi bi-geo-alt text-gold fs-5"></i>
+          <div><strong>Studio</strong><div class="text-muted small">123 Beauty Avenue, Lahore, Pakistan</div></div>
+        </div>
+        <div class="d-flex gap-3 mb-3">
+          <i class="bi bi-envelope text-gold fs-5"></i>
+          <div><strong>Email</strong><div class="text-muted small">hello@sisfora.com</div></div>
+        </div>
+        <div class="d-flex gap-3 mb-4">
+          <i class="bi bi-telephone text-gold fs-5"></i>
+          <div><strong>Phone</strong><div class="text-muted small">+92 300 1234567</div></div>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="#" class="btn-sm-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="btn-sm-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="btn-sm-icon"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="admin-card p-4 p-md-5">
+          <form id="contactForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-control" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" rows="5" required></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-sisfora w-100">Send Message</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('contactForm')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    sfToast("Thank you! We've received your message and will respond within 24 hours.");
+    this.reset();
+  });
+</script>

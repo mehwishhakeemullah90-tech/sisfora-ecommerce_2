@@ -1,0 +1,153 @@
+<%
+  const finalPrice = product.discountPrice && product.discountPrice > 0 ? product.discountPrice : product.price;
+  const hasDiscount = product.discountPrice && product.discountPrice > 0 && product.discountPrice < product.price;
+  const discountPercent = hasDiscount ? Math.round(((product.price - product.discountPrice) / product.price) * 100) : 0;
+%>
+<div id="productDetailsPage" data-product-id="<%= product._id %>">
+
+<section class="section-sm">
+  <div class="container">
+    <p class="breadcrumb-sf">
+      <a href="/">Home</a> / <a href="/shop">Shop</a> /
+      <a href="/categories/<%= product.category.slug %>"><%= product.category.name %></a> /
+      <span class="text-dark"><%= product.name %></span>
+    </p>
+  </div>
+</section>
+
+<section class="section pt-2">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Gallery -->
+      <div class="col-lg-6">
+        <div class="product-media mb-3" style="aspect-ratio:1/1;">
+          <img id="pdMainImage" src="<%= product.images[0] %>" class="w-100 h-100" style="object-fit:cover;border-radius:4px;" alt="<%= product.name %>" />
+        </div>
+        <div class="d-flex gap-2">
+          <% product.images.forEach((img, i) => { %>
+            <img src="<%= img %>" data-full="<%= img %>" class="pd-thumb border <%= i === 0 ? 'border-dark' : '' %>" style="width:76px;height:76px;object-fit:cover;border-radius:4px;cursor:pointer;" alt="thumbnail" />
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="col-lg-6">
+        <p class="product-category-label"><%= product.category.name %> &middot; <%= product.brand %></p>
+        <h1 class="section-title" style="font-size:2rem;"><%= product.name %></h1>
+        <div class="product-rating mb-2">
+          <% for (let i=1;i<=5;i++){ %>
+            <% if (Math.round(product.ratingsAverage) >= i) { %><i class="bi bi-star-fill"></i><% } else { %><i class="bi bi-star"></i><% } %>
+          <% } %>
+          <span class="text-muted small ms-1"><span id="pdReviewCount">0</span> reviews</span>
+        </div>
+
+        <div class="mb-3">
+          <span class="fs-4 fw-semibold"><%= "$" + finalPrice.toFixed(2) %></span>
+          <% if (hasDiscount) { %>
+            <span class="price-old fs-6 ms-2"><%= "$" + product.price.toFixed(2) %></span>
+            <span class="sf-badge sf-badge-sale ms-2"><%= "-" + discountPercent + "%" %></span>
+          <% } %>
+        </div>
+
+        <p class="section-subtitle mb-4"><%= product.shortDescription || product.description.slice(0, 180) %></p>
+
+        <% if (product.stock > 0) { %>
+          <p class="text-success small mb-3"><i class="bi bi-check-circle"></i> In Stock (<%= product.stock %> available)</p>
+        <% } else { %>
+          <p class="text-danger small mb-3"><i class="bi bi-x-circle"></i> Out of Stock</p>
+        <% } %>
+
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="input-group" style="width:130px;">
+            <button class="btn btn-outline-secondary" type="button" id="pdQtyMinus">-</button>
+            <input type="number" id="pdQty" class="form-control text-center" value="1" min="1" max="<%= product.stock %>">
+            <button class="btn btn-outline-secondary" type="button" id="pdQtyPlus">+</button>
+          </div>
+          <button id="pdAddToCartBtn" class="btn btn-sisfora flex-grow-1" <%= product.stock === 0 ? 'disabled' : '' %>
+            data-id="<%= product._id %>" data-name="<%= product.name %>" data-slug="<%= product.slug %>"
+            data-image="<%= product.images[0] %>" data-price="<%= finalPrice %>" data-stock="<%= product.stock %>">
+            <i class="bi bi-bag-plus me-1"></i> Add to Bag
+          </button>
+          <button class="btn-sm-icon js-toggle-wishlist" data-id="<%= product._id %>" title="Add to wishlist"><i class="bi bi-heart"></i></button>
+        </div>
+
+        <div class="border-sf rounded-sf p-3 small text-muted">
+          <div class="mb-1"><i class="bi bi-truck me-2"></i>Free shipping on orders over $50</div>
+          <div><i class="bi bi-arrow-repeat me-2"></i>Easy 30-day returns</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs: description / reviews -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <ul class="nav nav-tabs" id="pdTabs">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pdDescTab">Description</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pdReviewsTab">Reviews</button></li>
+        </ul>
+        <div class="tab-content pt-4">
+          <div class="tab-pane fade show active" id="pdDescTab">
+            <p class="section-subtitle"><%= product.description %></p>
+            <% if (product.tags && product.tags.length) { %>
+              <div class="mt-3">
+                <% product.tags.forEach(tag => { %><span class="badge bg-light text-dark border me-1"><%= tag %></span><% }) %>
+              </div>
+            <% } %>
+          </div>
+          <div class="tab-pane fade" id="pdReviewsTab">
+            <div class="row g-5">
+              <div class="col-md-7">
+                <div id="pdReviewsList"><div class="sf-skeleton" style="height:80px;"></div></div>
+              </div>
+              <div class="col-md-5">
+                <div class="admin-card p-4">
+                  <h6 class="mb-3">Write a Review</h6>
+                  <form id="pdReviewForm">
+                    <div class="mb-3">
+                      <label class="form-label d-block">Your Rating</label>
+                      <div class="star-rating-input">
+                        <input type="radio" name="rating" id="star5" value="5"><label for="star5"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" id="star4" value="4"><label for="star4"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" id="star3" value="3"><label for="star3"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" id="star2" value="2"><label for="star2"><i class="bi bi-star-fill"></i></label>
+                        <input type="radio" name="rating" id="star1" value="1"><label for="star1"><i class="bi bi-star-fill"></i></label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Title</label>
+                      <input type="text" name="title" class="form-control" placeholder="Summarize your experience">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Comment</label>
+                      <textarea name="comment" class="form-control" rows="3" required placeholder="Tell us what you think..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-sisfora w-100">Submit Review</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related products -->
+<section class="section bg-ivory">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="eyebrow">You May Also Like</p>
+      <h2 class="section-title">Related Products</h2>
+    </div>
+    <div class="row g-4" id="relatedProductsGrid">
+      <% related.forEach(p => { %>
+        <div class="col-6 col-md-3"><%- include('partials/product-card-ssr', { p }) %></div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script src="/js/product-details.js"></script>
