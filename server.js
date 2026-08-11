@@ -1,11 +1,3 @@
-const dns = require('dns');
-
-// Fix MongoDB Atlas SRV DNS resolution
-dns.setServers([
-  '8.8.8.8',
-  '1.1.1.1'
-]);
-
 require('dotenv').config();
 
 const path = require('path');
@@ -23,11 +15,6 @@ const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 const { attachUser } = require('./middleware/auth');
 
-// ---------------------------------------------------------------------
-// Database
-// ---------------------------------------------------------------------
-connectDB();
-
 const app = express();
 
 // ---------------------------------------------------------------------
@@ -35,13 +22,12 @@ const app = express();
 // ---------------------------------------------------------------------
 app.use(
   helmet({
-    contentSecurityPolicy: false, // relaxed for CDN'd Bootstrap/fonts in this starter; tighten for production
+    contentSecurityPolicy: false,
   })
 );
 app.use(compression());
 app.use(mongoSanitize());
 
-// Basic rate limiting on the API to deter brute-force / scraping abuse.
 const apiLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 300 });
 app.use('/api', apiLimiter);
 
@@ -58,7 +44,7 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 
 // ---------------------------------------------------------------------
-// View engine (EJS + layouts) for server-rendered, SEO-friendly pages
+// View engine (EJS + layouts)
 // ---------------------------------------------------------------------
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +52,26 @@ app.use(expressLayouts);
 app.set('layout', 'partials/layout');
 app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
+
+// ---------------------------------------------------------------------
+// Lazy DB connection middleware
+// On Vercel, connecting at module load time is unreliable because env
+// vars may not be fully propagated and process.exit() crashes the fn.
+// This middleware ensures a connection exists before each request and
+// surfaces DB errors gracefully instead of crashing the process.
+// ---------------------------------------------------------------------
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('Database connection failed:', err.message);
+    if (req.originalUrl.startsWith('/api')) {
+      return res.status(503).json({ success: false, message: 'Database unavailable. Check MONGODB_URI in Vercel environment variables.' });
+    }
+    return res.status(503).send('<h1>503 – Service Unavailable</h1><p>Database connection failed. Please try again shortly.</p>');
+  }
+});
 
 // Make current user + store constants available to every EJS template.
 app.use(attachUser);
@@ -79,8 +85,6 @@ app.use((req, res, next) => {
 // ---------------------------------------------------------------------
 // Static assets
 // ---------------------------------------------------------------------
-// On Vercel the filesystem is read-only; uploads are written to /tmp/uploads
-// and must be served from there. Locally they live in public/uploads/.
 if (process.env.VERCEL === '1') {
   const fs = require('fs');
   const tmpUploads = '/tmp/uploads';
@@ -90,7 +94,7 @@ if (process.env.VERCEL === '1') {
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ---------------------------------------------------------------------
-// API routes (JSON, consumed by frontend JS)
+// API routes (JSON)
 // ---------------------------------------------------------------------
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
@@ -115,8 +119,7 @@ app.use('/', require('./routes/pageRoutes'));
 app.use(notFound);
 app.use(errorHandler);
 
-// On Vercel, the platform handles HTTP — do not call app.listen().
-// Locally (and in direct `node server.js` runs) we start the HTTP server normally.
+// On Vercel the platform handles HTTP — do not call app.listen().
 if (!process.env.VERCEL) {
   const PORT = process.env.PORT || 7000;
   app.listen(PORT, () => {
