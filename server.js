@@ -53,6 +53,17 @@ app.set('layout', 'partials/layout');
 app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
 
+// Health-check endpoint — always reachable, reports exact DB error so
+// you can diagnose connection failures without digging into logs.
+app.get('/health', async (req, res) => {
+  try {
+    await connectDB();
+    res.json({ status: 'ok', db: 'connected', ts: new Date().toISOString() });
+  } catch (err) {
+    res.status(503).json({ status: 'error', db: 'failed', error: err.message, ts: new Date().toISOString() });
+  }
+});
+
 // ---------------------------------------------------------------------
 // Lazy DB connection middleware
 // On Vercel, connecting at module load time is unreliable because env
