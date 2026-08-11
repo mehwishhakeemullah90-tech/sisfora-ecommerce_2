@@ -79,6 +79,14 @@ app.use((req, res, next) => {
 // ---------------------------------------------------------------------
 // Static assets
 // ---------------------------------------------------------------------
+// On Vercel the filesystem is read-only; uploads are written to /tmp/uploads
+// and must be served from there. Locally they live in public/uploads/.
+if (process.env.VERCEL === '1') {
+  const fs = require('fs');
+  const tmpUploads = '/tmp/uploads';
+  if (!fs.existsSync(tmpUploads)) fs.mkdirSync(tmpUploads, { recursive: true });
+  app.use('/uploads', express.static(tmpUploads));
+}
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ---------------------------------------------------------------------
@@ -107,11 +115,15 @@ app.use('/', require('./routes/pageRoutes'));
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 7000;
-app.listen(PORT, () => {
-  console.log(`\n🌸 Sisfora server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  console.log(`   Storefront:  http://localhost:${PORT}`);
-  console.log(`   Admin panel: http://localhost:${PORT}/admin/login\n`);
-});
+// On Vercel, the platform handles HTTP — do not call app.listen().
+// Locally (and in direct `node server.js` runs) we start the HTTP server normally.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 7000;
+  app.listen(PORT, () => {
+    console.log(`\n🌸 Sisfora server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    console.log(`   Storefront:  http://localhost:${PORT}`);
+    console.log(`   Admin panel: http://localhost:${PORT}/admin/login\n`);
+  });
+}
 
 module.exports = app;

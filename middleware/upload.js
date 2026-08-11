@@ -9,7 +9,11 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const uploadDir = path.join(__dirname, '..', 'public', 'uploads');
+// Vercel's filesystem is read-only; use /tmp for uploads there.
+// Locally, files go to public/uploads/ and are served as static assets.
+const uploadDir = process.env.VERCEL === '1'
+  ? '/tmp/uploads'
+  : path.join(__dirname, '..', 'public', 'uploads');
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
