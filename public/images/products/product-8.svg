@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fdf6ec"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg8" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fffbf3"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
+    <linearGradient id="bot8" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#fff9ed"/><stop offset="100%" stop-color="#f5e0a8"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#e8d3a0" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#e8d3a0" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#e8d3a0" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#e8d3a0" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#e8d3a0" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Honey Nectar</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#e8d3a0" text-anchor="middle">LIP OIL</text>
+  <rect width="600" height="700" fill="url(#bg8)"/>
+  <ellipse cx="300" cy="618" rx="72" ry="10" fill="#c9a24b" opacity="0.15"/>
+  <!-- small lip oil bottle -->
+  <rect x="262" y="290" width="76" height="210" rx="12" fill="url(#bot8)" stroke="#c9a24b" stroke-width="1.5"/>
+  <!-- label -->
+  <rect x="262" y="360" width="76" height="65" rx="0" fill="#c9a24b" opacity="0.18"/>
+  <text x="300" y="393" font-family="Georgia,serif" font-size="10" fill="#1a1512" text-anchor="middle" font-weight="bold">SISFORA</text>
+  <text x="300" y="408" font-family="Arial,sans-serif" font-size="7" letter-spacing="2" fill="#c9a24b" text-anchor="middle">HONEY NECTAR</text>
+  <!-- wand neck -->
+  <rect x="283" y="240" width="34" height="55" rx="5" fill="#e8d3a0" stroke="#c9a24b" stroke-width="1"/>
+  <!-- wand cap -->
+  <rect x="276" y="220" width="48" height="24" rx="6" fill="#c9a24b"/>
+  <!-- wand applicator dot -->
+  <circle cx="300" cy="505" r="6" fill="#c9a24b" opacity="0.6"/>
+  <!-- shine -->
+  <line x1="273" y1="308" x2="273" y2="488" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+  <circle cx="145" cy="178" r="50" fill="#c9a24b" opacity="0.09"/>
+  <text x="300" y="594" font-family="Georgia,serif" font-size="20" fill="#1a1512" text-anchor="middle">Honey Nectar Lip Oil</text>
+  <text x="300" y="618" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#c9a24b" text-anchor="middle">MAKEUP · LIP OIL</text>
 </svg>

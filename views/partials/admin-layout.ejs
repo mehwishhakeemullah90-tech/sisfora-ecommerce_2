@@ -28,8 +28,10 @@
         <a class="nav-link <%= page === 'orders' ? 'active' : '' %>" href="/admin/orders"><i class="bi bi-box-seam"></i> Orders</a>
         <a class="nav-link <%= page === 'customers' ? 'active' : '' %>" href="/admin/customers"><i class="bi bi-people"></i> Customers</a>
         <a class="nav-link <%= page === 'reviews' ? 'active' : '' %>" href="/admin/reviews"><i class="bi bi-star"></i> Reviews</a>
+        <a class="nav-link <%= page === 'contact-messages' ? 'active' : '' %>" href="/admin/contact-messages"><i class="bi bi-envelope-open"></i> Contact Messages</a>
 
-        <p class="nav-section-label">&nbsp;</p>
+        <p class="nav-section-label">Account</p>
+        <a class="nav-link" href="#" id="changePasswordLink"><i class="bi bi-key"></i> Change Password</a>
         <a class="nav-link" href="/" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Store</a>
         <a class="nav-link" href="#" id="adminLogoutBtn"><i class="bi bi-box-arrow-left"></i> Logout</a>
       </nav>
@@ -46,6 +48,38 @@
       </div>
       <div class="admin-content">
         <%- body %>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Change Password Modal ========== -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title" id="changePasswordModalLabel" style="font-family:'Cormorant Garamond',serif;">Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="changePasswordForm" novalidate>
+          <div class="modal-body p-4">
+            <div class="mb-3">
+              <label class="form-label small fw-semibold" for="cpCurrentPassword">Current Password</label>
+              <input type="password" id="cpCurrentPassword" name="currentPassword" class="form-control" required placeholder="Enter your current password" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold" for="cpNewPassword">New Password</label>
+              <input type="password" id="cpNewPassword" name="newPassword" class="form-control" required minlength="6" placeholder="At least 6 characters" />
+            </div>
+            <div class="mb-1">
+              <label class="form-label small fw-semibold" for="cpConfirmPassword">Confirm New Password</label>
+              <input type="password" id="cpConfirmPassword" name="confirmPassword" class="form-control" required minlength="6" placeholder="Repeat the new password" />
+            </div>
+          </div>
+          <div class="modal-footer border-top">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-adm-primary btn-sm">Save Password</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

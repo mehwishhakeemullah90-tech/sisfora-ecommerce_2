@@ -57,4 +57,8 @@ router.get('/reports', protect, adminOnly, (req, res) => {
   res.render('admin/reports', { title: `Sales Reports | ${STORE} Admin`, page: 'reports' });
 });
 
+router.get('/contact-messages', protect, adminOnly, (req, res) => {
+  res.render('admin/contact-messages', { title: `Contact Messages | ${STORE} Admin`, page: 'contact-messages' });
+});
+
 module.exports = router;

@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "seed": "node seed/seedData.js",
     "seed:destroy": "node seed/seedData.js -d",
-    "create-admin": "node scripts/createAdmin.js"
+    "create-admin": "node scripts/createAdmin.js",
+    "update:images": "node seed/updateImages.js"
   },
   "keywords": [
     "ecommerce",

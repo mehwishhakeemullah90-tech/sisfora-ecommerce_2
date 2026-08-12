@@ -1,16 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#faf3ef"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg12" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f7e7e4"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
+    <linearGradient id="spr12" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f7e0e4"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#eab8c0" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#eab8c0" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#eab8c0" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#eab8c0" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#eab8c0" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Dewy Petal</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#eab8c0" text-anchor="middle">FACE MIST</text>
+  <rect width="600" height="700" fill="url(#bg12)"/>
+  <ellipse cx="300" cy="618" rx="85" ry="11" fill="#d98fa0" opacity="0.14"/>
+  <!-- spray bottle body -->
+  <rect x="248" y="270" width="104" height="250" rx="16" fill="url(#spr12)" stroke="#eab8c0" stroke-width="1.8"/>
+  <!-- label -->
+  <rect x="258" y="355" width="84" height="80" rx="4" fill="#eab8c0" opacity="0.2"/>
+  <text x="300" y="393" font-family="Georgia,serif" font-size="12" fill="#1a1512" text-anchor="middle" font-weight="bold">SISFORA</text>
+  <text x="300" y="410" font-family="Arial,sans-serif" font-size="8" letter-spacing="2" fill="#d98fa0" text-anchor="middle">FACE MIST</text>
+  <!-- spray head -->
+  <rect x="270" y="208" width="40" height="65" rx="6" fill="#d98fa0" opacity="0.9"/>
+  <!-- trigger -->
+  <rect x="308" y="220" width="42" height="22" rx="6" fill="#d98fa0" opacity="0.7"/>
+  <!-- nozzle -->
+  <rect x="346" y="224" width="18" height="8" rx="4" fill="#b06880"/>
+  <!-- cap -->
+  <rect x="260" y="182" width="80" height="30" rx="10" fill="#d98fa0"/>
+  <!-- spray dots -->
+  <circle cx="382" cy="220" r="3" fill="#d98fa0" opacity="0.35"/>
+  <circle cx="390" cy="232" r="2" fill="#d98fa0" opacity="0.25"/>
+  <circle cx="388" cy="212" r="2.5" fill="#d98fa0" opacity="0.3"/>
+  <!-- shine -->
+  <line x1="262" y1="288" x2="262" y2="505" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+  <circle cx="460" cy="155" r="55" fill="#eab8c0" opacity="0.1"/>
+  <text x="300" y="590" font-family="Georgia,serif" font-size="20" fill="#1a1512" text-anchor="middle">Dewy Petal Face Mist</text>
+  <text x="300" y="614" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#d98fa0" text-anchor="middle">SKINCARE · FACE MIST</text>
 </svg>

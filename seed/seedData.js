@@ -36,26 +36,27 @@ const categoriesData = [
   { name: 'Gift Sets', description: 'Curated Sisfora collections, beautifully boxed.', image: '/images/products/category-gift-sets.svg', isFeatured: true },
 ];
 
-// [name, categoryIndex, price, discountPrice, stock, flags, image#]
+// [name, categoryIndex, price, discountPrice, stock, flags, imageFile]
+// Real product photos are in public/images/products/photo-*.jpg
 const productsData = [
-  ['Rose Radiance Serum', 0, 42, 34, 40, { isBestSeller: true, isFeatured: true }, 1],
-  ['Velvet Matte Lipstick — Blush Nude', 1, 24, 0, 60, { isNewArrival: true }, 2],
-  ['Gold Dew Liquid Highlighter', 1, 29, 22, 35, { isBestSeller: true }, 3],
-  ['Silk Veil Foundation', 1, 38, 0, 50, { isFeatured: true }, 4],
-  ['Bloom & Glow Cream Blush', 1, 22, 0, 45, { isNewArrival: true }, 5],
-  ['Pure Hydra Moisturizer', 0, 36, 28, 55, { isBestSeller: true, isFeatured: true }, 6],
-  ['Midnight Kohl Eyeliner', 1, 18, 0, 70, {}, 7],
-  ['Honey Nectar Lip Oil', 1, 20, 16, 65, { isNewArrival: true }, 8],
-  ['Cashmere Cloud Setting Powder', 1, 27, 0, 40, {}, 9],
-  ['Amber Bloom Eau de Parfum', 2, 68, 54, 25, { isBestSeller: true, isFeatured: true }, 10],
-  ['Silk Lash Volumizing Mascara', 1, 21, 0, 80, { isNewArrival: true }, 11],
-  ['Dewy Petal Hydrating Face Mist', 0, 19, 0, 90, { isBestSeller: true }, 12],
-  ['Rosewater Balancing Toner', 0, 23, 18, 60, {}, 13],
-  ['Gilded Bronze Bronzer', 1, 26, 0, 38, { isNewArrival: true }, 14],
-  ['Whisper Nude Lipstick', 1, 24, 0, 55, {}, 15],
-  ['Camellia Cream Night Repair', 0, 45, 36, 30, { isFeatured: true }, 16],
-  ['Sunlit Glow SPF 30 Moisturizer', 0, 34, 0, 48, { isBestSeller: true }, 17],
-  ['Petal Soft Cream Cleanser', 0, 25, 20, 70, { isNewArrival: true }, 18],
+  ['Rose Radiance Serum', 0, 42, 34, 40, { isBestSeller: true, isFeatured: true }, 'photo-serum.jpg'],
+  ['Velvet Matte Lipstick — Blush Nude', 1, 24, 0, 60, { isNewArrival: true }, 'photo-foundation.jpg'],
+  ['Gold Dew Liquid Highlighter', 1, 29, 22, 35, { isBestSeller: true }, 'photo-fragrance.jpg'],
+  ['Silk Veil Foundation', 1, 38, 0, 50, { isFeatured: true }, 'photo-foundation.jpg'],
+  ['Bloom & Glow Cream Blush', 1, 22, 0, 45, { isNewArrival: true }, 'photo-foundation.jpg'],
+  ['Pure Hydra Moisturizer', 0, 36, 28, 55, { isBestSeller: true, isFeatured: true }, 'photo-moisturizer.jpg'],
+  ['Midnight Kohl Eyeliner', 1, 18, 0, 70, {}, 'photo-foundation.jpg'],
+  ['Honey Nectar Lip Oil', 1, 20, 16, 65, { isNewArrival: true }, 'photo-moisturizer.jpg'],
+  ['Cashmere Cloud Setting Powder', 1, 27, 0, 40, {}, 'photo-foundation.jpg'],
+  ['Amber Bloom Eau de Parfum', 2, 68, 54, 25, { isBestSeller: true, isFeatured: true }, 'photo-fragrance.jpg'],
+  ['Silk Lash Volumizing Mascara', 1, 21, 0, 80, { isNewArrival: true }, 'photo-foundation.jpg'],
+  ['Dewy Petal Hydrating Face Mist', 0, 19, 0, 90, { isBestSeller: true }, 'photo-serum.jpg'],
+  ['Rosewater Balancing Toner', 0, 23, 18, 60, {}, 'photo-toner.jpg'],
+  ['Gilded Bronze Bronzer', 1, 26, 0, 38, { isNewArrival: true }, 'photo-fragrance.jpg'],
+  ['Whisper Nude Lipstick', 1, 24, 0, 55, {}, 'photo-foundation.jpg'],
+  ['Camellia Cream Night Repair', 0, 45, 36, 30, { isFeatured: true }, 'photo-moisturizer.jpg'],
+  ['Sunlit Glow SPF 30 Moisturizer', 0, 34, 0, 48, { isBestSeller: true }, 'photo-moisturizer.jpg'],
+  ['Petal Soft Cream Cleanser', 0, 25, 20, 70, { isNewArrival: true }, 'photo-serum.jpg'],
 ];
 
 const blogData = [
@@ -144,14 +145,18 @@ async function importData() {
 
   // --- Categories ---
   await Category.deleteMany({});
-  const categories = await Category.insertMany(categoriesData);
+  // Use create() (not insertMany) so the pre-save slug hook fires for each document.
+  const categories = [];
+  for (const cat of categoriesData) {
+    categories.push(await Category.create(cat));
+  }
   console.log(`✅ ${categories.length} categories created`);
 
   // --- Products ---
   await Product.deleteMany({});
   const products = [];
-  for (const [name, catIdx, price, discountPrice, stock, flags, imgNum] of productsData) {
-    const image = `/images/products/product-${imgNum}.svg`;
+  for (const [name, catIdx, price, discountPrice, stock, flags, imgFile] of productsData) {
+    const image = `/images/products/${imgFile}`;
     const product = await Product.create({
       name,
       brand: 'Sisfora',
@@ -192,7 +197,9 @@ async function importData() {
 
   // --- Blog posts ---
   await Blog.deleteMany({});
-  await Blog.insertMany(blogData);
+  for (const post of blogData) {
+    await Blog.create(post);
+  }
   console.log(`✅ ${blogData.length} blog posts created`);
 
   // --- Coupons ---

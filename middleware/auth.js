@@ -39,6 +39,9 @@ const protect = asyncHandler(async (req, res, next) => {
     if (req.originalUrl.startsWith('/api')) {
       return res.status(401).json({ success: false, message: 'Not authorized, please log in' });
     }
+    if (req.originalUrl.startsWith('/admin')) {
+      return res.redirect('/admin/login');
+    }
     return res.redirect(`/login?redirect=${encodeURIComponent(req.originalUrl)}`);
   }
 

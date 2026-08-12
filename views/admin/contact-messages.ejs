@@ -1,0 +1,138 @@
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <h5 class="mb-0">Contact Messages</h5>
+  <span class="badge bg-secondary" id="contactMsgCount">Loading...</span>
+</div>
+
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="table table-sf mb-0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Subject</th>
+          <th>Message</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="contactMsgTableBody">
+        <tr><td colspan="6" class="text-center text-muted py-4">Loading messages...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Message Detail Modal -->
+<div class="modal fade" id="msgDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header border-bottom">
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif;">Message Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="mb-1"><strong>From:</strong> <span id="mdName"></span> &lt;<span id="mdEmail"></span>&gt;</p>
+        <p class="mb-3"><strong>Subject:</strong> <span id="mdSubject"></span></p>
+        <p class="mb-1"><strong>Date:</strong> <span id="mdDate"></span></p>
+        <hr />
+        <p id="mdMessage" class="mb-0" style="white-space:pre-wrap;"></p>
+      </div>
+      <div class="modal-footer border-top">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const tbody = document.getElementById('contactMsgTableBody');
+  const countBadge = document.getElementById('contactMsgCount');
+
+  function formatDate(iso) {
+    return new Date(iso).toLocaleString('en-PK', { dateStyle: 'medium', timeStyle: 'short' });
+  }
+
+  function truncate(str, max) {
+    return str.length > max ? str.slice(0, max) + '…' : str;
+  }
+
+  async function loadMessages() {
+    try {
+      const res = await fetch('/api/contact');
+      const data = await res.json();
+
+      if (!res.ok || !data.success) throw new Error(data.message || 'Failed to load');
+
+      const msgs = data.data;
+      countBadge.textContent = msgs.length + ' message' + (msgs.length !== 1 ? 's' : '');
+
+      if (msgs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No contact messages yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = msgs.map(m => `
+        <tr>
+          <td>${escHtml(m.fullName)}</td>
+          <td><a href="mailto:${escHtml(m.email)}">${escHtml(m.email)}</a></td>
+          <td>${escHtml(m.subject)}</td>
+          <td class="text-muted small">${escHtml(truncate(m.message, 60))}</td>
+          <td class="small text-muted">${formatDate(m.createdAt)}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-secondary me-1" onclick="viewMsg(${JSON.stringify(m).replace(/"/g, '&quot;')})">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteMsg('${m._id}', this)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+    } catch (err) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-danger py-4">Could not load messages. ' + escHtml(err.message) + '</td></tr>';
+      countBadge.textContent = 'Error';
+    }
+  }
+
+  window.viewMsg = function (m) {
+    document.getElementById('mdName').textContent    = m.fullName;
+    document.getElementById('mdEmail').textContent   = m.email;
+    document.getElementById('mdSubject').textContent = m.subject;
+    document.getElementById('mdDate').textContent    = formatDate(m.createdAt);
+    document.getElementById('mdMessage').textContent = m.message;
+    new bootstrap.Modal(document.getElementById('msgDetailModal')).show();
+  };
+
+  window.deleteMsg = async function (id, btn) {
+    if (!confirm('Delete this message? This cannot be undone.')) return;
+    btn.disabled = true;
+    try {
+      const res  = await fetch('/api/contact/' + id, { method: 'DELETE' });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        sfToast('Message deleted.');
+        loadMessages();
+      } else {
+        sfToast(data.message || 'Delete failed.');
+        btn.disabled = false;
+      }
+    } catch {
+      sfToast('Network error. Please try again.');
+      btn.disabled = false;
+    }
+  };
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  loadMessages();
+})();
+</script>

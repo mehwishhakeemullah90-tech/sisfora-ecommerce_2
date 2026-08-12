@@ -1,16 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fdf6ec"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg14" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf8ee"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#e8d3a0" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#e8d3a0" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#e8d3a0" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#e8d3a0" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#e8d3a0" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Gilded Bronze</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#e8d3a0" text-anchor="middle">BRONZER</text>
+  <rect width="600" height="700" fill="url(#bg14)"/>
+  <ellipse cx="300" cy="608" rx="130" ry="14" fill="#c9a24b" opacity="0.14"/>
+  <!-- large bronzer pan (octagonal compact) -->
+  <rect x="168" y="298" width="264" height="200" rx="14" fill="#e8d8c0" stroke="#c9a24b" stroke-width="2"/>
+  <!-- bronzer pan -->
+  <rect x="184" y="314" width="232" height="160" rx="8" fill="#c8a060"/>
+  <!-- shimmer swirl effect -->
+  <ellipse cx="300" cy="394" rx="90" ry="62" fill="#e8c080" opacity="0.35"/>
+  <ellipse cx="300" cy="394" rx="55" ry="38" fill="#d4a855" opacity="0.3"/>
+  <circle cx="300" cy="394" r="22" fill="#c9a24b" opacity="0.2"/>
+  <!-- shimmer dots -->
+  <circle cx="242" cy="360" r="5" fill="white" opacity="0.3"/>
+  <circle cx="358" cy="360" r="4" fill="white" opacity="0.25"/>
+  <circle cx="270" cy="420" r="3.5" fill="white" opacity="0.28"/>
+  <circle cx="330" cy="418" r="4" fill="white" opacity="0.3"/>
+  <!-- brand text on compact -->
+  <text x="300" y="465" font-family="Georgia,serif" font-size="13" fill="#1a1512" text-anchor="middle" opacity="0.6">SISFORA</text>
+  <!-- compact lid -->
+  <rect x="168" y="152" width="264" height="138" rx="14" fill="#e8d8c0" stroke="#c9a24b" stroke-width="2"/>
+  <!-- mirror inside lid -->
+  <rect x="184" y="168" width="232" height="104" rx="8" fill="#ddd8d0" opacity="0.55"/>
+  <line x1="220" y1="178" x2="260" y2="218" stroke="white" stroke-width="7" stroke-linecap="round" opacity="0.3"/>
+  <!-- hinge bar -->
+  <rect x="210" y="288" width="180" height="14" rx="7" fill="#c9a24b" opacity="0.5"/>
+  <circle cx="145" cy="190" r="50" fill="#c9a24b" opacity="0.08"/>
+  <text x="300" y="585" font-family="Georgia,serif" font-size="20" fill="#1a1512" text-anchor="middle">Gilded Bronze Bronzer</text>
+  <text x="300" y="609" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#c9a24b" text-anchor="middle">MAKEUP · BRONZER</text>
 </svg>

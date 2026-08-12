@@ -7,6 +7,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   initAdminLogin();
   initSidebarToggle();
+  initAdminTopbar();
+  initAdminLogout();
+  initChangePassword();
   initDashboard();
   initProducts();
   initCategories();
@@ -20,6 +23,81 @@ document.addEventListener('DOMContentLoaded', () => {
 function initSidebarToggle() {
   document.getElementById('sidebarToggle')?.addEventListener('click', () => {
     document.getElementById('adminSidebar')?.classList.toggle('open');
+  });
+}
+
+// ======================================================================
+// Admin Topbar: load & display the real admin name
+// ======================================================================
+async function initAdminTopbar() {
+  const nameEl = document.getElementById('adminName');
+  if (!nameEl) return;
+  try {
+    const { user } = await sfFetch('/api/auth/me');
+    if (user) nameEl.textContent = user.name;
+  } catch (err) {
+    /* leave placeholder text */
+  }
+}
+
+// ======================================================================
+// Admin Logout
+// ======================================================================
+function initAdminLogout() {
+  document.getElementById('adminLogoutBtn')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await sfFetch('/api/auth/logout', { method: 'POST' });
+    } catch (err) {
+      /* ignore */
+    }
+    window.location.href = '/admin/login';
+  });
+}
+
+// ======================================================================
+// Change Password
+// ======================================================================
+function initChangePassword() {
+  const link = document.getElementById('changePasswordLink');
+  const modalEl = document.getElementById('changePasswordModal');
+  const form = document.getElementById('changePasswordForm');
+  if (!form || !modalEl) return;
+
+  const modal = new bootstrap.Modal(modalEl);
+
+  link?.addEventListener('click', (e) => {
+    e.preventDefault();
+    form.reset();
+    modal.show();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const currentPassword = form.currentPassword.value.trim();
+    const newPassword = form.newPassword.value.trim();
+    const confirmPassword = form.confirmPassword.value.trim();
+
+    if (newPassword !== confirmPassword) {
+      sfToast('New passwords do not match', 'error');
+      return;
+    }
+    if (newPassword.length < 6) {
+      sfToast('New password must be at least 6 characters', 'error');
+      return;
+    }
+
+    try {
+      await sfFetch('/api/auth/change-password', {
+        method: 'PUT',
+        body: { currentPassword, newPassword },
+      });
+      sfToast('Password changed successfully');
+      form.reset();
+      modal.hide();
+    } catch (err) {
+      sfToast(err.message || 'Failed to change password', 'error');
+    }
   });
 }
 

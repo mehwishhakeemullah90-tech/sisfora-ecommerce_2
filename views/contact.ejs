@@ -31,26 +31,33 @@
       </div>
       <div class="col-lg-7">
         <div class="admin-card p-4 p-md-5">
-          <form id="contactForm">
+          <div id="contactSuccess" class="alert alert-success d-none" role="alert">
+            <i class="bi bi-check-circle me-2"></i>Thank you! We've received your message and will respond within 24 hours.
+          </div>
+          <div id="contactError" class="alert alert-danger d-none" role="alert"></div>
+          <form id="contactForm" novalidate>
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" required />
+                <input type="text" name="fullName" class="form-control" placeholder="Your full name" required />
               </div>
               <div class="col-md-6">
                 <label class="form-label">Email Address</label>
-                <input type="email" class="form-control" required />
+                <input type="email" name="email" class="form-control" placeholder="your@email.com" required />
               </div>
               <div class="col-12">
                 <label class="form-label">Subject</label>
-                <input type="text" class="form-control" required />
+                <input type="text" name="subject" class="form-control" placeholder="What is this about?" required />
               </div>
               <div class="col-12">
                 <label class="form-label">Message</label>
-                <textarea class="form-control" rows="5" required></textarea>
+                <textarea name="message" class="form-control" rows="5" placeholder="Write your message here..." required></textarea>
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-sisfora w-100">Send Message</button>
+                <button type="submit" class="btn btn-sisfora w-100" id="contactSubmitBtn">
+                  <span id="contactBtnText">SEND MESSAGE</span>
+                  <span id="contactBtnSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+                </button>
               </div>
             </div>
           </form>
@@ -61,9 +68,60 @@
 </section>
 
 <script>
-  document.getElementById('contactForm')?.addEventListener('submit', function (e) {
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-    sfToast("Thank you! We've received your message and will respond within 24 hours.");
-    this.reset();
+
+    const form = this;
+    const successBox = document.getElementById('contactSuccess');
+    const errorBox = document.getElementById('contactError');
+    const btnText = document.getElementById('contactBtnText');
+    const spinner = document.getElementById('contactBtnSpinner');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+
+    // Hide previous messages
+    successBox.classList.add('d-none');
+    errorBox.classList.add('d-none');
+
+    // Basic validation
+    const fullName = form.fullName.value.trim();
+    const email    = form.email.value.trim();
+    const subject  = form.subject.value.trim();
+    const message  = form.message.value.trim();
+
+    if (!fullName || !email || !subject || !message) {
+      errorBox.textContent = 'Please fill in all fields before sending.';
+      errorBox.classList.remove('d-none');
+      return;
+    }
+
+    // Show loading state
+    btnText.textContent = 'Sending...';
+    spinner.classList.remove('d-none');
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, subject, message }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        successBox.classList.remove('d-none');
+        form.reset();
+      } else {
+        errorBox.textContent = data.message || 'Something went wrong. Please try again.';
+        errorBox.classList.remove('d-none');
+      }
+    } catch (err) {
+      errorBox.textContent = 'Network error. Please check your connection and try again.';
+      errorBox.classList.remove('d-none');
+    } finally {
+      btnText.textContent = 'SEND MESSAGE';
+      spinner.classList.add('d-none');
+      submitBtn.disabled = false;
+    }
   });
 </script>

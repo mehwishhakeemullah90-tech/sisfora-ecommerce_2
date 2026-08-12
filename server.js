@@ -1,3 +1,8 @@
+// Force Google/Cloudflare DNS so Atlas SRV records resolve on networks
+// where the ISP/system DNS blocks or mishandles SRV queries.
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 require('dotenv').config();
 
 const path = require('path');
@@ -116,6 +121,7 @@ app.use('/api/coupons', require('./routes/couponRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/uploads', require('./routes/uploadRoutes'));
 app.use('/api/blog', require('./routes/blogRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/admin', require('./routes/adminApiRoutes'));
 
 // ---------------------------------------------------------------------
@@ -132,7 +138,7 @@ app.use(errorHandler);
 
 // On Vercel the platform handles HTTP — do not call app.listen().
 if (!process.env.VERCEL) {
-  const PORT = process.env.PORT || 7000;
+  const PORT = process.env.PORT || 7001;
   app.listen(PORT, () => {
     console.log(`\n🌸 Sisfora server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     console.log(`   Storefront:  http://localhost:${PORT}`);

@@ -62,6 +62,44 @@ body.admin-body {
 
 .thumb-sf { width: 44px; height: 44px; object-fit: cover; border-radius: 4px; border: 1px solid var(--adm-border); }
 
+/* ---- Buttons ---- */
+.btn-adm-primary {
+  background: var(--adm-sidebar);
+  color: #fff;
+  border: 1px solid var(--adm-sidebar);
+  border-radius: 2px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 1.25rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-adm-primary:hover { background: var(--adm-gold); border-color: var(--adm-gold); color: var(--adm-sidebar); }
+
+/* ---- Toast notification (admin pages don't load style.css) ---- */
+.toast-sf {
+  position: fixed; top: 80px; right: 20px; z-index: 3000;
+  background: var(--adm-sidebar); color: #fff;
+  padding: 0.85rem 1.35rem; border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(26, 21, 18, 0.18);
+  font-size: 0.88rem;
+  transform: translateX(130%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 320px;
+}
+.toast-sf.show { transform: translateX(0); }
+.toast-sf.error { background: #a13a3a; }
+
+/* ---- Form controls inside modals ---- */
+.modal .form-control {
+  border-radius: 2px;
+  border: 1px solid var(--adm-border);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+}
+.modal .form-control:focus { border-color: var(--adm-gold); box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.15); outline: none; }
+.modal .form-label { font-size: 0.82rem; letter-spacing: 0.02em; color: var(--adm-text); }
+
 @media (max-width: 991.98px) {
   .admin-sidebar { transform: translateX(-100%); }
   .admin-sidebar.open { transform: translateX(0); }

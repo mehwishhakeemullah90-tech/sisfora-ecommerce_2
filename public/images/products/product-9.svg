@@ -1,16 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f3ece6"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg9" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fafaf8"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#c9a24b" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#c9a24b" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#c9a24b" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#c9a24b" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#c9a24b" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Cashmere Cloud</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#c9a24b" text-anchor="middle">SETTING POWDER</text>
+  <rect width="600" height="700" fill="url(#bg9)"/>
+  <ellipse cx="300" cy="610" rx="118" ry="13" fill="#8a7f7a" opacity="0.12"/>
+  <!-- powder compact square -->
+  <rect x="185" y="300" width="230" height="190" rx="12" fill="#f5f0ea" stroke="#e8d3a0" stroke-width="2"/>
+  <!-- powder pan -->
+  <rect x="200" y="316" width="200" height="140" rx="6" fill="#e8ddd0"/>
+  <!-- powder texture dots -->
+  <circle cx="240" cy="350" r="3" fill="white" opacity="0.4"/>
+  <circle cx="270" cy="365" r="2.5" fill="white" opacity="0.35"/>
+  <circle cx="300" cy="345" r="3.5" fill="white" opacity="0.4"/>
+  <circle cx="330" cy="368" r="2.5" fill="white" opacity="0.3"/>
+  <circle cx="358" cy="352" r="3" fill="white" opacity="0.35"/>
+  <circle cx="255" cy="395" r="2.5" fill="white" opacity="0.3"/>
+  <circle cx="320" cy="400" r="3" fill="white" opacity="0.35"/>
+  <!-- brand on lid -->
+  <text x="300" y="434" font-family="Georgia,serif" font-size="14" fill="#1a1512" text-anchor="middle" font-weight="bold">SISFORA</text>
+  <text x="300" y="452" font-family="Arial,sans-serif" font-size="8" letter-spacing="3" fill="#c9a24b" text-anchor="middle">SETTING POWDER</text>
+  <!-- compact lid (open) -->
+  <rect x="185" y="162" width="230" height="130" rx="12" fill="#f5f0ea" stroke="#e8d3a0" stroke-width="2"/>
+  <!-- mirror in lid -->
+  <rect x="200" y="175" width="200" height="104" rx="6" fill="#e8e8e4" opacity="0.6"/>
+  <line x1="250" y1="185" x2="280" y2="215" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.35"/>
+  <!-- hinge -->
+  <rect x="225" y="288" width="150" height="16" rx="8" fill="#c9a24b" opacity="0.5"/>
+  <circle cx="460" cy="160" r="50" fill="#c9a24b" opacity="0.08"/>
+  <text x="300" y="588" font-family="Georgia,serif" font-size="20" fill="#1a1512" text-anchor="middle">Cashmere Setting Powder</text>
+  <text x="300" y="612" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#8a7f7a" text-anchor="middle">MAKEUP · SETTING POWDER</text>
 </svg>

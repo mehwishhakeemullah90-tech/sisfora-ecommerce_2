@@ -1,16 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f6e9ea"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg16" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f5f0ec"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
+    <linearGradient id="jar16" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#2d2420"/><stop offset="100%" stop-color="#1a1512"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#d98fa0" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#d98fa0" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#d98fa0" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#d98fa0" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#d98fa0" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Camellia Cream</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#d98fa0" text-anchor="middle">NIGHT CREAM</text>
+  <rect width="600" height="700" fill="url(#bg16)"/>
+  <ellipse cx="300" cy="616" rx="125" ry="15" fill="#1a1512" opacity="0.12"/>
+  <!-- dark luxury night cream jar -->
+  <ellipse cx="300" cy="478" rx="125" ry="20" fill="#1a1512" opacity="0.15"/>
+  <rect x="175" y="318" width="250" height="162" rx="8" fill="url(#jar16)" stroke="#c9a24b" stroke-width="2"/>
+  <!-- gold label band -->
+  <rect x="175" y="368" width="250" height="72" fill="#c9a24b" opacity="0.18"/>
+  <text x="300" y="402" font-family="Georgia,serif" font-size="13" fill="#c9a24b" text-anchor="middle" font-weight="bold">SISFORA</text>
+  <text x="300" y="420" font-family="Arial,sans-serif" font-size="8" letter-spacing="2.5" fill="#e8d3a0" text-anchor="middle">CAMELLIA NIGHT REPAIR</text>
+  <!-- dark lid with gold rim -->
+  <rect x="175" y="285" width="250" height="36" rx="6" fill="#2b2422" stroke="#c9a24b" stroke-width="2"/>
+  <rect x="185" y="292" width="230" height="22" rx="4" fill="#1a1512"/>
+  <!-- gold shine line -->
+  <line x1="192" y1="332" x2="192" y2="466" stroke="#c9a24b" stroke-width="2" stroke-linecap="round" opacity="0.2"/>
+  <line x1="200" y1="332" x2="200" y2="466" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.12"/>
+  <!-- decorative elements -->
+  <circle cx="462" cy="155" r="58" fill="#c9a24b" opacity="0.09"/>
+  <circle cx="138" cy="195" r="42" fill="#eab8c0" opacity="0.07"/>
+  <text x="300" y="590" font-family="Georgia,serif" font-size="19" fill="#1a1512" text-anchor="middle">Camellia Night Repair</text>
+  <text x="300" y="614" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#c9a24b" text-anchor="middle">SKINCARE · NIGHT CREAM</text>
 </svg>

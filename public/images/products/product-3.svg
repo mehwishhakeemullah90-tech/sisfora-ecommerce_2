@@ -1,16 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f3ece6"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdf8ed"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
+    <linearGradient id="bot3" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#fff8e8"/><stop offset="100%" stop-color="#e8d3a0"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#c9a24b" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#c9a24b" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#c9a24b" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#c9a24b" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#c9a24b" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Gold Dew</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#c9a24b" text-anchor="middle">HIGHLIGHTER</text>
+  <rect width="600" height="700" fill="url(#bg3)"/>
+  <ellipse cx="300" cy="622" rx="95" ry="12" fill="#c9a24b" opacity="0.15"/>
+  <!-- pump bottle body -->
+  <rect x="248" y="270" width="104" height="230" rx="14" fill="url(#bot3)" stroke="#c9a24b" stroke-width="1.5"/>
+  <!-- label -->
+  <rect x="248" y="355" width="104" height="80" rx="0" fill="#c9a24b" opacity="0.2"/>
+  <text x="300" y="395" font-family="Georgia,serif" font-size="12" fill="#1a1512" text-anchor="middle" font-weight="bold">SISFORA</text>
+  <text x="300" y="412" font-family="Arial,sans-serif" font-size="8" letter-spacing="2.5" fill="#c9a24b" text-anchor="middle">GOLD DEW</text>
+  <!-- pump neck -->
+  <rect x="278" y="210" width="44" height="65" rx="6" fill="#c9a24b" opacity="0.8"/>
+  <!-- pump head -->
+  <rect x="260" y="192" width="80" height="22" rx="11" fill="#1a1512"/>
+  <!-- pump nozzle -->
+  <rect x="336" y="198" width="28" height="8" rx="4" fill="#1a1512"/>
+  <!-- shine -->
+  <line x1="262" y1="290" x2="262" y2="480" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+  <!-- decor -->
+  <circle cx="455" cy="150" r="55" fill="#c9a24b" opacity="0.1"/>
+  <circle cx="140" cy="540" r="38" fill="#eab8c0" opacity="0.1"/>
+  <text x="300" y="592" font-family="Georgia,serif" font-size="21" fill="#1a1512" text-anchor="middle">Gold Dew Highlighter</text>
+  <text x="300" y="616" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#c9a24b" text-anchor="middle">MAKEUP · HIGHLIGHTER</text>
 </svg>

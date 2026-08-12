@@ -1,16 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#efe6e2"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg11" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f5f5f8"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
+    <linearGradient id="mas11" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#2b2422"/><stop offset="100%" stop-color="#1a1512"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#8a7f7a" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#8a7f7a" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#8a7f7a" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#8a7f7a" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#8a7f7a" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Silk Lash</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#8a7f7a" text-anchor="middle">MASCARA</text>
+  <rect width="600" height="700" fill="url(#bg11)"/>
+  <ellipse cx="300" cy="618" rx="68" ry="9" fill="#1a1512" opacity="0.12"/>
+  <!-- mascara tube -->
+  <rect x="272" y="240" width="56" height="280" rx="10" fill="url(#mas11)"/>
+  <!-- gold band -->
+  <rect x="272" y="320" width="56" height="26" rx="0" fill="#c9a24b" opacity="0.7"/>
+  <!-- label text -->
+  <text x="300" y="340" font-family="Arial,sans-serif" font-size="7" fill="#fff" text-anchor="middle" letter-spacing="1">SILK LASH</text>
+  <!-- cap with brush -->
+  <rect x="272" y="175" width="56" height="68" rx="8" fill="#c9a24b"/>
+  <!-- wand -->
+  <rect x="297" y="520" width="6" height="60" rx="3" fill="#2b2422"/>
+  <ellipse cx="300" cy="582" rx="8" ry="20" fill="#1a1512" opacity="0.5"/>
+  <!-- brand marking -->
+  <text x="300" y="420" font-family="Arial,sans-serif" font-size="7" fill="#c9a24b" text-anchor="middle" letter-spacing="1">SISFORA</text>
+  <!-- shine -->
+  <line x1="280" y1="258" x2="280" y2="508" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.18"/>
+  <circle cx="455" cy="168" r="52" fill="#1a1512" opacity="0.05"/>
+  <text x="300" y="598" font-family="Georgia,serif" font-size="19" fill="#1a1512" text-anchor="middle">Silk Lash Mascara</text>
+  <text x="300" y="622" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#8a7f7a" text-anchor="middle">MAKEUP · MASCARA</text>
 </svg>

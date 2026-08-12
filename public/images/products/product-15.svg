@@ -1,16 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f3ece6"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </linearGradient>
+    <linearGradient id="bg15" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#faf8f8"/><stop offset="100%" stop-color="#fffaf7"/></linearGradient>
+    <linearGradient id="lip15" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0%" stop-color="#d8c8c8"/><stop offset="100%" stop-color="#c0b0b0"/></linearGradient>
   </defs>
-  <rect width="600" height="700" fill="url(#g)"/>
-  <ellipse cx="300" cy="640" rx="160" ry="18" fill="#c9a24b" opacity="0.15"/>
-  <rect x="230" y="230" width="140" height="230" rx="14" fill="#ffffff" stroke="#c9a24b" stroke-width="2"/>
-  <rect x="255" y="190" width="90" height="60" rx="10" fill="#c9a24b" opacity="0.85"/>
-  <rect x="245" y="300" width="110" height="60" rx="4" fill="#c9a24b" opacity="0.25"/>
-  <circle cx="300" cy="150" r="46" fill="#c9a24b" opacity="0.18"/>
-  <text x="300" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#1a1512" text-anchor="middle">Whisper Nude</text>
-  <text x="300" y="555" font-family="Arial, sans-serif" font-size="15" letter-spacing="3" fill="#c9a24b" text-anchor="middle">LIPSTICK</text>
+  <rect width="600" height="700" fill="url(#bg15)"/>
+  <ellipse cx="300" cy="620" rx="90" ry="11" fill="#8a7f7a" opacity="0.13"/>
+  <!-- lipstick tube base - silver variant -->
+  <rect x="268" y="380" width="64" height="168" rx="6" fill="url(#lip15)"/>
+  <!-- silver band -->
+  <rect x="268" y="435" width="64" height="26" rx="0" fill="#e8e0e0"/>
+  <!-- logo engraved -->
+  <text x="300" y="452" font-family="Arial,sans-serif" font-size="7" fill="#8a7f7a" text-anchor="middle" letter-spacing="1.5">SISFORA</text>
+  <!-- bullet holder -->
+  <rect x="276" y="298" width="48" height="86" rx="4" fill="#b8b0b0"/>
+  <!-- lipstick bullet nude -->
+  <rect x="280" y="242" width="40" height="60" rx="2" fill="#d8c0b8"/>
+  <path d="M280 242 Q300 205 320 242" fill="#c4a898"/>
+  <rect x="284" y="248" width="7" height="42" rx="3.5" fill="white" opacity="0.28"/>
+  <!-- shine -->
+  <line x1="278" y1="400" x2="278" y2="528" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.2"/>
+  <circle cx="450" cy="170" r="52" fill="#eab8c0" opacity="0.09"/>
+  <text x="300" y="592" font-family="Georgia,serif" font-size="20" fill="#1a1512" text-anchor="middle">Whisper Nude Lipstick</text>
+  <text x="300" y="616" font-family="Arial,sans-serif" font-size="11" letter-spacing="2" fill="#8a7f7a" text-anchor="middle">MAKEUP · LIP COLOUR</text>
 </svg>
