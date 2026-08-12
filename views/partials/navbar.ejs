@@ -32,12 +32,17 @@
               <li><a class="dropdown-item small" href="/profile">My Account</a></li>
               <li><a class="dropdown-item small" href="/profile?tab=orders">Order History</a></li>
               <li><a class="dropdown-item small" href="/profile?tab=wishlist">Wishlist</a></li>
+              <% if (user.role === 'admin') { %>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item small fw-semibold" href="/admin/dashboard"><i class="bi bi-speedometer2 me-1"></i>Admin Dashboard</a></li>
+              <% } %>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item small" href="#" id="logoutBtn">Logout</a></li>
             </ul>
           </div>
         <% } else { %>
           <a href="/login" class="nav-icon-link" title="Login"><i class="bi bi-person"></i></a>
+          <a href="/admin/login" class="nav-icon-link sf-admin-entry" title="Admin Login" style="font-size:0.78rem;letter-spacing:0.08em;opacity:0.45;font-family:'Jost',sans-serif;font-weight:500;padding:0 6px;">ADMIN</a>
         <% } %>
 
         <a href="/profile?tab=wishlist" class="nav-icon-link" title="Wishlist">
