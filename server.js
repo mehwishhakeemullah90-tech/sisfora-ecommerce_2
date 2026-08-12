@@ -58,6 +58,18 @@ app.set('layout', 'partials/layout');
 app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
 
+// ---------------------------------------------------------------------
+// Static assets — served BEFORE the DB middleware so CSS/JS/images
+// are delivered without opening a MongoDB connection on each request.
+// ---------------------------------------------------------------------
+if (process.env.VERCEL === '1') {
+  const fs = require('fs');
+  const tmpUploads = '/tmp/uploads';
+  if (!fs.existsSync(tmpUploads)) fs.mkdirSync(tmpUploads, { recursive: true });
+  app.use('/uploads', express.static(tmpUploads));
+}
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Health-check endpoint — always reachable, reports exact DB error so
 // you can diagnose connection failures without digging into logs.
 app.get('/health', async (req, res) => {
@@ -97,17 +109,6 @@ app.use((req, res, next) => {
   res.locals.currentYear = new Date().getFullYear();
   next();
 });
-
-// ---------------------------------------------------------------------
-// Static assets
-// ---------------------------------------------------------------------
-if (process.env.VERCEL === '1') {
-  const fs = require('fs');
-  const tmpUploads = '/tmp/uploads';
-  if (!fs.existsSync(tmpUploads)) fs.mkdirSync(tmpUploads, { recursive: true });
-  app.use('/uploads', express.static(tmpUploads));
-}
-app.use(express.static(path.join(__dirname, 'public')));
 
 // ---------------------------------------------------------------------
 // API routes (JSON)
