@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const page = document.getElementById('orderConfirmationPage');
   if (!page) return;
 
-  const orderId = page.dataset.orderId;
+  // Read order ID from URL (/order-confirmation/:id) as fallback when data-order-id is empty
+  const orderId = page.dataset.orderId || window.location.pathname.split('/order-confirmation/')[1] || '';
   const container = document.getElementById('orderSummaryContainer');
   try {
     const { order } = await sfFetch(`/api/orders/${orderId}`);

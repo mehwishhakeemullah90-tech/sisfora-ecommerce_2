@@ -11,12 +11,18 @@ function sfProductCardHTML(p) {
   const hasDiscount = p.discountPrice && p.discountPrice > 0 && p.discountPrice < p.price;
   const discountPercent = hasDiscount ? Math.round(((p.price - p.discountPrice) / p.price) * 100) : 0;
 
+  const mainImg = p.thumbnail || (p.images && p.images[0]) || '/images/products/placeholder.svg';
+  const hoverImg = p.images && p.images[1] ? p.images[1] : null;
+
   return `
   <div class="col-6 col-md-4 col-lg-3">
     <div class="product-card sf-reveal sf-visible">
       <div class="product-media">
         <a href="/product/${p.slug}">
-          <img src="${p.thumbnail || (p.images && p.images[0]) || '/images/products/placeholder.svg'}" alt="${sfEscape(p.name)}" loading="lazy" />
+          <div class="product-image-wrapper${hoverImg ? ' has-hover' : ''}">
+            <img class="product-main-image" src="${mainImg}" alt="${sfEscape(p.name)}" loading="lazy" />
+            ${hoverImg ? `<img class="product-hover-image" src="${hoverImg}" alt="${sfEscape(p.name)}" loading="lazy" onerror="this.closest('.product-image-wrapper').classList.remove('has-hover')" />` : ''}
+          </div>
         </a>
         <div class="product-badges">
           ${p.isNewArrival ? '<span class="sf-badge sf-badge-new">New</span>' : ''}
@@ -79,6 +85,52 @@ async function sfLoadTaggedProducts(containerEl, tag, extraParams = {}) {
 }
 
 // ---------------------------------------------------------------------
+// Shop filter sidebar — loads categories and brands from the API
+// ---------------------------------------------------------------------
+async function sfInitShopFilters() {
+  // Load categories
+  const categoriesEl = document.getElementById('shopCategoryFilters');
+  if (categoriesEl) {
+    try {
+      const { categories } = await sfFetch('/api/categories');
+      categoriesEl.innerHTML =
+        '<div class="form-check mb-2"><input class="form-check-input" type="radio" name="category" value="" id="cat-all" checked>' +
+        '<label class="form-check-label" for="cat-all">All Categories</label></div>' +
+        (categories || [])
+          .map(
+            (cat) =>
+              `<div class="form-check mb-2"><input class="form-check-input" type="radio" name="category" value="${cat.slug}" id="cat-${cat.slug}">` +
+              `<label class="form-check-label" for="cat-${cat.slug}">${sfEscape(cat.name)}</label></div>`
+          )
+          .join('');
+    } catch (e) {
+      categoriesEl.innerHTML = '<p class="small text-muted">Could not load categories.</p>';
+    }
+  }
+
+  // Load brands
+  const brandsEl = document.getElementById('shopBrandFilters');
+  if (brandsEl) {
+    try {
+      const { brands } = await sfFetch('/api/products/brands');
+      if (brands && brands.length) {
+        brandsEl.innerHTML = brands
+          .map(
+            (brand) =>
+              `<div class="form-check mb-2"><input class="form-check-input" type="checkbox" name="brand" value="${sfEscape(brand)}" id="brand-${brand.replace(/\s+/g, '-')}">` +
+              `<label class="form-check-label" for="brand-${brand.replace(/\s+/g, '-')}">${sfEscape(brand)}</label></div>`
+          )
+          .join('');
+      } else {
+        brandsEl.innerHTML = '';
+      }
+    } catch (e) {
+      brandsEl.innerHTML = '';
+    }
+  }
+}
+
+// ---------------------------------------------------------------------
 // Shop page: full search/filter/sort/pagination
 // ---------------------------------------------------------------------
 function sfInitShopPage() {
@@ -89,6 +141,7 @@ function sfInitShopPage() {
   const sortSelect = document.getElementById('shopSort');
   const resultsCount = document.getElementById('shopResultsCount');
   const pagination = document.getElementById('shopPagination');
+  const searchInput = document.getElementById('shopSearchInput');
 
   let currentPage = 1;
 
@@ -98,7 +151,7 @@ function sfInitShopPage() {
 
     const category = formData.getAll('category');
     const brand = formData.getAll('brand');
-    if (category.length) params.set('category', category[0]);
+    if (category.length && category[0]) params.set('category', category[0]);
     else params.delete('category');
     if (brand.length) params.set('brand', brand.join(','));
     else params.delete('brand');
@@ -120,7 +173,7 @@ function sfInitShopPage() {
       const params = buildParams();
       const data = await sfFetch(`/api/products?${params.toString()}`);
       sfRenderProductGrid(grid, data.products);
-      resultsCount.textContent = `${data.total} product${data.total === 1 ? '' : 's'} found`;
+      if (resultsCount) resultsCount.textContent = `${data.total} product${data.total === 1 ? '' : 's'} found`;
       renderPagination(data.page, data.pages);
     } catch (err) {
       grid.innerHTML = `<div class="col-12 text-center text-danger py-5">${err.message}</div>`;
@@ -128,6 +181,7 @@ function sfInitShopPage() {
   }
 
   function renderPagination(page, pages) {
+    if (!pagination) return;
     if (pages <= 1) { pagination.innerHTML = ''; return; }
     let html = '';
     for (let i = 1; i <= pages; i += 1) {
@@ -148,14 +202,14 @@ function sfInitShopPage() {
   form.addEventListener('change', () => { currentPage = 1; loadProducts(); });
   sortSelect.addEventListener('change', () => { currentPage = 1; loadProducts(); });
 
-  const searchInput = document.getElementById('shopSearchInput');
   if (searchInput) {
     let debounce;
     searchInput.addEventListener('input', () => {
       clearTimeout(debounce);
       debounce = setTimeout(() => {
         const params = new URLSearchParams(window.location.search);
-        if (searchInput.value) params.set('keyword', searchInput.value); else params.delete('keyword');
+        if (searchInput.value) params.set('keyword', searchInput.value);
+        else params.delete('keyword');
         window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
         currentPage = 1;
         loadProducts();
@@ -163,21 +217,30 @@ function sfInitShopPage() {
     });
   }
 
-  // Preset category from server-rendered page (e.g. /categories/:slug)
-  const presetCategory = grid.dataset.presetCategory;
-  if (presetCategory) {
-    const input = form.querySelector(`input[name="category"][value="${presetCategory}"]`);
-    if (input) input.checked = true;
+  // Init: load filters first, then load products
+  async function init() {
+    await sfInitShopFilters();
+
+    // Apply preset category — from data-attribute or from URL (/categories/:slug)
+    const presetCategory =
+      grid.dataset.presetCategory ||
+      (window.location.pathname.startsWith('/categories/') ? window.location.pathname.split('/categories/')[1] : '');
+    if (presetCategory) {
+      const input = form.querySelector(`input[name="category"][value="${presetCategory}"]`);
+      if (input) input.checked = true;
+    }
+
+    // Prefill from URL query params
+    const initialParams = sfQueryParams();
+    if (initialParams.keyword && searchInput) searchInput.value = initialParams.keyword;
+    if (initialParams.minPrice) form.minPrice.value = initialParams.minPrice;
+    if (initialParams.maxPrice) form.maxPrice.value = initialParams.maxPrice;
+    if (initialParams.sort) sortSelect.value = initialParams.sort;
+
+    loadProducts();
   }
 
-  // Prefill search box + min/max price from the current URL (e.g. from a navbar search)
-  const initialParams = sfQueryParams();
-  if (initialParams.keyword && searchInput) searchInput.value = initialParams.keyword;
-  if (initialParams.minPrice) form.minPrice.value = initialParams.minPrice;
-  if (initialParams.maxPrice) form.maxPrice.value = initialParams.maxPrice;
-  if (initialParams.sort) sortSelect.value = initialParams.sort;
-
-  loadProducts();
+  init();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

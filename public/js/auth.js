@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
           body: { email: loginForm.email.value, password: loginForm.password.value },
         });
         sfToast(data.message);
-        const redirect = loginForm.dataset.redirect || '/';
+        // Read redirect from URL query param first, then from data-attribute
+        const redirect = new URLSearchParams(window.location.search).get('redirect') || loginForm.dataset.redirect || '/';
         setTimeout(() => { window.location.href = redirect; }, 500);
       } catch (err) {
         sfToast(err.message, 'error');
@@ -86,8 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         sfToast('Passwords do not match', 'error');
         return;
       }
+      // Read token from URL (/reset-password/:token) as fallback when data-token is empty
+      const token = resetForm.dataset.token || window.location.pathname.split('/reset-password/')[1] || '';
       try {
-        const data = await sfFetch(`/api/auth/reset-password/${resetForm.dataset.token}`, {
+        const data = await sfFetch(`/api/auth/reset-password/${token}`, {
           method: 'PUT',
           body: { password: resetForm.password.value },
         });

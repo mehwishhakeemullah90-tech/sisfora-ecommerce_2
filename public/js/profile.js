@@ -8,9 +8,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const page = document.getElementById('profilePage');
   if (!page) return;
 
+  loadProfileData();
   loadOrders();
   loadWishlist();
   loadAddresses();
+
+  // ---- Load profile data into form fields ----
+  async function loadProfileData() {
+    try {
+      const { user } = await sfFetch('/api/auth/me');
+      if (!user) return;
+      const profileForm = document.getElementById('profileForm');
+      if (profileForm) {
+        const nameInput = profileForm.querySelector('[name="name"]');
+        const emailInput = profileForm.querySelector('[type="email"]');
+        const phoneInput = profileForm.querySelector('[name="phone"]');
+        if (nameInput) nameInput.value = user.name || '';
+        if (emailInput) emailInput.value = user.email || '';
+        if (phoneInput) phoneInput.value = user.phone || '';
+      }
+      const welcomeEl = document.getElementById('profileWelcome');
+      if (welcomeEl) welcomeEl.textContent = `Welcome back, ${user.name}`;
+    } catch (err) { /* protect middleware handles auth redirect */ }
+  }
 
   // ---- Update profile form ----
   const profileForm = document.getElementById('profileForm');

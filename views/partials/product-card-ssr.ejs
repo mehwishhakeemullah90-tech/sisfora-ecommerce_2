@@ -6,7 +6,17 @@
 <div class="product-card">
   <div class="product-media">
     <a href="/product/<%= p.slug %>">
-      <img src="<%= p.thumbnail || (p.images && p.images[0]) || '/images/products/placeholder.svg' %>" alt="<%= p.name %>" loading="lazy" />
+      <div class="product-image-wrapper<%= (p.images && p.images[1]) ? ' has-hover' : '' %>">
+        <img class="product-main-image"
+             src="<%= p.thumbnail || (p.images && p.images[0]) || '/images/products/placeholder.svg' %>"
+             alt="<%= p.name %>" loading="lazy" />
+        <% if (p.images && p.images[1]) { %>
+        <img class="product-hover-image"
+             src="<%= p.images[1] %>"
+             alt="<%= p.name %>" loading="lazy"
+             onerror="this.closest('.product-image-wrapper').classList.remove('has-hover')" />
+        <% } %>
+      </div>
     </a>
     <div class="product-badges">
       <% if (p.isNewArrival) { %><span class="sf-badge sf-badge-new">New</span><% } %>

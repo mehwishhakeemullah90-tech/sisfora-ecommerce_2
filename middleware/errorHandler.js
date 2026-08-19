@@ -1,13 +1,15 @@
 // middleware/errorHandler.js
 // -----------------------------------------------------------------------
-// Central error handler. Returns JSON for API routes and renders a nice
-// error page for regular page requests.
+// Central error handler. Returns JSON for API routes and serves the
+// static 404.html for page requests.
 // -----------------------------------------------------------------------
+const path = require('path');
+
 function notFound(req, res, next) {
   if (req.originalUrl.startsWith('/api')) {
     return res.status(404).json({ success: false, message: `API route not found: ${req.originalUrl}` });
   }
-  res.status(404).render('404', { title: 'Page Not Found' });
+  res.status(404).sendFile(path.join(__dirname, '..', 'public', '404.html'));
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -44,7 +46,7 @@ function errorHandler(err, req, res, next) {
     });
   }
 
-  res.status(statusCode).render('error', { title: 'Something Went Wrong', message, statusCode });
+  res.status(statusCode).sendFile(path.join(__dirname, '..', 'public', '404.html'));
 }
 
 module.exports = { notFound, errorHandler };

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Sisfora</title>
+  <meta name="description" content="Sign in to your Sisfora account." />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar navbar-sisfora py-3" id="sfNavbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img"></a>
+      <a href="/cart" class="nav-icon-link" aria-label="Cart">
+        <i class="bi bi-bag"></i><span class="badge-count d-none" id="cartCount">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" style="min-height:75vh;display:flex;align-items:center;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <div class="text-center mb-4">
+              <p class="eyebrow">Welcome Back</p>
+              <h1 class="section-title mb-0">Sign In</h1>
+            </div>
+            <div class="admin-card p-4 p-md-5">
+              <form id="loginForm" novalidate>
+                <div class="mb-3">
+                  <label class="form-label" for="loginEmail">Email Address</label>
+                  <input type="email" id="loginEmail" name="email" class="form-control" required placeholder="you@example.com" autocomplete="email" />
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label mb-0" for="loginPassword">Password</label>
+                    <a href="/forgot-password" class="small sf-link-gold">Forgot password?</a>
+                  </div>
+                  <div class="input-group">
+                    <input type="password" id="loginPassword" name="password" class="form-control border-end-0" required placeholder="••••••••" autocomplete="current-password" />
+                    <button class="input-group-text bg-white border-start-0" type="button" id="toggleLoginPwd" aria-label="Show password">
+                      <i class="bi bi-eye-slash" id="loginPwdIcon"></i>
+                    </button>
+                  </div>
+                </div>
+                <div id="loginError" class="alert alert-danger d-none py-2 small mb-3"></div>
+                <button type="submit" class="btn btn-sisfora w-100 mb-3" id="loginBtn">Sign In</button>
+              </form>
+              <p class="text-center small text-muted mt-3 mb-0">
+                Don't have an account? <a href="/register" class="sf-link-gold fw-semibold">Create one</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sf-footer py-3">
+    <div class="container">
+      <div class="sf-footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 Sisfora. All rights reserved.</span>
+        <div class="d-flex gap-4 small">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms">Terms</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sfToast" class="toast-sf"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.getElementById('toggleLoginPwd').addEventListener('click', function() {
+      var input = document.getElementById('loginPassword');
+      var icon = document.getElementById('loginPwdIcon');
+      input.type = input.type === 'password' ? 'text' : 'password';
+      icon.className = input.type === 'password' ? 'bi bi-eye-slash' : 'bi bi-eye';
+    });
+  </script>
+</body>
+</html>

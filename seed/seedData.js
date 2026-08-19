@@ -39,24 +39,43 @@ const categoriesData = [
 // [name, categoryIndex, price, discountPrice, stock, flags, imageFile]
 // Real product photos are in public/images/products/photo-*.jpg
 const productsData = [
-  ['Rose Radiance Serum', 0, 42, 34, 40, { isBestSeller: true, isFeatured: true }, 'photo-serum.jpg'],
-  ['Velvet Matte Lipstick — Blush Nude', 1, 24, 0, 60, { isNewArrival: true }, 'photo-foundation.jpg'],
-  ['Gold Dew Liquid Highlighter', 1, 29, 22, 35, { isBestSeller: true }, 'photo-fragrance.jpg'],
-  ['Silk Veil Foundation', 1, 38, 0, 50, { isFeatured: true }, 'photo-foundation.jpg'],
-  ['Bloom & Glow Cream Blush', 1, 22, 0, 45, { isNewArrival: true }, 'photo-foundation.jpg'],
-  ['Pure Hydra Moisturizer', 0, 36, 28, 55, { isBestSeller: true, isFeatured: true }, 'photo-moisturizer.jpg'],
-  ['Midnight Kohl Eyeliner', 1, 18, 0, 70, {}, 'photo-foundation.jpg'],
-  ['Honey Nectar Lip Oil', 1, 20, 16, 65, { isNewArrival: true }, 'photo-moisturizer.jpg'],
-  ['Cashmere Cloud Setting Powder', 1, 27, 0, 40, {}, 'photo-foundation.jpg'],
-  ['Amber Bloom Eau de Parfum', 2, 68, 54, 25, { isBestSeller: true, isFeatured: true }, 'photo-fragrance.jpg'],
-  ['Silk Lash Volumizing Mascara', 1, 21, 0, 80, { isNewArrival: true }, 'photo-foundation.jpg'],
-  ['Dewy Petal Hydrating Face Mist', 0, 19, 0, 90, { isBestSeller: true }, 'photo-serum.jpg'],
-  ['Rosewater Balancing Toner', 0, 23, 18, 60, {}, 'photo-toner.jpg'],
-  ['Gilded Bronze Bronzer', 1, 26, 0, 38, { isNewArrival: true }, 'photo-fragrance.jpg'],
-  ['Whisper Nude Lipstick', 1, 24, 0, 55, {}, 'photo-foundation.jpg'],
-  ['Camellia Cream Night Repair', 0, 45, 36, 30, { isFeatured: true }, 'photo-moisturizer.jpg'],
-  ['Sunlit Glow SPF 30 Moisturizer', 0, 34, 0, 48, { isBestSeller: true }, 'photo-moisturizer.jpg'],
-  ['Petal Soft Cream Cleanser', 0, 25, 20, 70, { isNewArrival: true }, 'photo-serum.jpg'],
+
+  ['Rose Radiance Serum', 0, 42, 34, 40, { isBestSeller: true, isFeatured: true }, 'photo-serum.jpg', '/images/hover-product/images(13).jpg'],
+
+  ['Velvet Matte Lipstick — Blush Nude', 1, 24, 0, 60, { isNewArrival: true }, 'photo-foundation.jpg', '/images/hover-product/images(14).jpg'],
+
+  ['Gold Dew Liquid Highlighter', 1, 29, 22, 35, { isBestSeller: true }, 'photo-fragrance.jpg', '/images/hover-product/images(15).jpg'],
+
+  ['Silk Veil Foundation', 1, 38, 0, 50, { isFeatured: true }, 'photo-foundation.jpg', '/images/hover-product/images(16).jpg'],
+
+  ['Bloom & Glow Cream Blush', 1, 22, 0, 45, { isNewArrival: true }, 'photo-foundation.jpg', '/images/hover-product/images(17).jpg'],
+
+  ['Pure Hydra Moisturizer', 0, 36, 28, 55, { isBestSeller: true, isFeatured: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(18).jpg'],
+
+  ['Midnight Kohl Eyeliner', 1, 18, 0, 70, {}, 'photo-foundation.jpg', '/images/hover-product/images(19).jpg'],
+
+  ['Honey Nectar Lip Oil', 1, 20, 16, 65, { isNewArrival: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(20).jpg'],
+
+  ['Cashmere Cloud Setting Powder', 1, 27, 0, 40, {}, 'photo-foundation.jpg', '/images/hover-product/images(21).jpg'],
+
+  ['Amber Bloom Eau de Parfum', 2, 68, 54, 25, { isBestSeller: true, isFeatured: true }, 'photo-fragrance.jpg', '/images/hover-product/images(22).jpg'],
+
+  ['Silk Lash Volumizing Mascara', 1, 21, 0, 80, { isNewArrival: true }, 'photo-foundation.jpg', '/images/hover-product/images(23).jpg'],
+
+  ['Dewy Petal Hydrating Face Mist', 0, 19, 0, 90, { isBestSeller: true }, 'photo-serum.jpg', '/images/hover-product/images(24).jpg'],
+
+  ['Rosewater Balancing Toner', 0, 23, 18, 60, {}, 'photo-toner.jpg', '/images/hover-product/images(13).jpg'],
+
+  ['Gilded Bronze Bronzer', 1, 26, 0, 38, { isNewArrival: true }, 'photo-fragrance.jpg', '/images/hover-product/images(14).jpg'],
+
+  ['Whisper Nude Lipstick', 1, 24, 0, 55, {}, 'photo-foundation.jpg', '/images/hover-product/images(15).jpg'],
+
+  ['Camellia Cream Night Repair', 0, 45, 36, 30, { isFeatured: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(16).jpg'],
+
+  ['Sunlit Glow SPF 30 Moisturizer', 0, 34, 0, 48, { isBestSeller: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(17).jpg'],
+
+  ['Petal Soft Cream Cleanser', 0, 25, 20, 70, { isNewArrival: true }, 'photo-serum.jpg', '/images/hover-product/images(18).jpg'],
+
 ];
 
 const blogData = [
@@ -155,8 +174,18 @@ async function importData() {
   // --- Products ---
   await Product.deleteMany({});
   const products = [];
-  for (const [name, catIdx, price, discountPrice, stock, flags, imgFile] of productsData) {
+for (const [
+  name,
+  catIdx,
+  price,
+  discountPrice,
+  stock,
+  flags,
+  imgFile,
+  hoverImgFile
+] of productsData) {
     const image = `/images/products/${imgFile}`;
+   const hoverImage = hoverImgFile || `/images/products/${imgFile}`;
     const product = await Product.create({
       name,
       brand: 'Sisfora',
@@ -166,8 +195,11 @@ async function importData() {
       price,
       discountPrice,
       stock,
-      images: [image, image],
+
+      images: [image, hoverImage].filter(Boolean),
+
       thumbnail: image,
+      
       tags: ['sisfora', categories[catIdx].name.toLowerCase()],
       isActive: true,
       soldCount: Math.floor(Math.random() * 120),

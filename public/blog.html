@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty Journal | Sisfora</title>
+  <meta name="description" content="Beauty tips, ingredient insights, and skincare rituals from Sisfora." />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="sf-topbar py-2 px-3 d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-truck me-1"></i> Free shipping on orders over $50</span>
+      <span>Reveal Your Natural Beauty ✦ <a href="/offers">Shop the Sale</a></span>
+      <span><i class="bi bi-telephone me-1"></i> +92 300 1234567</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-sisfora sticky-top" id="sfNavbar">
+    <div class="container">
+      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img"></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sfNavMenu" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="sfNavMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="/shop">SHOP</a></li>
+          <li class="nav-item"><a class="nav-link" href="/categories">CATEGORIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="/best-sellers">BEST SELLERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="/new-arrivals">NEW IN</a></li>
+          <li class="nav-item"><a class="nav-link" href="/offers">OFFERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">ABOUT</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/blog">JOURNAL</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">CONTACT</a></li>
+        </ul>
+        <div class="d-flex align-items-center ms-lg-3">
+          <a href="#" class="nav-icon-link d-none d-lg-inline" id="searchToggle" aria-label="Search"><i class="bi bi-search"></i></a>
+          <div class="dropdown d-inline">
+            <a href="#" class="nav-icon-link" data-bs-toggle="dropdown" aria-label="Account"><i class="bi bi-person"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end mt-2">
+              <li><a class="dropdown-item small" href="/profile">My Account</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item small" href="/login">Login / Register</a></li>
+              <li><a class="dropdown-item small" href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+          </div>
+          <a href="/profile?tab=wishlist" class="nav-icon-link" aria-label="Wishlist">
+            <i class="bi bi-heart"></i><span class="badge-count d-none" id="wishlistCount">0</span>
+          </a>
+          <a href="/cart" class="nav-icon-link" aria-label="Cart">
+            <i class="bi bi-bag"></i><span class="badge-count d-none" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section-sm bg-blush text-center">
+      <div class="container">
+        <p class="eyebrow">Beauty &amp; Beyond</p>
+        <h1 class="section-title mb-0">The Sisfora Journal</h1>
+        <p class="section-subtitle mx-auto mt-2">Skincare rituals, ingredient deep-dives, and beauty inspiration.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="row g-4">
+
+          <div class="col-md-6 col-lg-4">
+            <article class="blog-card">
+              <a href="/blog/skincare-routine-for-glowing-skin" class="blog-card-img-wrap d-block">
+                <div class="blog-card-img-placeholder bg-blush"></div>
+              </a>
+              <div class="blog-card-body pt-3">
+                <span class="eyebrow">Skincare</span>
+                <h3 class="blog-card-title"><a href="/blog/skincare-routine-for-glowing-skin">The 5-Step Morning Routine for Radiant Skin</a></h3>
+                <p class="small text-muted">A simple, effective routine that takes under 10 minutes and transforms your complexion over time.</p>
+                <a href="/blog/skincare-routine-for-glowing-skin" class="small fw-semibold sf-link-gold">Read More →</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="blog-card">
+              <a href="/blog/clean-beauty-ingredients" class="blog-card-img-wrap d-block">
+                <div class="blog-card-img-placeholder bg-blush"></div>
+              </a>
+              <div class="blog-card-body pt-3">
+                <span class="eyebrow">Ingredients</span>
+                <h3 class="blog-card-title"><a href="/blog/clean-beauty-ingredients">Ingredients We Love (And the Ones We Avoid)</a></h3>
+                <p class="small text-muted">A guide to understanding what's really in your beauty products and why clean formulas matter.</p>
+                <a href="/blog/clean-beauty-ingredients" class="small fw-semibold sf-link-gold">Read More →</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="blog-card">
+              <a href="/blog/night-skincare-ritual" class="blog-card-img-wrap d-block">
+                <div class="blog-card-img-placeholder bg-blush"></div>
+              </a>
+              <div class="blog-card-body pt-3">
+                <span class="eyebrow">Rituals</span>
+                <h3 class="blog-card-title"><a href="/blog/night-skincare-ritual">Your Nighttime Ritual: Let Your Skin Breathe &amp; Restore</a></h3>
+                <p class="small text-muted">Evening is when your skin does its deepest repair work. Here's how to support it beautifully.</p>
+                <a href="/blog/night-skincare-ritual" class="small fw-semibold sf-link-gold">Read More →</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="blog-card">
+              <a href="/blog/lip-care-guide" class="blog-card-img-wrap d-block">
+                <div class="blog-card-img-placeholder bg-blush"></div>
+              </a>
+              <div class="blog-card-body pt-3">
+                <span class="eyebrow">Tips</span>
+                <h3 class="blog-card-title"><a href="/blog/lip-care-guide">The Complete Guide to Plump, Nourished Lips</a></h3>
+                <p class="small text-muted">From exfoliation to the perfect gloss — everything you need to know for beautiful lips year-round.</p>
+                <a href="/blog/lip-care-guide" class="small fw-semibold sf-link-gold">Read More →</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="blog-card">
+              <a href="/blog/foundation-match-guide" class="blog-card-img-wrap d-block">
+                <div class="blog-card-img-placeholder bg-blush"></div>
+              </a>
+              <div class="blog-card-body pt-3">
+                <span class="eyebrow">Makeup</span>
+                <h3 class="blog-card-title"><a href="/blog/foundation-match-guide">How to Find Your Perfect Foundation Match</a></h3>
+                <p class="small text-muted">Undertones, coverage, finish — we break down everything so you can find your ideal shade.</p>
+                <a href="/blog/foundation-match-guide" class="small fw-semibold sf-link-gold">Read More →</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="blog-card">
+              <a href="/blog/sustainable-beauty-tips" class="blog-card-img-wrap d-block">
+                <div class="blog-card-img-placeholder bg-blush"></div>
+              </a>
+              <div class="blog-card-body pt-3">
+                <span class="eyebrow">Sustainability</span>
+                <h3 class="blog-card-title"><a href="/blog/sustainable-beauty-tips">5 Small Swaps for a More Sustainable Beauty Routine</a></h3>
+                <p class="small text-muted">Beauty can be indulgent and responsible at the same time. Here's where to start.</p>
+                <a href="/blog/sustainable-beauty-tips" class="small fw-semibold sf-link-gold">Read More →</a>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="newsletter-band py-5">
+    <div class="container text-center">
+      <p class="eyebrow mb-2">Stay In The Glow</p>
+      <h3 class="section-title mb-3">Join the Sisfora Circle</h3>
+      <p class="section-subtitle mx-auto mb-4">Beauty stories and exclusive offers, delivered to your inbox.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" required class="form-control" placeholder="Your email address" />
+        <button type="submit" class="btn btn-sisfora">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="sf-footer pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a href="/" class="d-inline-block mb-2"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img sf-logo-img--footer"></a>
+          <p class="small mb-3">Reveal Your Natural Beauty.</p>
+          <div class="d-flex gap-2">
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6"><h6>Shop</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/shop">All Products</a></li><li class="mb-2"><a href="/best-sellers">Best Sellers</a></li><li class="mb-2"><a href="/new-arrivals">New Arrivals</a></li></ul></div>
+        <div class="col-lg-2 col-md-6 col-6"><h6>Company</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/about">About Us</a></li><li class="mb-2"><a href="/blog">Journal</a></li><li class="mb-2"><a href="/contact">Contact</a></li></ul></div>
+        <div class="col-lg-2 col-md-6 col-6"><h6>Legal</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/privacy-policy">Privacy Policy</a></li><li class="mb-2"><a href="/terms">Terms &amp; Conditions</a></li></ul></div>
+        <div class="col-lg-2 col-md-6"><h6>Account</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/profile">My Account</a></li><li class="mb-2"><a href="/cart">Cart</a></li></ul></div>
+      </div>
+      <div class="sf-footer-bottom mt-4 pt-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 Sisfora. All rights reserved.</span>
+        <span>Crafted with <i class="bi bi-heart-fill text-pink"></i> for natural beauty</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sfToast" class="toast-sf"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

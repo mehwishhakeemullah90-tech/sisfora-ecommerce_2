@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | Sisfora</title>
+  <meta name="description" content="Create your Sisfora account to shop, track orders, and more." />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar navbar-sisfora py-3" id="sfNavbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img"></a>
+      <a href="/cart" class="nav-icon-link" aria-label="Cart">
+        <i class="bi bi-bag"></i><span class="badge-count d-none" id="cartCount">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" style="min-height:75vh;display:flex;align-items:center;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-9 col-lg-7 col-xl-6">
+            <div class="text-center mb-4">
+              <p class="eyebrow">Join Sisfora</p>
+              <h1 class="section-title mb-0">Create Your Account</h1>
+            </div>
+            <div class="admin-card p-4 p-md-5">
+              <form id="registerForm" novalidate>
+                <div class="mb-3">
+                  <label class="form-label" for="regName">Full Name</label>
+                  <input type="text" id="regName" name="name" class="form-control" required placeholder="Jane Smith" autocomplete="name" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="regEmail">Email Address</label>
+                  <input type="email" id="regEmail" name="email" class="form-control" required placeholder="you@example.com" autocomplete="email" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="regPassword">Password</label>
+                  <div class="input-group">
+                    <input type="password" id="regPassword" name="password" class="form-control border-end-0" required minlength="6" placeholder="At least 6 characters" autocomplete="new-password" />
+                    <button class="input-group-text bg-white border-start-0" type="button" id="toggleRegPwd" aria-label="Show password">
+                      <i class="bi bi-eye-slash" id="regPwdIcon"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="regConfirm">Confirm Password</label>
+                  <input type="password" id="regConfirm" name="confirmPassword" class="form-control" required placeholder="Repeat your password" autocomplete="new-password" />
+                </div>
+                <div id="registerError" class="alert alert-danger d-none py-2 small mb-3"></div>
+                <button type="submit" class="btn btn-sisfora w-100 mb-3" id="registerBtn">Create Account</button>
+              </form>
+              <p class="text-center small text-muted mt-3 mb-0">
+                Already have an account? <a href="/login" class="sf-link-gold fw-semibold">Sign in</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sf-footer py-3">
+    <div class="container">
+      <div class="sf-footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 Sisfora. All rights reserved.</span>
+        <div class="d-flex gap-4 small">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sfToast" class="toast-sf"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.getElementById('toggleRegPwd').addEventListener('click', function() {
+      var input = document.getElementById('regPassword');
+      var icon = document.getElementById('regPwdIcon');
+      input.type = input.type === 'password' ? 'text' : 'password';
+      icon.className = input.type === 'password' ? 'bi bi-eye-slash' : 'bi bi-eye';
+    });
+  </script>
+</body>
+</html>

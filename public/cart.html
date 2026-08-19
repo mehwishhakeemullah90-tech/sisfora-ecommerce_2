@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart | Sisfora</title>
+  <meta name="description" content="Review and manage your Sisfora shopping cart." />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="sf-topbar py-2 px-3 d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-truck me-1"></i> Free shipping on orders over $50</span>
+      <span>Reveal Your Natural Beauty ✦ <a href="/offers">Shop the Sale</a></span>
+      <span><i class="bi bi-telephone me-1"></i> +92 300 1234567</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-sisfora sticky-top" id="sfNavbar">
+    <div class="container">
+      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img"></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sfNavMenu" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="sfNavMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="/shop">SHOP</a></li>
+          <li class="nav-item"><a class="nav-link" href="/categories">CATEGORIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="/best-sellers">BEST SELLERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="/new-arrivals">NEW IN</a></li>
+          <li class="nav-item"><a class="nav-link" href="/offers">OFFERS</a></li>
+        </ul>
+        <div class="d-flex align-items-center ms-lg-3">
+          <div class="dropdown d-inline">
+            <a href="#" class="nav-icon-link" data-bs-toggle="dropdown" aria-label="Account"><i class="bi bi-person"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end mt-2">
+              <li><a class="dropdown-item small" href="/profile">My Account</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item small" href="/login">Login / Register</a></li>
+              <li><a class="dropdown-item small" href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+          </div>
+          <a href="/profile?tab=wishlist" class="nav-icon-link" aria-label="Wishlist">
+            <i class="bi bi-heart"></i><span class="badge-count d-none" id="wishlistCount">0</span>
+          </a>
+          <a href="/cart" class="nav-icon-link" aria-label="Cart">
+            <i class="bi bi-bag"></i><span class="badge-count d-none" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section-sm bg-blush">
+      <div class="container">
+        <p class="breadcrumb-sf"><a href="/">Home</a> / Cart</p>
+        <h1 class="section-title mb-0">Your Cart</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="cartPage">
+
+          <!-- Empty state -->
+          <div id="cartEmpty" class="text-center py-5 d-none">
+            <i class="bi bi-bag fs-1 text-muted mb-3 d-block"></i>
+            <h4 class="mb-2">Your cart is empty</h4>
+            <p class="text-muted mb-4">Discover our luxury beauty collection and add your favourites.</p>
+            <a href="/shop" class="btn btn-sisfora">Continue Shopping</a>
+          </div>
+
+          <!-- Cart content -->
+          <div id="cartContent" class="row g-4">
+            <div class="col-lg-8">
+              <div class="admin-card">
+                <div class="card-header-sf">
+                  <h5 class="mb-0">Cart Items</h5>
+                  <span class="small text-muted" id="cartItemCount"></span>
+                </div>
+                <div id="cartItemsList" class="p-3 p-md-4">
+                  <!-- Items rendered by cart.js -->
+                  <div class="sf-skeleton mb-3" style="height:80px;"></div>
+                  <div class="sf-skeleton mb-3" style="height:80px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="admin-card p-4">
+                <h5 class="mb-3">Order Summary</h5>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Subtotal</span>
+                  <span id="cartSubtotal">—</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Shipping</span>
+                  <span id="cartShipping">Free</span>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between fw-semibold mb-4">
+                  <span>Total</span>
+                  <span id="cartTotal">—</span>
+                </div>
+                <a href="/checkout" class="btn btn-sisfora w-100 mb-3" id="checkoutBtn">Proceed to Checkout</a>
+                <a href="/shop" class="btn btn-outline-sf w-100">Continue Shopping</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sf-footer pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a href="/" class="d-inline-block mb-2"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img sf-logo-img--footer"></a>
+          <p class="small mb-3">Reveal Your Natural Beauty.</p>
+          <div class="d-flex gap-2">
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6"><h6>Shop</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/shop">All Products</a></li><li class="mb-2"><a href="/best-sellers">Best Sellers</a></li></ul></div>
+        <div class="col-lg-2 col-md-6 col-6"><h6>Company</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/about">About Us</a></li><li class="mb-2"><a href="/contact">Contact</a></li><li class="mb-2"><a href="/faq">FAQ</a></li></ul></div>
+        <div class="col-lg-2 col-md-6 col-6"><h6>Legal</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/privacy-policy">Privacy Policy</a></li><li class="mb-2"><a href="/terms">Terms</a></li></ul></div>
+        <div class="col-lg-2 col-md-6"><h6>Account</h6><ul class="list-unstyled small"><li class="mb-2"><a href="/profile">My Account</a></li></ul></div>
+      </div>
+      <div class="sf-footer-bottom mt-4 pt-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 Sisfora. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sfToast" class="toast-sf"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

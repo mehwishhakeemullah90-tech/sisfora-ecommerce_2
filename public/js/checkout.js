@@ -89,7 +89,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   let stripe;
   let elements;
   let clientSecret;
-  const stripeKey = page.dataset.stripeKey;
+  // Read Stripe key from data-attribute or fetch from /api/config
+  let stripeKey = page.dataset.stripeKey;
+  if (!stripeKey) {
+    try {
+      const config = await sfFetch('/api/config');
+      stripeKey = config.stripePublishableKey || '';
+    } catch (e) { stripeKey = ''; }
+  }
 
   async function initStripeElements() {
     if (!stripeKey || elements) return;

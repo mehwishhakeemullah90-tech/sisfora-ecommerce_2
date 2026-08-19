@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sisfora | Reveal Your Natural Beauty</title>
+  <meta name="description" content="Discover Sisfora — luxury cosmetics crafted to reveal your natural beauty. Shop skincare, makeup, fragrance & more." />
+  <meta name="theme-color" content="#1a1512" />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- Topbar -->
+  <!-- <div class="sf-topbar py-2 px-3 d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-truck me-1"></i> Free shipping on orders over $50</span>
+      <span>Reveal Your Natural Beauty ✦ <a href="/offers">Shop the Sale</a></span>
+      <span><i class="bi bi-telephone me-1"></i> +92 300 1234567</span>
+    </div>
+  </div> -->
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-sisfora sticky-top" id="sfNavbar">
+    <div class="container">
+      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img"></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sfNavMenu">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="sfNavMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+
+          <li class="nav-item dropdown sf-nav-dropdown">
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">SHOP <i class="bi bi-chevron-down sf-caret"></i></a>
+            <ul class="dropdown-menu sf-dropdown-menu">
+              <li><a class="dropdown-item sf-dropdown-item" href="/shop">All Products</a></li>
+             
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown sf-nav-dropdown">
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">CATEGORIES <i class="bi bi-chevron-down sf-caret"></i></a>
+            <ul class="dropdown-menu sf-dropdown-menu">
+              <li><a class="dropdown-item sf-dropdown-item" href="/categories">All Categories</a></li>
+              <li><hr class="dropdown-divider sf-divider"></li>
+              <li><a class="dropdown-item sf-dropdown-item" href="/categories/skincare">Skincare</a></li>
+            
+            </ul>
+          </li>
+
+          
+
+          <li class="nav-item dropdown sf-nav-dropdown">
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">NEW IN <i class="bi bi-chevron-down sf-caret"></i></a>
+            <ul class="dropdown-menu sf-dropdown-menu">
+              <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">New Products</a></li>
+              <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">Latest Arrivals</a></li>
+            </ul>
+          </li>
+
+         
+
+          <li class="nav-item dropdown sf-nav-dropdown">
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">ABOUT <i class="bi bi-chevron-down sf-caret"></i></a>
+            <ul class="dropdown-menu sf-dropdown-menu">
+              <li><a class="dropdown-item sf-dropdown-item" href="/about">About Sisfora</a></li>
+              <li><a class="dropdown-item sf-dropdown-item" href="/about#story">Our Story</a></li>
+            </ul>
+          </li>
+
+        
+
+          <li class="nav-item"><a class="nav-link" href="/contact">CONTACT</a></li>
+        </ul>
+        <div class="d-flex align-items-center ms-lg-3">
+          <a href="#" class="nav-icon-link d-lg-none d-inline" id="mobileSearchToggle"><i class="bi bi-search"></i></a>
+          <a href="#" class="nav-icon-link d-none d-lg-inline" id="searchToggle" title="Search"><i class="bi bi-search"></i></a>
+          <div class="dropdown d-inline">
+            <a href="#" class="nav-icon-link" data-bs-toggle="dropdown" title="Account"><i class="bi bi-person"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end mt-2">
+              <li><a class="dropdown-item small" href="/profile">My Account</a></li>
+              <li><a class="dropdown-item small" href="/profile?tab=orders">Order History</a></li>
+              <li><a class="dropdown-item small" href="/profile?tab=wishlist">Wishlist</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item small" href="/login">Login / Register</a></li>
+              <li><a class="dropdown-item small" href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+          </div>
+          <a href="/profile?tab=wishlist" class="nav-icon-link" title="Wishlist">
+            <i class="bi bi-heart"></i>
+            <span class="badge-count d-none" id="wishlistCount">0</span>
+          </a>
+          <a href="/cart" class="nav-icon-link" title="Cart">
+            <i class="bi bi-bag"></i>
+            <span class="badge-count d-none" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="collapse" id="sfSearchBar">
+      <div class="container py-3">
+        <form action="/shop" method="GET" class="d-flex">
+          <input type="text" name="keyword" class="form-control me-2" placeholder="Search for products..." autocomplete="off" />
+          <button class="btn btn-sisfora" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container position-relative">
+        <div class="row align-items-center gy-5">
+          <div class="col-lg-6">
+            <p class="eyebrow mb-3 sf-reveal">Luxury Clean Beauty</p>
+            <h1 class="hero-title mb-4 sf-reveal">Reveal Your<br /><em>Natural</em> Beauty</h1>
+            <p class="section-subtitle mb-4 sf-reveal">Sisfora blends nature and science into rituals that let your skin's true radiance shine through — thoughtfully formulated, beautifully simple.</p>
+            <div class="d-flex gap-3 sf-reveal">
+              <a href="/shop" class="btn btn-sisfora">Shop Now</a>
+              <a href="/best-sellers" class="btn btn-sisfora-outline">Best Sellers</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-image-wrap sf-reveal">
+              <img src="/images/products/hero-banner.svg" alt="Sisfora luxury cosmetics" class="img-fluid" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDITORIAL -->
+    <section class="editorial-section">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7 sf-reveal">
+            <p class="eyebrow mb-3">A Considered Approach to Skincare</p>
+            <div class="editorial-heading">
+              Thoughtfully<br />
+              <span class="editorial-gold">Formulated.</span><br />
+              Beautifully<br />
+              Delivered.
+            </div>
+          </div>
+          <div class="col-lg-5 sf-reveal">
+            <p class="editorial-subtitle">Premium skincare created around carefully selected ingredients, considered formulations and an elevated everyday experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+
+  
+
+    <!-- NEW ARRIVALS -->
+    <section class="section bg-blush">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-5 sf-reveal">
+          <div>
+            <p class="eyebrow">Just Landed</p>
+            <h2 class="section-title mb-0">New Arrivals</h2>
+          </div>
+          <a href="/new-arrivals" class="btn btn-sisfora-outline d-none d-md-inline-block">View All</a>
+        </div>
+        <div class="row g-4" id="homeNewArrivalsGrid"></div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE SISFORA -->
+    <section class="section bg-ivory">
+      <div class="container">
+        <div class="text-center mb-5 sf-reveal">
+          <p class="eyebrow">Our Promise</p>
+          <h2 class="section-title">Why Choose Sisfora</h2>
+          <p class="section-subtitle mx-auto">Every product we make is a commitment to quality, purity, and your wellbeing.</p>
+        </div>
+        <div class="row g-4 text-center">
+          <div class="col-6 col-md-3 sf-reveal">
+            <div class="why-card p-4 h-100">
+              <div class="why-icon mb-3"><i class="bi bi-award"></i></div>
+              <h6 class="why-title">Premium Ingredients</h6>
+              <p class="small text-muted mb-0">Sourced from nature, refined by science. Only what your skin truly needs.</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 sf-reveal">
+            <div class="why-card p-4 h-100">
+              <div class="why-icon mb-3"><i class="bi bi-heart-pulse"></i></div>
+              <h6 class="why-title">Cruelty Free</h6>
+              <p class="small text-muted mb-0">Never tested on animals. Kind to your skin and kind to the planet.</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 sf-reveal">
+            <div class="why-card p-4 h-100">
+              <div class="why-icon mb-3"><i class="bi bi-truck"></i></div>
+              <h6 class="why-title">Fast Delivery</h6>
+              <p class="small text-muted mb-0">Free shipping on orders over $50. Packed with care, delivered with love.</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 sf-reveal">
+            <div class="why-card p-4 h-100">
+              <div class="why-icon mb-3"><i class="bi bi-shield-check"></i></div>
+              <h6 class="why-title">30-Day Guarantee</h6>
+              <p class="small text-muted mb-0">Easy returns within 30 days. Your confidence is our top priority.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-5 sf-reveal">
+          <p class="eyebrow">Loved By Many</p>
+          <h2 class="section-title">What Our Community Says</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4 sf-reveal">
+            <div class="testimonial-card h-100">
+              <div class="stars-gold mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+              <p class="mb-3">"My skin has never felt this soft. The Rose Radiance Serum is now a permanent part of my routine."</p>
+              <strong>— Amara K.</strong>
+            </div>
+          </div>
+          <div class="col-md-4 sf-reveal">
+            <div class="testimonial-card h-100">
+              <div class="stars-gold mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+              <p class="mb-3">"Packaging feels so luxurious, and the formulas actually deliver. Sisfora is the real deal."</p>
+              <strong>— Layla M.</strong>
+            </div>
+          </div>
+          <div class="col-md-4 sf-reveal">
+            <div class="testimonial-card h-100">
+              <div class="stars-gold mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+              <p class="mb-3">"Fast shipping and the moisturizer shade is stunning. Will absolutely reorder from Sisfora."</p>
+              <strong>— Sana R.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Newsletter + Footer -->
+  <section class="newsletter-band py-5">
+    <div class="container text-center">
+      <p class="eyebrow mb-2">Stay In The Glow</p>
+      <h3 class="section-title mb-3">Join the Sisfora Circle</h3>
+      <p class="section-subtitle mx-auto mb-4">Be the first to know about new arrivals, exclusive offers, and beauty rituals — straight to your inbox.</p>
+      <form class="d-flex justify-content-center flex-wrap gap-2" id="newsletterForm" style="max-width:460px;margin:0 auto;">
+        <input type="email" required class="form-control" placeholder="Your email address" style="max-width:300px;" />
+        <button type="submit" class="btn btn-sisfora">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="sf-footer pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a href="/" class="d-inline-block mb-2"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img sf-logo-img--footer"></a>
+          <p class="small mb-3">Reveal Your Natural Beauty. Sisfora crafts clean, luxurious cosmetics designed to celebrate every skin story.</p>
+          <div class="d-flex gap-2">
+            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6">
+          <h6>Shop</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="/shop">All Products</a></li>
+            <li class="mb-2"><a href="/best-sellers">Best Sellers</a></li>
+            <li class="mb-2"><a href="/new-arrivals">New Arrivals</a></li>
+            <li class="mb-2"><a href="/offers">Offers</a></li>
+            <li class="mb-2"><a href="/categories">Categories</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6">
+          <h6>Company</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="/about">About Us</a></li>
+            <li class="mb-2"><a href="/blog">Journal</a></li>
+            <li class="mb-2"><a href="/contact">Contact</a></li>
+            <li class="mb-2"><a href="/faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 col-6">
+          <h6>Legal</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="/privacy-policy">Privacy Policy</a></li>
+            <li class="mb-2"><a href="/terms">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6>Account</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="/profile">My Account</a></li>
+            <li class="mb-2"><a href="/profile?tab=orders">Order History</a></li>
+            <li class="mb-2"><a href="/cart">Cart</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="sf-footer-bottom mt-4 pt-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 Sisfora. All rights reserved.</span>
+        <span>Crafted with <i class="bi bi-heart-fill text-pink"></i> for natural beauty</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sfToast" class="toast-sf"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/product.js"></script>
+  <script>
+    // Mark current page as active in the navbar
+    document.querySelectorAll('.navbar-sisfora .nav-link').forEach(function(link) {
+      if (link.getAttribute('href') === window.location.pathname) link.classList.add('active');
+    });
+
+    // Load New Arrivals on the homepage
+    document.addEventListener('DOMContentLoaded', function() {
+      var naGrid = document.getElementById('homeNewArrivalsGrid');
+      if (naGrid) sfLoadTaggedProducts(naGrid, 'newarrival', { limit: 8 });
+    });
+  </script>
+</body>
+</html>

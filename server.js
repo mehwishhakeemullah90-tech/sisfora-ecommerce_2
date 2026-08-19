@@ -111,6 +111,13 @@ app.use((req, res, next) => {
 });
 
 // ---------------------------------------------------------------------
+// Public config endpoint — returns non-sensitive frontend configuration
+// ---------------------------------------------------------------------
+app.get('/api/config', (req, res) => {
+  res.json({ stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '' });
+});
+
+// ---------------------------------------------------------------------
 // API routes (JSON)
 // ---------------------------------------------------------------------
 app.use('/api/auth', require('./routes/authRoutes'));

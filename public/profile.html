@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | Sisfora</title>
+  <meta name="description" content="Manage your Sisfora account, orders, and wishlist." />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div class="sf-topbar py-2 px-3 d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-truck me-1"></i> Free shipping on orders over $50</span>
+      <span>Reveal Your Natural Beauty ✦ <a href="/offers">Shop the Sale</a></span>
+      <span><i class="bi bi-telephone me-1"></i> +92 300 1234567</span>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-sisfora sticky-top" id="sfNavbar">
+    <div class="container">
+      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img"></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sfNavMenu" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="sfNavMenu">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="/shop">SHOP</a></li>
+          <li class="nav-item"><a class="nav-link" href="/categories">CATEGORIES</a></li>
+          <li class="nav-item"><a class="nav-link" href="/best-sellers">BEST SELLERS</a></li>
+          <li class="nav-item"><a class="nav-link" href="/new-arrivals">NEW IN</a></li>
+          <li class="nav-item"><a class="nav-link" href="/offers">OFFERS</a></li>
+        </ul>
+        <div class="d-flex align-items-center ms-lg-3">
+          <a href="#" class="nav-icon-link d-none d-lg-inline" id="searchToggle" aria-label="Search"><i class="bi bi-search"></i></a>
+          <div class="dropdown d-inline">
+            <a href="#" class="nav-icon-link" data-bs-toggle="dropdown" aria-label="Account"><i class="bi bi-person"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end mt-2">
+              <li><a class="dropdown-item small" href="/profile">My Account</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item small" href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+          </div>
+          <a href="/profile?tab=wishlist" class="nav-icon-link" aria-label="Wishlist">
+            <i class="bi bi-heart"></i><span class="badge-count d-none" id="wishlistCount">0</span>
+          </a>
+          <a href="/cart" class="nav-icon-link" aria-label="Cart">
+            <i class="bi bi-bag"></i><span class="badge-count d-none" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="profilePage">
+    <section class="section-sm bg-blush">
+      <div class="container">
+        <h1 class="section-title mb-1">My Account</h1>
+        <p class="text-muted" id="profileWelcome">Welcome back!</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="row g-4">
+
+          <!-- Sidebar -->
+          <div class="col-lg-3">
+            <div class="admin-card p-0 overflow-hidden mb-4">
+              <nav class="nav flex-column">
+                <a class="nav-link px-4 py-3 profile-tab-link border-bottom active" href="#" data-tab="profile">
+                  <i class="bi bi-person me-2"></i>Profile
+                </a>
+                <a class="nav-link px-4 py-3 profile-tab-link border-bottom" href="#" data-tab="orders">
+                  <i class="bi bi-bag me-2"></i>Order History
+                </a>
+                <a class="nav-link px-4 py-3 profile-tab-link border-bottom" href="#" data-tab="wishlist">
+                  <i class="bi bi-heart me-2"></i>Wishlist
+                </a>
+                <a class="nav-link px-4 py-3 profile-tab-link" href="#" data-tab="password">
+                  <i class="bi bi-shield-lock me-2"></i>Change Password
+                </a>
+              </nav>
+            </div>
+            <button class="btn btn-outline-sf w-100" id="logoutSidebarBtn">
+              <i class="bi bi-box-arrow-right me-2"></i>Sign Out
+            </button>
+          </div>
+
+          <!-- Main content -->
+          <div class="col-lg-9">
+
+            <!-- Profile tab -->
+            <div id="profileTabProfile" class="profile-tab-content">
+              <div class="admin-card p-4">
+                <div class="card-header-sf mb-4 pb-3 px-0">
+                  <h5 class="mb-0">Personal Information</h5>
+                </div>
+                <form id="profileForm" novalidate>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label" for="profileName">Full Name</label>
+                      <input type="text" id="profileName" name="name" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label" for="profilePhone">Phone Number</label>
+                      <input type="tel" id="profilePhone" name="phone" class="form-control" placeholder="+92 300 1234567" />
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label" for="profileEmail">Email Address</label>
+                      <input type="email" id="profileEmail" class="form-control" disabled />
+                    </div>
+                    <div class="col-12">
+                      <div id="profileUpdateMsg" class="d-none mb-2"></div>
+                      <button type="submit" class="btn btn-sisfora" id="profileUpdateBtn">Save Changes</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Orders tab -->
+            <div id="profileTabOrders" class="profile-tab-content d-none">
+              <div class="admin-card">
+                <div class="card-header-sf px-4 py-3">
+                  <h5 class="mb-0">Order History</h5>
+                </div>
+                <div id="ordersTableWrap" class="p-4">
+                  <div class="sf-skeleton mb-3" style="height:48px;"></div>
+                  <div class="sf-skeleton mb-3" style="height:48px;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wishlist tab -->
+            <div id="profileTabWishlist" class="profile-tab-content d-none">
+              <div class="row g-4" id="wishlistGrid">
+                <div class="col-12 py-5 text-center text-muted">
+                  <i class="bi bi-heart fs-2 d-block mb-3"></i>
+                  <p>Your wishlist is empty.</p>
+                  <a href="/shop" class="btn btn-sisfora">Explore Products</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password tab -->
+            <div id="profileTabPassword" class="profile-tab-content d-none">
+              <div class="admin-card p-4">
+                <div class="card-header-sf mb-4 pb-3 px-0">
+                  <h5 class="mb-0">Change Password</h5>
+                </div>
+                <form id="changePasswordForm" novalidate style="max-width:400px;">
+                  <div class="mb-3">
+                    <label class="form-label" for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" name="currentPassword" class="form-control" required />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="newPwd">New Password</label>
+                    <input type="password" id="newPwd" name="newPassword" class="form-control" required minlength="6" />
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label" for="confirmPwd">Confirm New Password</label>
+                    <input type="password" id="confirmPwd" name="confirmPassword" class="form-control" required />
+                  </div>
+                  <div id="passwordMsg" class="d-none mb-3"></div>
+                  <button type="submit" class="btn btn-sisfora">Update Password</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sf-footer pt-5 pb-3">
+    <div class="container">
+      <div class="sf-footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 Sisfora. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sfToast" class="toast-sf"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/product.js"></script>
+  <script src="/js/profile.js"></script>
+  <script>
+    // Tab navigation
+    var tabs = document.querySelectorAll('.profile-tab-link');
+    var contents = document.querySelectorAll('.profile-tab-content');
+    function showTab(tab) {
+      tabs.forEach(function(l) { l.classList.toggle('active', l.dataset.tab === tab); });
+      contents.forEach(function(c) { c.classList.toggle('d-none', c.id !== 'profileTab' + tab.charAt(0).toUpperCase() + tab.slice(1)); });
+    }
+    tabs.forEach(function(l) {
+      l.addEventListener('click', function(e) {
+        e.preventDefault();
+        showTab(this.dataset.tab);
+        history.replaceState(null, '', '/profile?tab=' + this.dataset.tab);
+      });
+    });
+    var urlTab = new URLSearchParams(window.location.search).get('tab');
+    if (urlTab) showTab(urlTab);
+
+    document.getElementById('logoutSidebarBtn').addEventListener('click', function() {
+      sfLogout && sfLogout();
+    });
+  </script>
+</body>
+</html>
