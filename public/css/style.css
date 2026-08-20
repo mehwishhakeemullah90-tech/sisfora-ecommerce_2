@@ -618,6 +618,190 @@ img {
 }
 
 /* =========================================================
+   PRODUCT CARD HOVER EFFECTS
+   Makes icons and "Add to Bag" button appear smoothly
+   when you hover over a product card — like sabbskin.pk
+========================================================= */
+
+/* The area that wraps the image and all the overlays */
+.product-media {
+  position: relative;  /* needed so child overlays can be positioned inside */
+  overflow: hidden;    /* hides the add-to-cart button before it slides in */
+}
+
+/* ---- Badges: -15%, Bestseller, New (top-left corner) ---- */
+.product-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;          /* stays above the image */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  pointer-events: none; /* badges don't block clicks */
+}
+
+/* Base badge style shared by all badge types */
+.sf-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+/* Gold badge for discount (e.g. -15%) */
+.sf-badge-sale        { background: var(--sf-gold); color: #fff; }
+/* Green badge for new arrivals */
+.sf-badge-new         { background: #3a7d52;        color: #fff; }
+/* Dark badge for bestsellers */
+.sf-badge-bestseller  { background: var(--sf-dark); color: #fff; }
+
+/* ---- Quick Action Icons (top-right: heart + eye) ---- */
+/* By default, icons are invisible and moved a little to the right */
+.product-quick-actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Hidden state — shifted right and transparent */
+  transform: translateX(20px);
+  opacity: 0;
+  /* Animation speed */
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+/* When you hover the whole card, the icons slide into view */
+.product-card:hover .product-quick-actions,
+.sf-product-card:hover .product-quick-actions {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Each small icon is a round white circle */
+.btn-sm-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;          /* makes it a circle */
+  background: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--sf-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  /* Animate color change on icon hover */
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  text-decoration: none;       /* removes underline from <a> elements */
+}
+
+/* Icon turns gold when you hover it directly */
+.btn-sm-icon:hover {
+  background: var(--sf-gold);
+  color: #fff;
+  transform: scale(1.1);       /* slight zoom for a nice touch */
+}
+
+/* Second icon appears slightly later — creates a cascade effect */
+.product-quick-actions .btn-sm-icon:nth-child(2) {
+  transition-delay: 0.05s;
+}
+
+/* ---- "Add to Bag" button (slides up from bottom of image) ---- */
+/* By default: pushed below the image, invisible */
+.add-to-cart-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-radius: 0;            /* full-width bar, no rounded corners */
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  z-index: 10;
+  /* Hidden state — button is below the visible area */
+  transform: translateY(100%);
+  opacity: 0;
+  /* Slide-up animation */
+  transition: transform 0.35s ease, opacity 0.3s ease;
+}
+
+/* Slide up to cover the bottom of the image on hover */
+.product-card:hover .add-to-cart-btn,
+.sf-product-card:hover .add-to-cart-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---- Product info text below the image ---- */
+.product-info {
+  padding: 14px 14px 16px;
+}
+
+/* Small brand label in gold (e.g. "SISFORA") */
+.product-category-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sf-gold);
+  margin-bottom: 4px;
+}
+
+/* Product name in serif font */
+.product-name {
+  font-family: var(--sf-serif);
+  font-size: 15px;
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.product-name a {
+  color: var(--sf-dark);
+  text-decoration: none;
+}
+
+.product-name a:hover {
+  color: var(--sf-gold);
+}
+
+/* Star rating row */
+.product-rating {
+  color: var(--sf-gold);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+/* Price row: current price + crossed-out old price */
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-current {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--sf-dark);
+}
+
+.price-old {
+  font-size: 12px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/* =========================================================
    WHY SISFORA
 ========================================================= */
 

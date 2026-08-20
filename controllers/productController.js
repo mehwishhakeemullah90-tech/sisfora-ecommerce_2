@@ -35,6 +35,7 @@ exports.getProducts = asyncHandler(async (req, res) => {
   if (tag === 'bestseller') query.isBestSeller = true;
   if (tag === 'newarrival') query.isNewArrival = true;
   if (tag === 'offer') query.discountPrice = { $gt: 0 };
+  if (tag === 'featured') query.isFeatured = true;
 
   let sortOption = { createdAt: -1 };
   if (sort === 'price_asc') sortOption = { price: 1 };
