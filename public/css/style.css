@@ -86,15 +86,19 @@ img {
 ========================================================= */
 
 .navbar-sisfora {
-  background: rgba(27, 23, 21, .98);
-  min-height: 92px;
-  border-bottom: 1px solid rgba(181, 138, 60, .25);
-  box-shadow: 0 5px 25px rgba(0, 0, 0, .12);
+  background: #ffffff;
+  min-height: 72px;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
   z-index: 999;
 }
 
+.navbar-sisfora.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
+}
+
 .navbar-sisfora .container {
-  min-height: 92px;
+  min-height: 72px;
 }
 
 /* Logo */
@@ -105,47 +109,48 @@ img {
 }
 
 .sf-logo-img {
-  width: 96px;
-  height: 70px;
+  width: 80px;
+  height: 58px;
   object-fit: contain;
   transition: var(--sf-transition);
 }
 
 .sf-logo-brand:hover .sf-logo-img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 /* Navigation */
 
 .navbar-sisfora .navbar-nav {
-  gap: 4px;
+  gap: 0;
 }
 
 .navbar-sisfora .nav-link {
   position: relative;
-  color: #cdbb98;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  padding: 34px 12px !important;
+  color: #2d2d2d;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  padding: 26px 14px !important;
   transition: var(--sf-transition);
+  text-transform: none;
 }
 
 .navbar-sisfora .nav-link::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: 22px;
+  bottom: 14px;
   width: 0;
-  height: 2px;
-  background: var(--sf-gold-light);
+  height: 1.5px;
+  background: #2d2d2d;
   transform: translateX(-50%);
   transition: width .35s ease;
 }
 
 .navbar-sisfora .nav-link:hover,
 .navbar-sisfora .nav-link.active {
-  color: #fff;
+  color: #000;
 }
 
 .navbar-sisfora .nav-link:hover::after,
@@ -157,9 +162,9 @@ img {
 
 .nav-icon-link {
   position: relative;
-  color: #cdbb98;
-  font-size: 22px;
-  margin-left: 17px;
+  color: #2d2d2d;
+  font-size: 20px;
+  margin-left: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -167,18 +172,18 @@ img {
 }
 
 .nav-icon-link:hover {
-  color: #fff;
-  transform: translateY(-3px);
+  color: #000;
+  transform: translateY(-2px);
 }
 
 .badge-count {
   position: absolute;
-  top: -10px;
-  right: -10px;
-  min-width: 19px;
-  height: 19px;
+  top: -8px;
+  right: -9px;
+  min-width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: var(--sf-gold);
+  background: #c8a45a;
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -188,7 +193,49 @@ img {
 }
 
 .navbar-toggler {
-  color: #d2b77d !important;
+  color: #333333 !important;
+}
+
+/* Search pill — inline desktop search box */
+
+.sf-search-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #f2f2f2;
+  border-radius: 50px;
+  padding: 8px 16px;
+  width: 210px;
+  margin-right: 2px;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: text;
+}
+
+.sf-search-pill:focus-within {
+  border-color: #d8d8d8;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, .04);
+  background: #fff;
+}
+
+.sf-search-pill .bi-search {
+  color: #888;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.sf-search-pill input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: #333;
+  width: 100%;
+  font-family: var(--sf-sans);
+}
+
+.sf-search-pill input::placeholder {
+  color: #aaa;
 }
 
 /* =========================================================
@@ -208,41 +255,41 @@ img {
 }
 
 .sf-dropdown-menu {
-  background: #fdf9f4;
-  border: 1px solid rgba(181, 138, 60, .2);
-  border-top: 2px solid var(--sf-gold);
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-top: 2px solid #2d2d2d;
   border-radius: 0 0 6px 6px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, .18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .08);
   padding: 8px 0;
-  min-width: 210px;
+  min-width: 200px;
   margin-top: 0 !important;
 }
 
 .sf-dropdown-item {
-  color: #3d2e29;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: .7px;
-  text-transform: uppercase;
+  color: #333333;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  text-transform: none;
   padding: 9px 22px;
   transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
 }
 
 .sf-dropdown-item:hover,
 .sf-dropdown-item:focus {
-  color: var(--sf-gold);
-  background: rgba(181, 138, 60, .06);
+  color: #000;
+  background: #f5f5f5;
   padding-left: 26px;
 }
 
 .sf-divider {
-  border-color: rgba(181, 138, 60, .18);
+  border-color: #eeeeee;
   margin: 4px 12px;
 }
 
-/* Keep parent link highlighted while the whole dropdown area is hovered */
+/* Keep parent link highlighted while dropdown area is hovered */
 .navbar-sisfora .sf-nav-dropdown:hover > .nav-link {
-  color: #fff;
+  color: #000;
 }
 
 .navbar-sisfora .sf-nav-dropdown:hover > .nav-link::after {
@@ -270,39 +317,60 @@ img {
   }
 }
 
-/* Mobile: accordion inline (not floating) */
+/* Mobile: light accordion menu */
 @media (max-width: 991px) {
+  .navbar-sisfora {
+    background: #ffffff;
+  }
+
+  .navbar-sisfora .navbar-collapse {
+    background: #ffffff;
+    border-top: 1px solid #eeeeee;
+    padding: 8px 0 12px;
+  }
+
+  .navbar-sisfora .nav-link {
+    padding: 12px 16px !important;
+    color: #2d2d2d;
+  }
+
   .navbar-sisfora .sf-nav-dropdown .sf-dropdown-menu {
     position: static;
     width: 100%;
     box-shadow: none;
-    border: 1px solid rgba(181, 138, 60, .15);
-    border-top: 1px solid rgba(181, 138, 60, .15);
-    border-radius: 3px;
-    background: rgba(20, 17, 15, .6);
+    border: 1px solid #eeeeee;
+    border-top: 1px solid #eeeeee;
+    border-radius: 4px;
+    background: #f8f8f8;
     margin: 0 0 6px 0 !important;
     padding: 4px 0;
   }
 
   .sf-dropdown-item {
-    color: #b8a887;
-    text-align: center;
-    font-size: 11px;
-    padding: 8px 16px;
+    color: #444444;
+    text-align: left;
+    font-size: 12px;
+    padding: 8px 20px;
   }
 
   .sf-dropdown-item:hover {
-    color: var(--sf-gold-light);
-    background: rgba(181, 138, 60, .08);
-    padding-left: 16px;
+    color: #000;
+    background: rgba(0, 0, 0, .04);
+    padding-left: 20px;
   }
 
   .navbar-sisfora .sf-nav-dropdown:hover > .nav-link {
-    color: #cdbb98;
+    color: #2d2d2d;
   }
 
   .navbar-sisfora .sf-nav-dropdown:hover > .nav-link::after {
     width: 0;
+  }
+
+  .sf-search-pill {
+    width: 100%;
+    margin: 8px 16px 4px;
+    width: calc(100% - 32px);
   }
 }
 

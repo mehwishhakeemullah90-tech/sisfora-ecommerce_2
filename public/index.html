@@ -31,10 +31,10 @@
       </button>
       <div class="collapse navbar-collapse" id="sfNavMenu">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 
           <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">SHOP <i class="bi bi-chevron-down sf-caret"></i></a>
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Shop <i class="bi bi-chevron-down sf-caret"></i></a>
             <ul class="dropdown-menu sf-dropdown-menu">
               <li><a class="dropdown-item sf-dropdown-item" href="/shop">All Products</a></li>
              
@@ -42,7 +42,7 @@
           </li>
 
           <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">CATEGORIES <i class="bi bi-chevron-down sf-caret"></i></a>
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories <i class="bi bi-chevron-down sf-caret"></i></a>
             <ul class="dropdown-menu sf-dropdown-menu">
               <li><a class="dropdown-item sf-dropdown-item" href="/categories">All Categories</a></li>
               <li><hr class="dropdown-divider sf-divider"></li>
@@ -54,7 +54,7 @@
           
 
           <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">NEW IN <i class="bi bi-chevron-down sf-caret"></i></a>
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">New In <i class="bi bi-chevron-down sf-caret"></i></a>
             <ul class="dropdown-menu sf-dropdown-menu">
               <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">New Products</a></li>
               <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">Latest Arrivals</a></li>
@@ -64,7 +64,7 @@
          
 
           <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">ABOUT <i class="bi bi-chevron-down sf-caret"></i></a>
+            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">About <i class="bi bi-chevron-down sf-caret"></i></a>
             <ul class="dropdown-menu sf-dropdown-menu">
               <li><a class="dropdown-item sf-dropdown-item" href="/about">About Sisfora</a></li>
               <li><a class="dropdown-item sf-dropdown-item" href="/about#story">Our Story</a></li>
@@ -73,11 +73,11 @@
 
         
 
-          <li class="nav-item"><a class="nav-link" href="/contact">CONTACT</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
         </ul>
         <div class="d-flex align-items-center ms-lg-3">
           <a href="#" class="nav-icon-link d-lg-none d-inline" id="mobileSearchToggle"><i class="bi bi-search"></i></a>
-          <a href="#" class="nav-icon-link d-none d-lg-inline" id="searchToggle" title="Search"><i class="bi bi-search"></i></a>
+          <form action="/shop" method="GET" class="sf-search-pill d-none d-lg-flex" id="sfSearchPill"><i class="bi bi-search"></i><input type="text" name="keyword" placeholder="I'm looking for..." autocomplete="off" /></form>
           <div class="dropdown d-inline">
             <a href="#" class="nav-icon-link" data-bs-toggle="dropdown" title="Account"><i class="bi bi-person"></i></a>
             <ul class="dropdown-menu dropdown-menu-end mt-2">
@@ -98,14 +98,6 @@
             <span class="badge-count d-none" id="cartCount">0</span>
           </a>
         </div>
-      </div>
-    </div>
-    <div class="collapse" id="sfSearchBar">
-      <div class="container py-3">
-        <form action="/shop" method="GET" class="d-flex">
-          <input type="text" name="keyword" class="form-control me-2" placeholder="Search for products..." autocomplete="off" />
-          <button class="btn btn-sisfora" type="submit"><i class="bi bi-search"></i></button>
-        </form>
       </div>
     </div>
   </nav>
