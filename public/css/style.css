@@ -1238,3 +1238,258 @@ button,
 .testimonial-card:hover {
   cursor: pointer;
 }
+
+/* =========================================================
+   PRODUCT DETAILS PAGE — REDESIGNED LAYOUT
+========================================================= */
+
+.pd-hero-section {
+  background: #ece9f4;
+}
+
+/* Vertical thumbnail column */
+.pd-thumbs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 76px;
+  flex-shrink: 0;
+}
+
+.pd-thumb-v {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.pd-thumb-v.active,
+.pd-thumb-v:hover {
+  border-color: #8880b8;
+}
+
+/* Discount pill overlaid on main image */
+.pd-discount-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
+  color: #444;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 13px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  letter-spacing: 0.3px;
+}
+
+/* Product title */
+.pd-title {
+  font-family: var(--sf-serif);
+  font-size: clamp(24px, 3.5vw, 34px);
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.2;
+}
+
+/* Review count label */
+.pd-review-count {
+  font-size: 13px;
+  color: #777;
+}
+
+/* "🔥 X sold in last 24 hours" */
+.pd-sold-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d94f1e;
+}
+
+/* Price */
+.pd-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  font-family: var(--sf-sans);
+  letter-spacing: -0.5px;
+}
+
+.pd-price-old {
+  font-size: 1.1rem;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+/* "X people viewing now" pill */
+.pd-viewing-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 50px;
+}
+
+/* Ask a question / Share links */
+.pd-action-link {
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.pd-action-link:hover {
+  color: #1a1a2e;
+  border-bottom-color: #1a1a2e;
+}
+
+/* Quantity stepper */
+.pd-qty-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pd-qty-btn {
+  width: 38px;
+  height: 46px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 300;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.15s;
+  line-height: 1;
+}
+
+.pd-qty-btn:hover {
+  background: #f0eef5;
+}
+
+.pd-qty-input {
+  width: 44px;
+  height: 46px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  color: #1a1a2e;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.pd-qty-input::-webkit-inner-spin-button,
+.pd-qty-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Add to Cart — pill, muted purple */
+.btn-pd-cart {
+  height: 46px;
+  border-radius: 50px;
+  background: #8880b8;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  padding: 0 20px;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.btn-pd-cart:hover:not(:disabled) {
+  background: #7068a8;
+  transform: translateY(-2px);
+}
+
+.btn-pd-cart:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Round icon buttons (wishlist / compare) */
+.btn-pd-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #ccc;
+  color: #444;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.btn-pd-icon:hover {
+  border-color: #8880b8;
+  color: #8880b8;
+  transform: scale(1.08);
+}
+
+/* Buy Now — full width, dark pill */
+.btn-pd-buynow {
+  height: 52px;
+  border-radius: 50px;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-pd-buynow:hover:not(:disabled) {
+  background: #2d2d48;
+  transform: translateY(-2px);
+}
+
+.btn-pd-buynow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+  .pd-thumbs-col {
+    width: 56px;
+  }
+  .pd-thumb-v {
+    width: 56px;
+    height: 56px;
+  }
+  .pd-qty-btn {
+    width: 32px;
+  }
+  .pd-qty-input {
+    width: 36px;
+  }
+}

@@ -47,18 +47,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     mainImage.src = images[0];
     mainImage.alt = product.name;
   }
+  // Show discount badge on image
+  const discountBadgeEl = document.getElementById('pdDiscountBadge');
+  if (discountBadgeEl && hasDiscount) {
+    discountBadgeEl.textContent = `-${discountPercent}%`;
+    discountBadgeEl.classList.remove('d-none');
+  }
+
   if (thumbsContainer && images.length) {
     thumbsContainer.innerHTML = images
       .map((img, i) =>
-        `<img src="${img}" data-full="${img}" class="pd-thumb border ${i === 0 ? 'border-dark' : ''}"
-          style="width:76px;height:76px;object-fit:cover;border-radius:4px;cursor:pointer;" alt="thumbnail" />`
+        `<img src="${img}" data-full="${img}" class="pd-thumb-v ${i === 0 ? 'active' : ''}" alt="Product thumbnail" />`
       )
       .join('');
-    document.querySelectorAll('.pd-thumb').forEach((thumb) => {
+    document.querySelectorAll('.pd-thumb-v').forEach((thumb) => {
       thumb.addEventListener('click', () => {
         if (mainImage) mainImage.src = thumb.dataset.full;
-        document.querySelectorAll('.pd-thumb').forEach((t) => t.classList.remove('border-dark'));
-        thumb.classList.add('border-dark');
+        document.querySelectorAll('.pd-thumb-v').forEach((t) => t.classList.remove('active'));
+        thumb.classList.add('active');
       });
     });
   }
@@ -67,41 +73,51 @@ document.addEventListener('DOMContentLoaded', async () => {
   const infoEl = document.getElementById('pdInfo');
   if (infoEl) {
     infoEl.innerHTML = `
-      <p class="product-category-label">${sfEscape(product.category?.name || '')} &middot; ${sfEscape(product.brand || '')}</p>
-      <h1 class="section-title" style="font-size:2rem;">${sfEscape(product.name)}</h1>
-      <div class="product-rating mb-2">
-        ${sfStars(product.ratingsAverage)}
-        <span class="text-muted small ms-1"><span id="pdReviewCount">0</span> reviews</span>
+      <h1 class="pd-title mb-2">${sfEscape(product.name)}</h1>
+      <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
+        <div class="product-rating">${sfStars(product.ratingsAverage)}</div>
+        <span class="pd-review-count"><span id="pdReviewCount">0</span> reviews</span>
+        <span class="pd-sold-badge"><i class="bi bi-fire me-1"></i>15 sold in last 24 hours</span>
       </div>
-      <div class="mb-3">
-        <span class="fs-4 fw-semibold">${sfCurrency(finalPrice)}</span>
-        ${hasDiscount
-          ? `<span class="price-old fs-6 ms-2">${sfCurrency(product.price)}</span>
-             <span class="sf-badge sf-badge-sale ms-2">-${discountPercent}%</span>`
-          : ''}
+      <div class="d-flex align-items-baseline gap-3 mb-3">
+        <span class="pd-price">${sfCurrency(finalPrice)}</span>
+        ${hasDiscount ? `<span class="pd-price-old">${sfCurrency(product.price)}</span>` : ''}
       </div>
-      <p class="section-subtitle mb-4">${sfEscape(product.shortDescription || (product.description || '').slice(0, 180))}</p>
+      <div class="pd-viewing-pill mb-3">
+        <i class="bi bi-eye me-2"></i>30 people are viewing this right now
+      </div>
+      <div class="d-flex gap-4 mb-3">
+        <a href="/contact" class="pd-action-link"><i class="bi bi-question-circle me-1"></i>Ask a question</a>
+        <a href="#" class="pd-action-link" onclick="return false;"><i class="bi bi-share me-1"></i>Share</a>
+      </div>
+      <hr class="my-3">
       ${product.stock > 0
-        ? `<p class="text-success small mb-3"><i class="bi bi-check-circle"></i> In Stock (${product.stock} available)</p>`
-        : `<p class="text-danger small mb-3"><i class="bi bi-x-circle"></i> Out of Stock</p>`}
-      <div class="d-flex align-items-center gap-3 mb-4">
-        <div class="input-group" style="width:130px;">
-          <button class="btn btn-outline-secondary" type="button" id="pdQtyMinus">-</button>
-          <input type="number" id="pdQty" class="form-control text-center" value="1" min="1" max="${product.stock}">
-          <button class="btn btn-outline-secondary" type="button" id="pdQtyPlus">+</button>
+        ? `<p class="text-success small mb-3"><i class="bi bi-check-circle me-1"></i>In Stock (${product.stock} available)</p>`
+        : `<p class="text-danger small mb-3"><i class="bi bi-x-circle me-1"></i>Out of Stock</p>`}
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <div class="pd-qty-group">
+          <button class="pd-qty-btn" type="button" id="pdQtyMinus">-</button>
+          <input type="number" id="pdQty" class="pd-qty-input" value="1" min="1" max="${product.stock}" aria-label="Quantity">
+          <button class="pd-qty-btn" type="button" id="pdQtyPlus">+</button>
         </div>
-        <button id="pdAddToCartBtn" class="btn btn-sisfora flex-grow-1" ${product.stock === 0 ? 'disabled' : ''}
+        <button id="pdAddToCartBtn" class="btn-pd-cart flex-grow-1" ${product.stock === 0 ? 'disabled' : ''}
           data-id="${product._id}" data-name="${sfEscape(product.name)}" data-slug="${product.slug}"
           data-image="${images[0] || ''}" data-price="${finalPrice}" data-stock="${product.stock}">
-          <i class="bi bi-bag-plus me-1"></i> Add to Bag
+          Add to Cart
         </button>
-        <button class="btn-sm-icon js-toggle-wishlist" data-id="${product._id}" title="Add to wishlist">
+        <button class="btn-pd-icon js-toggle-wishlist" data-id="${product._id}" title="Add to wishlist" type="button">
           <i class="bi bi-heart"></i>
         </button>
+        <button class="btn-pd-icon" title="Compare" type="button">
+          <i class="bi bi-layers"></i>
+        </button>
       </div>
-      <div class="border-sf rounded-sf p-3 small text-muted">
-        <div class="mb-1"><i class="bi bi-truck me-2"></i>Free shipping on orders over $50</div>
-        <div><i class="bi bi-arrow-repeat me-2"></i>Easy 30-day returns</div>
+      <button class="btn-pd-buynow w-100 mb-4" ${product.stock === 0 ? 'disabled' : ''} id="pdBuyNowBtn" type="button">
+        <i class="bi bi-cart me-2"></i>Buy Now
+      </button>
+      <div class="d-flex gap-4 small text-muted">
+        <span><i class="bi bi-truck me-1"></i>Free shipping on orders over $50</span>
+        <span><i class="bi bi-arrow-repeat me-1"></i>Easy 30-day returns</span>
       </div>
     `;
   }
@@ -140,6 +156,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         Number(qtyInput?.value || 1)
       );
+    });
+  }
+
+  // Buy Now — add to cart then go to cart
+  const buyNowBtn = document.getElementById('pdBuyNowBtn');
+  if (buyNowBtn) {
+    buyNowBtn.addEventListener('click', () => {
+      sfAddToCart(
+        {
+          productId: product._id,
+          name: product.name,
+          slug: product.slug,
+          image: images[0] || '',
+          price: finalPrice,
+          stock: product.stock,
+        },
+        Number(qtyInput?.value || 1)
+      );
+      window.location.href = '/cart';
     });
   }
 

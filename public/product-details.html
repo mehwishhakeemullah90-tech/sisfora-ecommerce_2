@@ -97,7 +97,7 @@
   <main>
     <div id="productDetailsPage">
 
-      <section class="section-sm">
+      <section class="section-sm pd-hero-section">
         <div class="container">
           <p class="breadcrumb-sf" id="pdBreadcrumb">
             <a href="/">Home</a> / <a href="/shop">Shop</a>
@@ -105,16 +105,21 @@
         </div>
       </section>
 
-      <section class="section pt-2">
+      <section class="section pt-2 pd-hero-section">
         <div class="container">
           <div class="row g-5">
 
             <!-- Gallery -->
             <div class="col-lg-6">
-              <div class="product-media mb-3" style="aspect-ratio:1/1;">
-                <img id="pdMainImage" src="/images/products/placeholder.svg" class="w-100 h-100" style="object-fit:cover;border-radius:4px;" alt="Product" />
+              <div class="d-flex gap-2 align-items-start">
+                <div class="pd-thumbs-col" id="pdThumbs"></div>
+                <div class="flex-grow-1">
+                  <div class="product-media position-relative" style="aspect-ratio:1/1;border-radius:12px;overflow:hidden;">
+                    <img id="pdMainImage" src="/images/products/placeholder.svg" class="w-100 h-100" style="object-fit:cover;" alt="Product" />
+                    <span class="pd-discount-pill d-none" id="pdDiscountBadge"></span>
+                  </div>
+                </div>
               </div>
-              <div class="d-flex gap-2" id="pdThumbs"></div>
             </div>
 
             <!-- Info (populated by product-details.js) -->
@@ -213,7 +218,7 @@
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-4 col-md-6">
-          <a href="/" class="d-inline-block mb-2"><img src="/images/brand/sisforaimage.png" alt="Sisfora" class="sf-logo-img sf-logo-img--footer"></a>
+          <a href="/" class="d-inline-block mb-2"><img src="/images/brand/imagesisfora.png" alt="Sisfora" class="sf-logo-img sf-logo-img--footer"></a>
           <p class="small mb-3">Reveal Your Natural Beauty. Sisfora crafts clean, luxurious cosmetics designed to celebrate every skin story.</p>
           <div class="d-flex gap-2">
             <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>

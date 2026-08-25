@@ -64,25 +64,35 @@ exports.login = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Admin login (same as login but requires role === admin)
+// @desc    Admin login — accepts username "admin" shorthand OR full email
 // @route   POST /api/auth/admin-login
 // @access  Public
 exports.adminLogin = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  // Support both 'identifier' (new login form) and legacy 'email' field
+  const loginId = (req.body.identifier || req.body.email || '').trim();
+  const { password } = req.body;
 
-  // Validate that both fields were provided before calling .toLowerCase()
-  if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Email and password are required' });
+  if (!loginId || !password) {
+    return res.status(400).json({ success: false, message: 'Username/email and password are required' });
   }
 
-  const user = await User.findOne({ email: email.toLowerCase(), role: 'admin' }).select('+password');
+  let user;
+  if (loginId.toLowerCase() === 'admin') {
+    // "admin" is the shorthand — find whichever admin account is in the DB
+    user = await User.findOne({ role: 'admin' }).select('+password');
+  } else {
+    user = await User.findOne({ email: loginId.toLowerCase(), role: 'admin' }).select('+password');
+  }
 
   if (!user || !(await user.matchPassword(password))) {
     return res.status(401).json({ success: false, message: 'Invalid admin credentials' });
   }
+  if (!user.isActive) {
+    return res.status(403).json({ success: false, message: 'Admin account is deactivated' });
+  }
 
   generateToken(res, user._id);
-  res.json({ success: true, message: 'Welcome back, Admin', user: { id: user._id, name: user.name, role: user.role } });
+  res.json({ success: true, message: `Welcome back, ${user.name}!`, user: { id: user._id, name: user.name, role: user.role } });
 });
 
 // @desc    Logout (clear cookie)

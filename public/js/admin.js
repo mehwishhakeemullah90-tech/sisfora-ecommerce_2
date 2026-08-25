@@ -109,11 +109,22 @@ function initAdminLogin() {
   if (!form) return;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const btn = document.getElementById('adminLoginBtn');
+    const errorEl = document.getElementById('adminLoginError');
+    if (btn) { btn.disabled = true; btn.textContent = 'Signing in…'; }
+    if (errorEl) errorEl.classList.add('d-none');
     try {
-      await sfFetch('/api/auth/admin-login', { method: 'POST', body: { email: form.email.value, password: form.password.value } });
+      const identifier = (form.identifier || form.email)?.value?.trim();
+      await sfFetch('/api/auth/admin-login', { method: 'POST', body: { identifier, password: form.password.value } });
       window.location.href = '/admin/dashboard';
     } catch (err) {
-      sfToast(err.message, 'error');
+      if (errorEl) {
+        errorEl.textContent = err.message || 'Invalid credentials';
+        errorEl.classList.remove('d-none');
+      } else {
+        sfToast(err.message, 'error');
+      }
+      if (btn) { btn.disabled = false; btn.textContent = 'Login to Dashboard'; }
     }
   });
 }

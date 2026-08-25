@@ -20,16 +20,17 @@
       <a href="/" class="navbar-brand sf-logo">Sis<span>fora</span></a>
       <p class="text-muted small mt-1">Admin Dashboard</p>
     </div>
-    <form id="adminLoginForm">
+    <form id="adminLoginForm" novalidate>
       <div class="mb-3">
-        <label class="form-label">Admin Email</label>
-        <input type="email" name="email" class="form-control" required />
+        <label class="form-label">Username or Email</label>
+        <input type="text" name="identifier" class="form-control" required placeholder="admin" autocomplete="username" />
       </div>
       <div class="mb-4">
         <label class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" required />
+        <input type="password" name="password" class="form-control" required placeholder="••••••••" autocomplete="current-password" />
       </div>
-      <button type="submit" class="btn btn-sisfora w-100">Login to Dashboard</button>
+      <div id="adminLoginError" class="alert alert-danger d-none py-2 small mb-3"></div>
+      <button type="submit" class="btn btn-sisfora w-100" id="adminLoginBtn">Login to Dashboard</button>
     </form>
     <p class="text-center small text-muted mt-4 mb-0"><a href="/">&larr; Back to Storefront</a></p>
   </div>

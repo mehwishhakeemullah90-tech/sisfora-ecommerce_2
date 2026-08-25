@@ -144,13 +144,38 @@ app.use('/', require('./routes/pageRoutes'));
 app.use(notFound);
 app.use(errorHandler);
 
+// ---------------------------------------------------------------------
+// Ensure a default admin user exists so the panel is always accessible.
+// Runs once at startup; does nothing if an admin already exists.
+// ---------------------------------------------------------------------
+async function bootstrapAdmin() {
+  try {
+    await connectDB();
+    const User = require('./models/User');
+    const exists = await User.findOne({ role: 'admin' });
+    if (!exists) {
+      const name     = process.env.ADMIN_NAME     || 'Sisfora Admin';
+      const email    = process.env.ADMIN_EMAIL    || 'admin@sisfora.com';
+      const password = process.env.ADMIN_PASSWORD || 'admin000';
+      await User.create({ name, email, password, role: 'admin' });
+      console.log(`   ✅ Admin account created  — login: admin / ${password}`);
+    } else {
+      console.log(`   ✅ Admin account ready    — login at /admin/login`);
+    }
+  } catch (err) {
+    console.error('   ⚠️  Admin bootstrap failed:', err.message);
+  }
+}
+
 // On Vercel the platform handles HTTP — do not call app.listen().
 if (!process.env.VERCEL) {
   const PORT = process.env.PORT || 7001;
-  app.listen(PORT, () => {
+  app.listen(PORT, async () => {
     console.log(`\n🌸 Sisfora server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     console.log(`   Storefront:  http://localhost:${PORT}`);
-    console.log(`   Admin panel: http://localhost:${PORT}/admin/login\n`);
+    console.log(`   Admin panel: http://localhost:${PORT}/admin/login`);
+    await bootstrapAdmin();
+    console.log();
   });
 }
 
