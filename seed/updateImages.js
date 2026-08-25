@@ -5,9 +5,6 @@
 // This does NOT delete or recreate any products — it only patches
 // the thumbnail + images fields on existing records by name.
 
-const dns = require('dns');
-dns.setServers(['8.8.8.8', '1.1.1.1']);
-
 require('dotenv').config();
 const connectDB = require('../config/db');
 const Product = require('../models/Product');

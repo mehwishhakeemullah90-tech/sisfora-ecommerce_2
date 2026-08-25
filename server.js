@@ -1,8 +1,3 @@
-// Force Google/Cloudflare DNS so Atlas SRV records resolve on networks
-// where the ISP/system DNS blocks or mishandles SRV queries.
-const dns = require('dns');
-dns.setServers(['8.8.8.8', '1.1.1.1']);
-
 require('dotenv').config();
 
 const path = require('path');
