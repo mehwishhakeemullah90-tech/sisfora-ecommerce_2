@@ -164,7 +164,7 @@ async function bootstrapAdmin() {
 
 // On Vercel the platform handles HTTP — do not call app.listen().
 if (!process.env.VERCEL) {
-  const PORT = process.env.PORT || 7001;
+  const PORT = process.env.PORT || 7002;
   app.listen(PORT, async () => {
     console.log(`\n🌸 Sisfora server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     console.log(`   Storefront:  http://localhost:${PORT}`);
