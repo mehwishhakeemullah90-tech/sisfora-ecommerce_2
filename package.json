@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    
+  "dev": "node --max-old-space-size=4096 node_modules/nodemon/bin/nodemon.js server.js",
+
     "seed": "node seed/seedData.js",
     "seed:destroy": "node seed/seedData.js -d",
     "create-admin": "node scripts/createAdmin.js",

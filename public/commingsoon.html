@@ -112,6 +112,26 @@
     animation: breathe 2.4s ease-in-out infinite;
   }
 
+  /* Hero-placed variant of the same badge — enlarged into the page's
+     main focal element, standing in for the old headline. */
+  .status-pill.hero-badge{
+    gap: 12px;
+    padding: clamp(16px, 3vw, 22px) clamp(28px, 5vw, 44px);
+    border-radius: 60px;
+    font-size: clamp(15px, 2.4vw, 20px);
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    background: var(--surface);
+    box-shadow: 0 0 0 1px var(--line), 0 20px 60px -20px rgba(201,131,90,0.35);
+    margin-bottom: clamp(28px, 5vw, 44px);
+  }
+
+  .status-pill.hero-badge .dot{
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 14px var(--copper);
+  }
+
   /* ================= HERO ================= */
 
   main.hero{
@@ -415,14 +435,13 @@
 
   <header>
     <div class="logo">Sis<em>fora</em></div>
-    <div class="status-pill"><span class="dot"></span> Launching soon</div>
   </header>
 
   <main class="hero">
 
     <div class="eyebrow">Beauty &amp; care, at your door</div>
 
-    <h1>Your ritual,<br><em>reimagined</em>.</h1>
+    <div class="status-pill hero-badge"><span class="dot"></span> Launching soon</div>
 
     <p class="description">
       Sisfora connects you with verified beauty &amp; wellness professionals for salon-grade
