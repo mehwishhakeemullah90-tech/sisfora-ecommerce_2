@@ -54,6 +54,31 @@ app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
 
 // ---------------------------------------------------------------------
+// Coming Soon mode — when COMING_SOON_MODE=true, every public route gets
+// the Coming Soon page instead of the real site. Must run BEFORE
+// express.static() below, otherwise static() would serve the real
+// index.html for "/" before this gate ever runs. /admin, /api, /health
+// and static asset files (css/js/images/fonts/...) always bypass it so
+// the Admin Panel and backend APIs keep working normally.
+// ---------------------------------------------------------------------
+const COMING_SOON_PAGE = path.join(__dirname, 'public', 'commingsoon.html');
+const STATIC_ASSET_RE = /\.(css|js|mjs|json|png|jpe?g|gif|svg|ico|webp|avif|woff2?|ttf|eot|otf|map|mp4|webm|pdf)$/i;
+
+app.use((req, res, next) => {
+  if (process.env.COMING_SOON_MODE !== 'true') return next();
+
+  const bypass =
+    req.path.startsWith('/admin') ||
+    req.path.startsWith('/api') ||
+    req.path === '/health' ||
+    STATIC_ASSET_RE.test(req.path);
+
+  if (bypass) return next();
+
+  return res.sendFile(COMING_SOON_PAGE);
+});
+
+// ---------------------------------------------------------------------
 // Static assets — served BEFORE the DB middleware so CSS/JS/images
 // are delivered without opening a MongoDB connection on each request.
 // ---------------------------------------------------------------------

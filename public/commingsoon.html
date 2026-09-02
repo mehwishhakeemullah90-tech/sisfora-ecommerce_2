@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sisfora — Launching Soon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --ground:      #211915;
+    --surface:     #2B2119;
+    --line:        #453527;
+    --copper:      #C9835A;
+    --copper-dim:  #8C5A3B;
+    --blush:       #E7B6A6;
+    --gold:        #E3C08A;
+    --ink:         #F5EDE6;
+    --ink-muted:   #B8A69B;
+    --ink-faint:   #7C6A60;
+    --success:     #9BB08A;
+    --error:       #D08877;
+    --content-w:   440px;
+
+    --display: 'Fraunces', 'Iowan Old Style', ui-serif, Georgia, serif;
+    --body:    'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ color-scheme: dark; }
+
+  body{
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  /* ================= AMBIENT BACKDROP (interactive particle network) ================= */
+
+  #bg-canvas{
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--ground);
+  }
+
+  /* ================= LAYOUT SHELL ================= */
+
+  .page{
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ================= HEADER ================= */
+
+  header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .logo{
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .logo em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--copper);
+  }
+
+  .status-pill{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .status-pill .dot{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--copper);
+    box-shadow: 0 0 8px var(--copper);
+    animation: breathe 2.4s ease-in-out infinite;
+  }
+
+  /* ================= HERO ================= */
+
+  main.hero{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 0;
+    animation: rise 0.7s ease both;
+  }
+
+  .eyebrow{
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blush);
+    margin-bottom: 24px;
+  }
+
+  h1{
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(38px, 6.5vw, 64px);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--copper);
+  }
+
+  .description{
+    max-width: var(--content-w);
+    color: var(--ink-muted);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 auto 40px;
+    text-wrap: balance;
+  }
+
+  /* ================= COUNTDOWN ================= */
+
+  .countdown{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 2vw, 16px);
+    margin-bottom: 40px;
+  }
+
+  .unit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+  }
+
+  .unit strong{
+    font-family: var(--display);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    font-size: clamp(28px, 5.5vw, 42px);
+    line-height: 1;
+  }
+
+  .unit small{
+    margin-top: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .colon{
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(22px, 4vw, 32px);
+    color: var(--line);
+    transform: translateY(-8px);
+  }
+
+  /* ================= NOTIFY FORM ================= */
+
+  .notify{
+    width: 100%;
+    max-width: var(--content-w);
+  }
+
+  .notify-row{
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+  }
+
+  .notify-row:focus-within{ border-color: var(--copper); }
+
+  .notify input{
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 14px;
+    padding: 11px 12px;
+  }
+
+  .notify input::placeholder{ color: var(--ink-faint); }
+
+  .notify button{
+    flex-shrink: 0;
+    padding: 11px 20px;
+    background: var(--copper);
+    color: #1B120B;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .notify button:hover{
+    background: var(--blush);
+    transform: translateY(-2px);
+  }
+
+  .notify-row input:focus-visible,
+  .notify button:focus-visible{
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
+
+  .notify-note{
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    min-height: 14px;
+  }
+
+  .notify-note.is-error{ color: var(--error); }
+
+  .notify.is-done .notify-row{ display: none; }
+
+  .success-badge{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 18px;
+    background: rgba(155,176,138,0.1);
+    border: 1px solid rgba(155,176,138,0.35);
+    border-radius: 12px;
+    color: var(--success);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .notify.is-done .success-badge{ display: flex; }
+
+  .shake{ animation: shake 0.4s ease; }
+
+  /* ================= STAT STRIP ================= */
+
+  .stats{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 36px);
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .stat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .stat strong{
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .stat span{
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .stat-divider{
+    width: 1px;
+    height: 28px;
+    background: var(--line);
+  }
+
+  /* ================= FOOTER ================= */
+
+  footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .copyright{
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .social{ display: flex; gap: 10px; }
+
+  .social a{
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--ink-muted);
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .social a:hover{
+    color: var(--copper);
+    border-color: var(--copper);
+    transform: translateY(-2px);
+  }
+
+  .social svg{ width: 15px; height: 15px; }
+
+  /* ================= MOTION ================= */
+
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(12px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes breathe{
+    0%, 100%{ opacity: 1; }
+    50%{ opacity: 0.35; }
+  }
+
+  @keyframes shake{
+    0%, 100%{ transform: translateX(0); }
+    25%{ transform: translateX(-5px); }
+    75%{ transform: translateX(5px); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ================= RESPONSIVE ================= */
+
+  @media (max-width: 560px){
+    .page{ padding: 24px 18px; }
+    main.hero{ padding: 36px 0; }
+    .description{ font-size: 15px; }
+    .countdown{ gap: 8px; }
+    .unit{ min-width: 50px; }
+    .stats{ gap: 14px; flex-wrap: wrap; row-gap: 16px; }
+    footer{ justify-content: center; text-align: center; }
+  }
+
+  @media (max-width: 380px){
+    .notify-row{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<div class="page">
+
+  <header>
+    <div class="logo">Sis<em>fora</em></div>
+    <div class="status-pill"><span class="dot"></span> Launching soon</div>
+  </header>
+
+  <main class="hero">
+
+    <div class="eyebrow">Beauty &amp; care, at your door</div>
+
+    <h1>Your ritual,<br><em>reimagined</em>.</h1>
+
+    <p class="description">
+      Sisfora connects you with verified beauty &amp; wellness professionals for salon-grade
+      care wherever you are. No queues, no compromises &mdash; just booked, styled, and on your way.
+    </p>
+
+    <div class="countdown" aria-label="Countdown to launch">
+      <div class="unit"><strong id="cd-days">00</strong><small>Days</small></div>
+      <div class="colon">:</div>
+      <div class="unit"><strong id="cd-hours">00</strong><small>Hours</small></div>
+      <div class="colon">:</div>
+      <div class="unit"><strong id="cd-mins">00</strong><small>Minutes</small></div>
+      <div class="colon">:</div>
+      <div class="unit"><strong id="cd-secs">00</strong><small>Seconds</small></div>
+    </div>
+
+    <form class="notify" id="notify-form" novalidate>
+      <div class="notify-row">
+        <input type="email" id="notify-email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" required>
+        <button type="submit">Notify me</button>
+      </div>
+      <div class="success-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+        <span id="success-text">You're on the list</span>
+      </div>
+      <p class="notify-note" id="notify-note">No spam &mdash; just one email, the day we open our doors.</p>
+    </form>
+
+    <div class="stats">
+      <div class="stat"><strong>1,200+</strong><span>Professionals</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>8 Cities</strong><span>Covered</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>4.9 &#9733;</strong><span>Avg. rating</span></div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="copyright">&copy; 2026 Sisfora. All rights reserved.</div>
+    <div class="social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var LAUNCH = new Date("2026-09-21T00:00:00+05:00").getTime();
+
+  var els = {
+    d: document.getElementById('cd-days'),
+    h: document.getElementById('cd-hours'),
+    m: document.getElementById('cd-mins'),
+    s: document.getElementById('cd-secs')
+  };
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    var dist = LAUNCH - Date.now();
+    if (dist < 0) dist = 0;
+    els.d.textContent = pad(Math.floor(dist / 86400000));
+    els.h.textContent = pad(Math.floor((dist % 86400000) / 3600000));
+    els.m.textContent = pad(Math.floor((dist % 3600000) / 60000));
+    els.s.textContent = pad(Math.floor((dist % 60000) / 1000));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+  var form = document.getElementById('notify-form');
+  var input = document.getElementById('notify-email');
+  var row = form.querySelector('.notify-row');
+  var note = document.getElementById('notify-note');
+  var successText = document.getElementById('success-text');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var value = input.value.trim();
+    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+    if (!valid){
+      note.textContent = 'That email doesn\'t look right — mind checking it?';
+      note.className = 'notify-note is-error';
+      row.classList.remove('shake');
+      void row.offsetWidth;
+      row.classList.add('shake');
+      input.focus();
+      return;
+    }
+
+    successText.textContent = "You're on the list — we'll email " + value;
+    form.classList.add('is-done');
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Interactive particle-network backdrop, tuned to Sisfora's warm copper/gold palette.
+  var canvas = document.getElementById('bg-canvas');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var W, H, DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var particles = [];
+  var ripples = [];
+  var tick = 0;
+  var mouse = { x: -9999, y: -9999 };
+
+  var COLORS = [
+    { r: 201, g: 131, b: 90  }, // copper
+    { r: 227, g: 192, b: 138 }, // gold
+    { r: 231, g: 182, b: 166 }  // blush
+  ];
+
+  function rgba(c, a){ return 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + a + ')'; }
+
+  function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  function mkParticle(){
+    var color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    var baseR = 1 + Math.random() * 1.6;
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.32,
+      vy: (Math.random() - 0.5) * 0.32,
+      baseR: baseR,
+      r: baseR,
+      color: color,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.015 + Math.random() * 0.02
+    };
+  }
+
+  function initParticles(){
+    var n = W < 640 ? 34 : (W < 1100 ? 50 : 64);
+    particles = [];
+    for (var i = 0; i < n; i++) particles.push(mkParticle());
+  }
+
+  function update(){
+    tick++;
+    particles.forEach(function(p){
+      p.r = p.baseR + Math.sin(tick * p.speed + p.phase) * 0.5;
+
+      var dx = p.x - mouse.x, dy = p.y - mouse.y;
+      var d = Math.hypot(dx, dy);
+      if (d < 100 && d > 0){
+        var force = (100 - d) / 100 * 1.1;
+        p.x += (dx / d) * force;
+        p.y += (dy / d) * force;
+      }
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < -20) p.x = W + 20;
+      if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20;
+      if (p.y > H + 20) p.y = -20;
+    });
+
+    ripples = ripples
+      .map(function(r){ return { x: r.x, y: r.y, radius: r.radius + 3.2, opacity: r.opacity - 0.02 }; })
+      .filter(function(r){ return r.opacity > 0; });
+  }
+
+  function drawBg(){
+    var t = tick * 0.0025;
+    var grd = ctx.createRadialGradient(
+      W * (0.32 + 0.1 * Math.sin(t)),
+      H * (0.28 + 0.1 * Math.cos(t * 0.7)),
+      0,
+      W * 0.5, H * 0.5, Math.max(W, H) * 0.85
+    );
+    grd.addColorStop(0, '#332619');
+    grd.addColorStop(0.55, '#211915');
+    grd.addColorStop(1, '#140E0B');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  var MAX_DIST = 130, MAX_MOUSE = 170;
+
+  function drawLines(){
+    for (var i = 0; i < particles.length; i++){
+      var a = particles[i];
+
+      for (var j = i + 1; j < particles.length; j++){
+        var b = particles[j];
+        var d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d > MAX_DIST) continue;
+        var alpha = (1 - d / MAX_DIST) * 0.3;
+        var grad = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+        grad.addColorStop(0, rgba(a.color, alpha));
+        grad.addColorStop(1, rgba(b.color, alpha));
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+
+      var dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (dm < MAX_MOUSE){
+        var malpha = (1 - dm / MAX_MOUSE) * 0.55;
+        var mgrad = ctx.createLinearGradient(a.x, a.y, mouse.x, mouse.y);
+        mgrad.addColorStop(0, rgba(a.color, malpha));
+        mgrad.addColorStop(1, 'rgba(245,237,230,' + (malpha * 0.5) + ')');
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = mgrad;
+        ctx.lineWidth = 0.7;
+        ctx.stroke();
+      }
+    }
+  }
+
+  function drawDots(){
+    particles.forEach(function(p){
+      var grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      grd.addColorStop(0, rgba(p.color, 0.25));
+      grd.addColorStop(1, rgba(p.color, 0));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(p.color, 1);
+      ctx.shadowBlur = 9;
+      ctx.shadowColor = rgba(p.color, 0.8);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+  }
+
+  function drawRipples(){
+    ripples.forEach(function(r){
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(201,131,90,' + r.opacity + ')';
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.radius * 0.55, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(227,192,138,' + (r.opacity * 0.7) + ')';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+  }
+
+  function frame(){
+    update();
+    drawBg();
+    drawLines();
+    drawDots();
+    drawRipples();
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', function(){ resize(); initParticles(); });
+
+  window.addEventListener('mousemove', function(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  window.addEventListener('mouseleave', function(){
+    mouse.x = -9999;
+    mouse.y = -9999;
+  });
+
+  window.addEventListener('click', function(e){
+    ripples.push({ x: e.clientX, y: e.clientY, radius: 0, opacity: 0.8 });
+    particles.forEach(function(p){
+      var dx = p.x - e.clientX, dy = p.y - e.clientY;
+      var d = Math.hypot(dx, dy);
+      if (d < 160 && d > 0){
+        var f = (160 - d) / 160 * 2.4;
+        p.vx += (dx / d) * f;
+        p.vy += (dy / d) * f;
+        (function(pt){ setTimeout(function(){ pt.vx *= 0.3; pt.vy *= 0.3; }, 300); })(p);
+      }
+    });
+  });
+
+  resize();
+  initParticles();
+
+  if (reduceMotion){
+    // Static single frame — no continuous motion, no mouse-driven redraws.
+    drawBg();
+    drawDots();
+  } else {
+    frame();
+  }
+})();
+</script>
+
+</body>
+</html>
