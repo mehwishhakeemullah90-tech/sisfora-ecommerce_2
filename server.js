@@ -65,7 +65,8 @@ const COMING_SOON_PAGE = path.join(__dirname, 'public', 'commingsoon.html');
 const STATIC_ASSET_RE = /\.(css|js|mjs|json|png|jpe?g|gif|svg|ico|webp|avif|woff2?|ttf|eot|otf|map|mp4|webm|pdf)$/i;
 
 app.use((req, res, next) => {
-  if (process.env.COMING_SOON_MODE !== 'true') return next();
+  const comingSoonOn = String(process.env.COMING_SOON_MODE || '').trim().toLowerCase() === 'true';
+  if (!comingSoonOn) return next();
 
   const bypass =
     req.path.startsWith('/admin') ||
