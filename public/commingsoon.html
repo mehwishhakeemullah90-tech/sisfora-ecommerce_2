@@ -34,7 +34,7 @@
     background: var(--ground);
     color: var(--ink);
     font-family: var(--body);
-    min-height: 100vh;
+    /* min-height: 100vh; */
     overflow-x: hidden;
     position: relative;
     -webkit-font-smoothing: antialiased;
@@ -61,7 +61,7 @@
     width: 100%;
     max-width: 780px;
     margin: 0 auto;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
@@ -78,7 +78,7 @@
 
   .logo{
     font-family: var(--display);
-    font-size: 22px;
+    font-size: 42px;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
@@ -411,6 +411,27 @@
   }
 
   /* ================= RESPONSIVE ================= */
+
+  /* Desktop: the page is exactly one screen tall, and spacing/sizes scale with
+     the screen height (vh) so the content always fits without a scrollbar.
+     On tall screens the values hit their maximum, which is the original design. */
+  @media (min-width: 561px){
+    .page{ height: 100vh; padding: clamp(12px, 2.5vh, 32px) 24px; }
+    main.hero{ min-height: 0; padding: clamp(4px, 1vh, 48px) 0; }
+    .eyebrow{ margin-bottom: clamp(8px, 2vh, 24px); }
+    .status-pill.hero-badge{
+      padding: clamp(8px, 2vh, 22px) clamp(28px, 5vw, 44px);
+      font-size: clamp(14px, 2.4vh, 20px);
+      margin-bottom: clamp(10px, 2.5vh, 44px);
+    }
+    .description{ font-size: clamp(13px, 1.9vh, 16px); margin-bottom: clamp(10px, 2.5vh, 40px); }
+    .countdown{ margin-bottom: clamp(10px, 2.5vh, 40px); }
+    .unit strong{ font-size: clamp(24px, min(5.5vw, 5.5vh), 42px); }
+    .unit small{ margin-top: clamp(4px, 1vh, 8px); }
+    .notify-note{ margin-top: clamp(6px, 1.2vh, 12px); }
+    .stats{ margin-top: clamp(10px, 2.5vh, 48px); padding-top: clamp(8px, 2vh, 28px); }
+    footer{ padding-top: clamp(6px, 1.5vh, 24px); }
+  }
 
   @media (max-width: 560px){
     .page{ padding: 24px 18px; }
