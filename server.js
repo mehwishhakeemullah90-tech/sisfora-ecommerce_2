@@ -83,12 +83,6 @@ app.use((req, res, next) => {
 // Static assets — served BEFORE the DB middleware so CSS/JS/images
 // are delivered without opening a MongoDB connection on each request.
 // ---------------------------------------------------------------------
-if (process.env.VERCEL === '1') {
-  const fs = require('fs');
-  const tmpUploads = '/tmp/uploads';
-  if (!fs.existsSync(tmpUploads)) fs.mkdirSync(tmpUploads, { recursive: true });
-  app.use('/uploads', express.static(tmpUploads));
-}
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Health-check endpoint — always reachable, reports exact DB error so

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://sisfora-ecommerce-2.vercel.app/api/categories\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('categories:', [c['name'] for c in d.get\\('data',d.get\\('categories',[]\\)\\)]\\)\")",
+      "Bash(curl -s -X POST https://sisfora-ecommerce-2.vercel.app/api/contact -H 'Content-Type: application/json' -d '{\"fullName\":\"Test User\",\"email\":\"test@test.com\",\"subject\":\"Deployment Test\",\"message\":\"This is a deployment verification test.\"}')"
+    ]
+  }
+}

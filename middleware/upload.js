@@ -1,29 +1,29 @@
 // middleware/upload.js
 // -----------------------------------------------------------------------
 // Multer configuration for product / avatar / blog image uploads.
-// Files are stored on disk under public/uploads so they can be served
-// statically. In production you'd typically swap the storage engine for
-// an S3 / Cloudinary adapter — the rest of the app just needs a URL back.
+// Files are streamed straight to Cloudinary, so nothing touches the local
+// disk (Vercel's filesystem is ephemeral). req.file.path / f.path hold the
+// permanent https:// Cloudinary URL.
 // -----------------------------------------------------------------------
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-// Vercel's filesystem is read-only; use /tmp for uploads there.
-// Locally, files go to public/uploads/ and are served as static assets.
-const uploadDir = process.env.VERCEL === '1'
-  ? '/tmp/uploads'
-  : path.join(__dirname, '..', 'public', 'uploads');
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, uploadDir);
-  },
-  filename(req, file, cb) {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
-  },
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: (req, file) => ({
+    folder: 'sisfora/uploads',
+    resource_type: 'image',
+    public_id: `${file.fieldname}-${Date.now()}-${Math.round(Math.random() * 1e9)}`,
+  }),
 });
 
 function fileFilter(req, file, cb) {

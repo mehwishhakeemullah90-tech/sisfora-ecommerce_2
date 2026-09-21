@@ -6,7 +6,7 @@ A modern, luxury, fully responsive e-commerce platform for the Sisfora cosmetics
 - **Backend:** Node.js, Express.js, MongoDB, Mongoose
 - **Auth:** JWT (httpOnly cookies), bcrypt password hashing
 - **Payments:** Stripe (test mode) + Cash on Delivery
-- **Images:** Multer file uploads
+- **Images:** Multer + Cloudinary uploads
 
 ---
 
@@ -101,7 +101,7 @@ Cash on Delivery works out of the box with no configuration.
 
 - Set `NODE_ENV=production` and use strong, unique values for `JWT_SECRET`.
 - Use a managed MongoDB (Atlas) rather than a local instance.
-- Put a real image storage backend (S3, Cloudinary, etc.) behind `middleware/upload.js` instead of local disk if deploying to an ephemeral filesystem (e.g. most PaaS platforms).
+- Admin image uploads go to Cloudinary (`middleware/upload.js`); set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET` locally and in Vercel.
 - Switch Stripe to live keys once you're ready to accept real payments.
 - Put the app behind HTTPS (cookies are marked `secure` automatically when `NODE_ENV=production`).
 - Consider adding a process manager (PM2) or containerizing with Docker.
