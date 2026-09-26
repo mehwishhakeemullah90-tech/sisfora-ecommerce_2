@@ -2,12 +2,15 @@
 const asyncHandler = require('../middleware/asyncHandler');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
+const { liveCategorySlugs, isLiveCategorySlug, isAdminRequest } = require('../utils/liveCategories');
 
 // @desc    List all categories (with product counts)
 // @route   GET /api/categories
 // @access  Public
 exports.getCategories = asyncHandler(async (req, res) => {
-  const categories = await Category.find().sort({ name: 1 });
+  // Customers only see live categories (config/storefront.js); admins see all
+  const filter = isAdminRequest(req) ? {} : { slug: { $in: liveCategorySlugs() } };
+  const categories = await Category.find(filter).sort({ name: 1 });
   const withCounts = await Promise.all(
     categories.map(async (cat) => {
       const count = await Product.countDocuments({ category: cat._id, isActive: true });
@@ -22,7 +25,8 @@ exports.getCategories = asyncHandler(async (req, res) => {
 // @access  Public
 exports.getCategoryBySlug = asyncHandler(async (req, res) => {
   const category = await Category.findOne({ slug: req.params.slug });
-  if (!category) return res.status(404).json({ success: false, message: 'Category not found' });
+  const hidden = !isAdminRequest(req) && !isLiveCategorySlug(req.params.slug);
+  if (!category || hidden) return res.status(404).json({ success: false, message: 'Category not found' });
   const products = await Product.find({ category: category._id, isActive: true });
   res.json({ success: true, category, products });
 });

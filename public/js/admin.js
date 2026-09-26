@@ -245,8 +245,9 @@ async function initProducts() {
       form.category.value = product.category?._id || product.category;
       form.description.value = product.description;
       form.shortDescription.value = product.shortDescription || '';
-      form.price.value = product.price;
-      form.discountPrice.value = product.discountPrice || '';
+      // Stored in USD, edited in Rupees
+      form.price.value = sfToRupees(product.price);
+      form.discountPrice.value = product.discountPrice ? sfToRupees(product.discountPrice) : '';
       form.stock.value = product.stock;
       form.thumbnail.value = product.thumbnail;
       form.images.value = (product.images || []).join(', ');
@@ -278,8 +279,9 @@ async function initProducts() {
       category: form.category.value,
       description: form.description.value,
       shortDescription: form.shortDescription.value,
-      price: Number(form.price.value),
-      discountPrice: Number(form.discountPrice.value) || 0,
+      // Admin types Rupees; the database stores USD
+      price: sfFromRupees(form.price.value),
+      discountPrice: form.discountPrice.value ? sfFromRupees(form.discountPrice.value) : 0,
       stock: Number(form.stock.value),
       thumbnail: form.thumbnail.value || '/images/products/placeholder.svg',
       images: form.images.value ? form.images.value.split(',').map((s) => s.trim()) : ['/images/products/placeholder.svg'],
@@ -604,9 +606,10 @@ async function initCoupons() {
           code: form.code.value,
           description: form.description.value,
           discountType: form.discountType.value,
-          discountValue: Number(form.discountValue.value),
-          minOrderAmount: Number(form.minOrderAmount.value) || 0,
-          maxDiscountAmount: form.maxDiscountAmount.value ? Number(form.maxDiscountAmount.value) : undefined,
+          // Percentages stay as-is; money amounts are typed in Rupees and stored in USD
+          discountValue: form.discountType.value === 'percentage' ? Number(form.discountValue.value) : sfFromRupees(form.discountValue.value),
+          minOrderAmount: sfFromRupees(form.minOrderAmount.value),
+          maxDiscountAmount: form.maxDiscountAmount.value ? sfFromRupees(form.maxDiscountAmount.value) : undefined,
           usageLimit: Number(form.usageLimit.value) || 100,
           expiresAt: form.expiresAt.value,
         },
@@ -648,7 +651,7 @@ async function initReports() {
       data: {
         labels: dailySales.map((d) => d._id),
         datasets: [
-          { label: 'Revenue', data: dailySales.map((d) => d.revenue), borderColor: '#c9a24b', backgroundColor: 'rgba(201,162,75,0.15)', fill: true, tension: 0.35 },
+          { label: 'Revenue (Rs.)', data: dailySales.map((d) => sfToRupees(d.revenue)), borderColor: '#c9a24b', backgroundColor: 'rgba(201,162,75,0.15)', fill: true, tension: 0.35 },
         ],
       },
       options: { responsive: true },

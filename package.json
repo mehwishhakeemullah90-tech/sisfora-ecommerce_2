@@ -9,7 +9,9 @@
     "seed": "node seed/seedData.js",
     "seed:destroy": "node seed/seedData.js -d",
     "create-admin": "node scripts/createAdmin.js",
-    "update:images": "node seed/updateImages.js"
+    "update:images": "node seed/updateImages.js",
+    "create-demo": "node scripts/createDemoUser.js",
+    "images:studio": "node seed/useStudioImages.js"
   },
   "keywords": [
     "ecommerce",

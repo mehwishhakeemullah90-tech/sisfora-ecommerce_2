@@ -8,6 +8,7 @@ const {
   deleteAddress,
   getWishlist,
   toggleWishlist,
+  mergeWishlist,
   getAllUsers,
   toggleUserActive,
 } = require('../controllers/userController');
@@ -18,6 +19,7 @@ router.post('/addresses', protect, addAddress);
 router.put('/addresses/:addressId', protect, updateAddress);
 router.delete('/addresses/:addressId', protect, deleteAddress);
 router.get('/wishlist', protect, getWishlist);
+router.post('/wishlist/merge', protect, mergeWishlist); // must stay above '/wishlist/:productId'
 router.post('/wishlist/:productId', protect, toggleWishlist);
 
 // Admin

@@ -9,9 +9,12 @@ const Order = require('../models/Order');
 const Product = require('../models/Product');
 const Coupon = require('../models/Coupon');
 const stripe = require('../config/stripe');
+const storefront = require('../config/storefront');
+const { sendOrderConfirmation } = require('../utils/orderEmail');
+const { usdToPkr } = require('../utils/currency');
 
-const SHIPPING_FLAT_RATE = 5.99;
-const FREE_SHIPPING_THRESHOLD = 50;
+const SHIPPING_FLAT_RATE = storefront.shippingFlatRate;
+const FREE_SHIPPING_THRESHOLD = storefront.freeShippingThreshold;
 const TAX_RATE = 0.0; // adjust per your jurisdiction
 
 // Helper: recompute authoritative pricing server-side from cart items,
@@ -62,9 +65,11 @@ exports.createPaymentIntent = asyncHandler(async (req, res) => {
   const shippingPrice = itemsPrice - discountAmount >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FLAT_RATE;
   const totalPrice = Math.max(0, itemsPrice - discountAmount) + shippingPrice + itemsPrice * TAX_RATE;
 
+  // totalPrice is in USD (like all stored prices); charge the same Rupee
+  // amount the customer saw. Stripe expects the smallest unit (paisa = rupees × 100).
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(totalPrice * 100), // Stripe expects cents
-    currency: (process.env.CURRENCY || 'usd').toLowerCase(),
+    amount: Math.round(usdToPkr(totalPrice)) * 100,
+    currency: storefront.currency.code.toLowerCase(), // 'pkr' (config/storefront.js)
     automatic_payment_methods: { enabled: true },
     metadata: { userId: req.user._id.toString() },
   });
@@ -145,6 +150,9 @@ exports.placeOrder = asyncHandler(async (req, res) => {
       })
     )
   );
+
+  // Order confirmation email to the customer (a mail problem never fails the order)
+  await sendOrderConfirmation(order, req.user, req);
 
   res.status(201).json({ success: true, order });
 });

@@ -30,7 +30,7 @@
     <button class="btn btn-sisfora btn-sm w-auto add-to-cart-btn js-add-to-cart"
       data-id="<%= p._id %>" data-name="<%= p.name %>" data-slug="<%= p.slug %>"
       data-image="<%= p.thumbnail || (p.images && p.images[0]) || '' %>" data-price="<%= finalPrice %>" data-stock="<%= p.stock %>">
-      <i class="bi bi-bag-plus me-1"></i> Add to Bag
+      <i class="bi bi-bag-plus me-1"></i> Add to Cart
     </button>
   </div>
   <div class="product-info">
@@ -43,8 +43,8 @@
       <span class="text-muted small">(<%= p.ratingsCount || 0 %>)</span>
     </div>
     <div class="product-price">
-      <span class="price-current">$<%= finalPrice.toFixed(2) %></span>
-      <% if (hasDiscount) { %><span class="price-old">$<%= p.price.toFixed(2) %></span><% } %>
+      <span class="price-current"><%= formatPrice(finalPrice) %></span>
+      <% if (hasDiscount) { %><span class="price-old"><%= formatPrice(p.price) %></span><% } %>
     </div>
   </div>
 </div>

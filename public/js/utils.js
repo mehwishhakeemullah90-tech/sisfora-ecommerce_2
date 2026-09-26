@@ -39,11 +39,27 @@ function sfToast(message, type = 'success') {
   window.__sfToastTimer = setTimeout(() => el.classList.remove('show'), 3200);
 }
 
-/** Formats a number as currency, e.g. 24.5 -> "$24.50" */
-function sfCurrency(amount) {
-  const currency = (window.SF_CURRENCY || 'USD').toUpperCase();
-  const symbol = currency === 'USD' ? '$' : `${currency} `;
-  return `${symbol}${Number(amount || 0).toFixed(2)}`;
+// ---------------------------------------------------------------------
+// Currency: prices are STORED in US Dollars and SHOWN in Pakistani Rupees.
+// The exchange rate lives in ONE place — config/storefront.js — and
+// reaches the browser through /js/site-config.js (window.SF_SITE).
+// ---------------------------------------------------------------------
+// Every page loads /js/site-config.js before this file, so the rate is never duplicated here.
+const SF_CURRENCY = window.SF_SITE.currency;
+
+/** Stored USD amount -> Rupees, e.g. 20 -> 5600 (used by admin forms, price filters, charts) */
+function sfToRupees(amountUsd) {
+  return Math.round(Number(amountUsd || 0) * SF_CURRENCY.usdToPkr);
+}
+
+/** Rupees typed by a person -> USD for saving/querying, e.g. 5600 -> 20 */
+function sfFromRupees(amountRupees) {
+  return Math.round((Number(amountRupees || 0) / SF_CURRENCY.usdToPkr) * 10000) / 10000;
+}
+
+/** Formats a stored USD amount for display in Rupees, e.g. 20 -> "Rs. 5,600" */
+function sfCurrency(amountUsd) {
+  return `${SF_CURRENCY.symbol} ${sfToRupees(amountUsd).toLocaleString('en-US')}`;
 }
 
 /** Simple query-string parser */

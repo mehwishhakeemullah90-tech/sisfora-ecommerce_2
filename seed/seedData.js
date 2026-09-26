@@ -21,9 +21,10 @@ const Blog = require('../models/Blog');
 const Coupon = require('../models/Coupon');
 const Review = require('../models/Review');
 const Order = require('../models/Order');
+const { formatPrice } = require('../utils/currency');
 
 const categoriesData = [
-  { name: 'Skincare', description: 'Nourishing serums, moisturizers & cleansers for radiant skin.', image: '/images/products/category-skincare.svg', isFeatured: true },
+  { name: 'Skincare', description: 'Nourishing serums, moisturizers & cleansers for radiant skin.', image: '/images/sisfora/scene/category-skincare.webp', isFeatured: true },
   { name: 'Makeup', description: 'Luxury lips, eyes & complexion essentials.', image: '/images/products/category-makeup.svg', isFeatured: true },
   { name: 'Fragrance', description: 'Signature scents crafted to linger beautifully.', image: '/images/products/category-fragrance.svg', isFeatured: true },
   { name: 'Haircare', description: 'Clean formulas for soft, healthy, luminous hair.', image: '/images/products/category-haircare.svg', isFeatured: true },
@@ -35,7 +36,7 @@ const categoriesData = [
 // Real product photos are in public/images/products/photo-*.jpg
 const productsData = [
 
-  ['Rose Radiance Serum', 0, 42, 34, 40, { isBestSeller: true, isFeatured: true }, 'photo-serum.jpg', '/images/hover-product/images(13).jpg'],
+  ['Rose Radiance Serum', 0, 42, 34, 40, { isBestSeller: true, isFeatured: true }, '/images/sisfora/products/serum-radiance.webp', '/images/sisfora/products/serum-radiance-alt.webp'],
 
   ['Velvet Matte Lipstick — Blush Nude', 1, 24, 0, 60, { isNewArrival: true }, 'photo-foundation.jpg', '/images/hover-product/images(14).jpg'],
 
@@ -45,7 +46,7 @@ const productsData = [
 
   ['Bloom & Glow Cream Blush', 1, 22, 0, 45, { isNewArrival: true }, 'photo-foundation.jpg', '/images/hover-product/images(17).jpg'],
 
-  ['Pure Hydra Moisturizer', 0, 36, 28, 55, { isBestSeller: true, isFeatured: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(18).jpg'],
+  ['Pure Hydra Moisturizer', 0, 36, 28, 55, { isBestSeller: true, isFeatured: true }, '/images/sisfora/products/moisturizer-hydra.webp', '/images/sisfora/products/moisturizer-hydra-alt.webp'],
 
   ['Midnight Kohl Eyeliner', 1, 18, 0, 70, {}, 'photo-foundation.jpg', '/images/hover-product/images(19).jpg'],
 
@@ -57,19 +58,19 @@ const productsData = [
 
   ['Silk Lash Volumizing Mascara', 1, 21, 0, 80, { isNewArrival: true }, 'photo-foundation.jpg', '/images/hover-product/images(23).jpg'],
 
-  ['Dewy Petal Hydrating Face Mist', 0, 19, 0, 90, { isBestSeller: true }, 'photo-serum.jpg', '/images/hover-product/images(24).jpg'],
+  ['Dewy Petal Hydrating Face Mist', 0, 19, 0, 90, { isBestSeller: true }, '/images/sisfora/products/mist-dewy.webp', '/images/sisfora/products/mist-dewy-alt.webp'],
 
-  ['Rosewater Balancing Toner', 0, 23, 18, 60, {}, 'photo-toner.jpg', '/images/hover-product/images(13).jpg'],
+  ['Rosewater Balancing Toner', 0, 23, 18, 60, {}, '/images/sisfora/products/toner-rosewater.webp', '/images/sisfora/products/toner-rosewater-alt.webp'],
 
   ['Gilded Bronze Bronzer', 1, 26, 0, 38, { isNewArrival: true }, 'photo-fragrance.jpg', '/images/hover-product/images(14).jpg'],
 
   ['Whisper Nude Lipstick', 1, 24, 0, 55, {}, 'photo-foundation.jpg', '/images/hover-product/images(15).jpg'],
 
-  ['Camellia Cream Night Repair', 0, 45, 36, 30, { isFeatured: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(16).jpg'],
+  ['Camellia Cream Night Repair', 0, 45, 36, 30, { isFeatured: true }, '/images/sisfora/products/night-camellia.webp', '/images/sisfora/products/night-camellia-alt.webp'],
 
-  ['Sunlit Glow SPF 30 Moisturizer', 0, 34, 0, 48, { isBestSeller: true }, 'photo-moisturizer.jpg', '/images/hover-product/images(17).jpg'],
+  ['Sunlit Glow SPF 30 Moisturizer', 0, 34, 0, 48, { isBestSeller: true }, '/images/sisfora/products/spf-sunlit.webp', '/images/sisfora/products/spf-sunlit-alt.webp'],
 
-  ['Petal Soft Cream Cleanser', 0, 25, 20, 70, { isNewArrival: true }, 'photo-serum.jpg', '/images/hover-product/images(18).jpg'],
+  ['Petal Soft Cream Cleanser', 0, 25, 20, 70, { isNewArrival: true }, '/images/sisfora/products/cleanser-petal.webp', '/images/sisfora/products/cleanser-petal-alt.webp'],
 
 ];
 
@@ -179,7 +180,7 @@ for (const [
   imgFile,
   hoverImgFile
 ] of productsData) {
-    const image = `/images/products/${imgFile}`;
+    const image = imgFile.startsWith('/') ? imgFile : `/images/products/${imgFile}`;
    const hoverImage = hoverImgFile || `/images/products/${imgFile}`;
     const product = await Product.create({
       name,
@@ -243,7 +244,7 @@ for (const [
     },
     {
       code: 'SISFORA20',
-      description: '$20 off orders over $100',
+      description: `${formatPrice(20)} off orders over ${formatPrice(100)}`, // values below are USD
       discountType: 'fixed',
       discountValue: 20,
       minOrderAmount: 100,

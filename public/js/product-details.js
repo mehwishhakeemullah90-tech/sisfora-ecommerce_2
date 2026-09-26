@@ -54,73 +54,152 @@ document.addEventListener('DOMContentLoaded', async () => {
     discountBadgeEl.classList.remove('d-none');
   }
 
+  // Gallery: thumbnails + left/right arrows on the main image (+ swipe on phones)
+  let currentImage = 0;
+  function showImage(index) {
+    if (!images.length || !mainImage) return;
+    currentImage = (index + images.length) % images.length;
+    mainImage.src = images[currentImage];
+    document.querySelectorAll('.pd-thumb-v').forEach((t, i) => t.classList.toggle('active', i === currentImage));
+    const counter = document.querySelector('.pd-gallery-count b');
+    if (counter) counter.textContent = currentImage + 1;
+    mainImage.animate && mainImage.animate([{ opacity: 0.3, transform: 'scale(1.03)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 450, easing: 'cubic-bezier(.16,1,.3,1)' });
+  }
+
   if (thumbsContainer && images.length) {
     thumbsContainer.innerHTML = images
       .map((img, i) =>
-        `<img src="${img}" data-full="${img}" class="pd-thumb-v ${i === 0 ? 'active' : ''}" alt="Product thumbnail" />`
+        `<img src="${img}" data-index="${i}" class="pd-thumb-v ${i === 0 ? 'active' : ''}" alt="${sfEscape(product.name)} photo ${i + 1}" loading="lazy" />`
       )
       .join('');
     document.querySelectorAll('.pd-thumb-v').forEach((thumb) => {
-      thumb.addEventListener('click', () => {
-        if (mainImage) mainImage.src = thumb.dataset.full;
-        document.querySelectorAll('.pd-thumb-v').forEach((t) => t.classList.remove('active'));
-        thumb.classList.add('active');
-      });
+      thumb.addEventListener('click', () => showImage(Number(thumb.dataset.index)));
+    });
+  }
+
+  const mediaBox = mainImage && mainImage.closest('.product-media');
+  if (mediaBox && images.length > 1) {
+    mediaBox.insertAdjacentHTML('beforeend', `
+      <button type="button" class="pd-gallery-arrow pd-gallery-prev" aria-label="Previous photo">${sfIcon('left', 20)}</button>
+      <button type="button" class="pd-gallery-arrow pd-gallery-next" aria-label="Next photo">${sfIcon('right', 20)}</button>
+      <span class="pd-gallery-count" aria-hidden="true"><b>1</b> / ${images.length}</span>`);
+    mediaBox.querySelector('.pd-gallery-prev').addEventListener('click', () => showImage(currentImage - 1));
+    mediaBox.querySelector('.pd-gallery-next').addEventListener('click', () => showImage(currentImage + 1));
+
+    let touchStartX = null;
+    mediaBox.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    mediaBox.addEventListener('touchend', (e) => {
+      if (touchStartX === null) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) showImage(currentImage + (dx < 0 ? 1 : -1));
+      touchStartX = null;
     });
   }
 
   // Product info panel
   const infoEl = document.getElementById('pdInfo');
   if (infoEl) {
+    const catName = product.category && product.category.name ? sfEscape(product.category.name) : '';
+    const shortText = product.shortDescription || String(product.description || '').split(/(?<=\.)\s/)[0] || '';
     infoEl.innerHTML = `
-      <h1 class="pd-title mb-2">${sfEscape(product.name)}</h1>
-      <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
-        <div class="product-rating">${sfStars(product.ratingsAverage)}</div>
-        <span class="pd-review-count"><span id="pdReviewCount">0</span> reviews</span>
-        <span class="pd-sold-badge"><i class="bi bi-fire me-1"></i>15 sold in last 24 hours</span>
-      </div>
+      ${catName ? `<p class="eyebrow mb-2">${catName}</p>` : ''}
+      <h1 class="pd-title mb-3">${sfEscape(product.name)}</h1>
+      <button type="button" class="pd-rating-link mb-3" id="pdRatingLink" aria-label="Read the reviews">
+        <span class="product-rating">${sfStars(product.ratingsAverage)}</span>
+        <span class="pd-review-count"><span id="pdReviewCount">${product.ratingsCount || 0}</span> reviews · Write a review</span>
+      </button>
       <div class="d-flex align-items-baseline gap-3 mb-3">
         <span class="pd-price">${sfCurrency(finalPrice)}</span>
-        ${hasDiscount ? `<span class="pd-price-old">${sfCurrency(product.price)}</span>` : ''}
+        ${hasDiscount ? `<span class="pd-price-old">${sfCurrency(product.price)}</span><span class="sf-badge sf-badge-sale">Save ${discountPercent}%</span>` : ''}
       </div>
-      <div class="pd-viewing-pill mb-3">
-        <i class="bi bi-eye me-2"></i>30 people are viewing this right now
+      ${shortText ? `<p class="pd-short">${sfEscape(shortText)}</p>` : ''}
+      <div class="d-flex gap-4 mb-4">
+        <button type="button" class="pd-action-link" id="pdAskBtn"><i class="bi bi-question-circle me-1"></i>Ask a question</button>
+        <button type="button" class="pd-action-link" id="pdShareBtn"><i class="bi bi-share me-1"></i>Share</button>
       </div>
-      <div class="d-flex gap-4 mb-3">
-        <a href="/contact" class="pd-action-link"><i class="bi bi-question-circle me-1"></i>Ask a question</a>
-        <a href="#" class="pd-action-link" onclick="return false;"><i class="bi bi-share me-1"></i>Share</a>
-      </div>
-      <hr class="my-3">
       ${product.stock > 0
-        ? `<p class="text-success small mb-3"><i class="bi bi-check-circle me-1"></i>In Stock (${product.stock} available)</p>`
-        : `<p class="text-danger small mb-3"><i class="bi bi-x-circle me-1"></i>Out of Stock</p>`}
-      <div class="d-flex align-items-center gap-2 mb-3">
+        ? `<p class="pd-stock ${product.stock <= 5 ? 'is-low' : ''}"><span></span>${product.stock <= 5 ? `Only ${product.stock} left in stock` : 'In stock — ready to ship'}</p>`
+        : '<p class="pd-stock is-out"><span></span>Out of stock</p>'}
+      <div class="pd-buy-row mb-3">
         <div class="pd-qty-group">
-          <button class="pd-qty-btn" type="button" id="pdQtyMinus">-</button>
+          <button class="pd-qty-btn" type="button" id="pdQtyMinus" aria-label="Decrease quantity">−</button>
           <input type="number" id="pdQty" class="pd-qty-input" value="1" min="1" max="${product.stock}" aria-label="Quantity">
-          <button class="pd-qty-btn" type="button" id="pdQtyPlus">+</button>
+          <button class="pd-qty-btn" type="button" id="pdQtyPlus" aria-label="Increase quantity">+</button>
         </div>
         <button id="pdAddToCartBtn" class="btn-pd-cart flex-grow-1" ${product.stock === 0 ? 'disabled' : ''}
           data-id="${product._id}" data-name="${sfEscape(product.name)}" data-slug="${product.slug}"
           data-image="${images[0] || ''}" data-price="${finalPrice}" data-stock="${product.stock}">
-          Add to Cart
+          ${sfIcon('bag', 18)} Add to Cart
         </button>
-        <button class="btn-pd-icon js-toggle-wishlist" data-id="${product._id}" title="Add to wishlist" type="button">
-          <i class="bi bi-heart"></i>
-        </button>
-        <button class="btn-pd-icon" title="Compare" type="button">
-          <i class="bi bi-layers"></i>
+        <button class="btn-pd-icon js-toggle-wishlist" data-id="${product._id}" aria-label="Add to wishlist" aria-pressed="false" type="button">
+          ${sfIcon('heart', 20)}
         </button>
       </div>
       <button class="btn-pd-buynow w-100 mb-4" ${product.stock === 0 ? 'disabled' : ''} id="pdBuyNowBtn" type="button">
-        <i class="bi bi-cart me-2"></i>Buy Now
+        Buy Now
       </button>
-      <div class="d-flex gap-4 small text-muted">
-        <span><i class="bi bi-truck me-1"></i>Free shipping on orders over $50</span>
-        <span><i class="bi bi-arrow-repeat me-1"></i>Easy 30-day returns</span>
-      </div>
+      <ul class="pd-assure">
+        <li>${sfIcon('truck', 20)}<div><strong>Free delivery</strong><span>On orders over ${sfCurrency((window.SF_SITE && SF_SITE.freeShippingThreshold) || 50)} · <a href="/shipping">Details</a></span></div></li>
+        <li><i class="bi bi-cash-coin"></i><div><strong>Cash on Delivery</strong><span>Pay when it arrives, nationwide</span></div></li>
+        <li><i class="bi bi-arrow-repeat"></i><div><strong>Easy returns</strong><span>30 days · <a href="/faq#returns">How it works</a></span></div></li>
+      </ul>
     `;
+    // Star summary opens the Reviews tab (where the review form is)
+    document.getElementById('pdRatingLink')?.addEventListener('click', () => {
+      const tabBtn = document.querySelector('[data-bs-target="#pdReviewsTab"]');
+      if (tabBtn && window.bootstrap) bootstrap.Tab.getOrCreateInstance(tabBtn).show();
+      document.getElementById('pdTabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
+
+  if (typeof sfRefreshWishlistHearts === 'function') sfRefreshWishlistHearts();
+
+  // Share: the phone's share sheet where available, otherwise copy the link
+  document.getElementById('pdShareBtn')?.addEventListener('click', async () => {
+    const shareData = { title: `${product.name} | Sisfora`, url: window.location.href };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch (e) { /* user closed the share sheet */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      sfToast('Link copied — paste it anywhere to share');
+    } catch (e) {
+      window.prompt('Copy this link to share:', window.location.href);
+    }
+  });
+
+  // Ask a question: small form that goes to the admin's Contact Messages
+  const askModalEl = document.getElementById('pdAskModal');
+  document.getElementById('pdAskBtn')?.addEventListener('click', () => {
+    if (!askModalEl || !window.bootstrap) { window.location.href = '/contact'; return; }
+    document.getElementById('pdAskProduct').textContent = product.name;
+    bootstrap.Modal.getOrCreateInstance(askModalEl).show();
+  });
+  const askForm = document.getElementById('pdAskForm');
+  askForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = askForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    try {
+      const data = await sfFetch('/api/contact', {
+        method: 'POST',
+        body: {
+          fullName: askForm.fullName.value,
+          email: askForm.email.value,
+          subject: `Question about ${product.name}`,
+          message: `${askForm.message.value}\n\nProduct: ${window.location.href}`,
+        },
+      });
+      bootstrap.Modal.getOrCreateInstance(askModalEl).hide();
+      askForm.reset();
+      sfToast(data.message || 'Thanks! We will reply by email soon.');
+    } catch (err) {
+      sfToast(err.message, 'error');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
 
   // Description + tags
   const descEl = document.getElementById('pdDescription');
@@ -159,7 +238,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Buy Now — add to cart then go to cart
+  // Buy Now — add to cart and go straight to checkout (fewest taps)
   const buyNowBtn = document.getElementById('pdBuyNowBtn');
   if (buyNowBtn) {
     buyNowBtn.addEventListener('click', () => {
@@ -172,9 +251,10 @@ document.addEventListener('DOMContentLoaded', async () => {
           price: finalPrice,
           stock: product.stock,
         },
-        Number(qtyInput?.value || 1)
+        Number(qtyInput?.value || 1),
+        { silent: true }
       );
-      window.location.href = '/cart';
+      window.location.href = '/checkout';
     });
   }
 
@@ -197,6 +277,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const { reviews } = await sfFetch(`/api/products/${product._id}/reviews`);
       const countEl = document.getElementById('pdReviewCount');
       if (countEl) countEl.textContent = reviews.length;
+      const countLabel = countEl && countEl.parentElement;
+      if (countLabel) countLabel.lastChild.textContent = reviews.length === 1 ? ' review · Write a review' : ' reviews · Write a review';
       if (!reviews.length) {
         reviewsList.innerHTML = '<p class="text-muted">No reviews yet. Be the first to share your experience!</p>';
         return;

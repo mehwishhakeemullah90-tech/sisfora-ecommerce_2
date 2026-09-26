@@ -37,7 +37,11 @@ router.get('/offers', sendPage('offers.html'));
 router.get('/blog', sendPage('blog.html'));
 router.get('/blog/:slug', sendPage('blog-details.html')); // blog-details.html fetches post from API
 
+// Search — search.html reads ?q= and fetches /api/products/search
+router.get('/search', sendPage('search.html'));
+
 // Info pages
+router.get(['/shipping', '/shipping-policy', '/delivery'], sendPage('shipping.html'));
 router.get('/contact', sendPage('contact.html'));
 router.get('/faq', sendPage('faq.html'));
 router.get('/privacy-policy', sendPage('privacy-policy.html'));
@@ -58,6 +62,7 @@ router.get('/reset-password/:token', sendPage('reset-password.html'));
 // User account (protected — middleware redirects to /login if not authenticated)
 router.get('/profile', protect, sendPage('profile.html'));
 router.get('/cart', sendPage('cart.html'));
+router.get('/wishlist', sendPage('wishlist.html')); // works signed in or out
 router.get('/checkout', protect, sendPage('checkout.html'));
 router.get('/order-confirmation/:id', protect, sendPage('order-confirmation.html'));
 

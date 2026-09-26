@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XHQGVF2SBW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XHQGVF2SBW');
+  </script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Login | Sisfora</title>
   <meta name="description" content="Sign in to your Sisfora account." />
   <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
@@ -12,78 +21,9 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-sisfora sticky-top" id="sfNavbar">
-    <div class="container">
-      <a class="navbar-brand sf-logo-brand" href="/"><img src="/images/brand/imagesisfora.png" alt="Sisfora" class="sf-logo-img"></a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sfNavMenu" aria-label="Toggle navigation">
-        <i class="bi bi-list fs-2"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="sfNavMenu">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-          <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Shop <i class="bi bi-chevron-down sf-caret"></i></a>
-            <ul class="dropdown-menu sf-dropdown-menu">
-              <li><a class="dropdown-item sf-dropdown-item" href="/shop">All Products</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">New Arrivals</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/best-sellers">Best Sellers</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/offers">Offers</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories <i class="bi bi-chevron-down sf-caret"></i></a>
-            <ul class="dropdown-menu sf-dropdown-menu">
-              <li><a class="dropdown-item sf-dropdown-item" href="/categories">All Categories</a></li>
-              <li><hr class="dropdown-divider sf-divider"></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/categories/skincare">Skincare</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/categories/makeup">Makeup</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/categories/fragrance">Fragrance</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/categories/body-care">Body Care</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/categories/hair-care">Hair Care</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">New In <i class="bi bi-chevron-down sf-caret"></i></a>
-            <ul class="dropdown-menu sf-dropdown-menu">
-              <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">New Products</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/new-arrivals">Latest Arrivals</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown sf-nav-dropdown">
-            <a class="nav-link sf-dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">About <i class="bi bi-chevron-down sf-caret"></i></a>
-            <ul class="dropdown-menu sf-dropdown-menu">
-              <li><a class="dropdown-item sf-dropdown-item" href="/about">About Sisfora</a></li>
-              <li><a class="dropdown-item sf-dropdown-item" href="/about#story">Our Story</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-        </ul>
-        <div class="d-flex align-items-center ms-lg-3">
-          <a href="#" class="nav-icon-link d-lg-none d-inline" id="mobileSearchToggle" aria-label="Search"><i class="bi bi-search"></i></a>
-          <form action="/shop" method="GET" class="sf-search-pill d-none d-lg-flex" id="sfSearchPill"><i class="bi bi-search"></i><input type="text" name="keyword" placeholder="I'm looking for..." autocomplete="off" /></form>
-          <div class="dropdown d-inline">
-            <a href="#" class="nav-icon-link" data-bs-toggle="dropdown" title="Account"><i class="bi bi-person"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end mt-2">
-              <li><a class="dropdown-item small" href="/profile">My Account</a></li>
-              <li><a class="dropdown-item small" href="/profile?tab=orders">Order History</a></li>
-              <li><a class="dropdown-item small" href="/profile?tab=wishlist">Wishlist</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item small" href="/login">Login / Register</a></li>
-              <li><a class="dropdown-item small" href="#" id="logoutBtn">Logout</a></li>
-            </ul>
-          </div>
-          <a href="/profile?tab=wishlist" class="nav-icon-link" title="Wishlist">
-            <i class="bi bi-heart"></i>
-            <span class="badge-count d-none" id="wishlistCount">0</span>
-          </a>
-          <a href="/cart" class="nav-icon-link" title="Cart">
-            <i class="bi bi-bag"></i>
-            <span class="badge-count d-none" id="cartCount">0</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <div id="sfHeader"></div>
+  <script src="/js/site-config.js"></script>
+  <script src="/js/layout.js"></script>
 
   <main>
     <section class="section" style="min-height:75vh;display:flex;align-items:center;">
@@ -125,24 +65,15 @@
     </section>
   </main>
 
-  <footer class="sf-footer py-3">
-    <div class="container">
-      <div class="sf-footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <span>&copy; 2026 Sisfora. All rights reserved.</span>
-        <div class="d-flex gap-4 small">
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms">Terms</a>
-          <a href="/contact">Contact</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <div id="sfFooter" data-newsletter="off"></div>
 
-  <div id="sfToast" class="toast-sf"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
   <script src="/js/utils.js"></script>
   <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
   <script src="/js/auth.js"></script>
+  <script src="/js/motion.js"></script>
   <script>
     document.getElementById('toggleLoginPwd').addEventListener('click', function() {
       var input = document.getElementById('loginPassword');

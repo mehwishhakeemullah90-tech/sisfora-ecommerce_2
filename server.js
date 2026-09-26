@@ -85,6 +85,26 @@ app.use((req, res, next) => {
 // ---------------------------------------------------------------------
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Site-wide storefront settings (contact details, social links, live
+// categories) for the browser — edited in config/storefront.js.
+app.get('/js/site-config.js', (req, res) => {
+  const { email, phone, social, categories, promo, newsletterIncentive, tawk, currency, freeShippingThreshold, shippingFlatRate } = require('./config/storefront');
+  const { formatPrice } = require('./utils/currency');
+  const freeShippingText = formatPrice(freeShippingThreshold);
+  const site = {
+    email, phone, social, categories, newsletterIncentive, tawk, currency,
+    freeShippingThreshold, shippingFlatRate, // USD (same unit as product prices)
+    // Ready-made Rupee strings for page text, e.g. "Rs. 14,000"
+    formatted: { freeShippingThreshold: freeShippingText, shippingFlatRate: formatPrice(shippingFlatRate) },
+    promo: promo && { ...promo, text: String(promo.text || '').replace('{freeShipping}', freeShippingText) },
+  };
+  res.type('application/javascript').send(`window.SF_SITE = ${JSON.stringify(site)};`);
+});
+
+// Lets EJS templates show prices in Rupees: <%= formatPrice(product.price) %>
+app.locals.formatPrice = require('./utils/currency').formatPrice;
+app.locals.storefront = require('./config/storefront');
+
 // Health-check endpoint — always reachable, reports exact DB error so
 // you can diagnose connection failures without digging into logs.
 app.get('/health', async (req, res) => {

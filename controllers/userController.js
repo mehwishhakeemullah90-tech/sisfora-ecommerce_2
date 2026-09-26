@@ -84,6 +84,21 @@ exports.toggleWishlist = asyncHandler(async (req, res) => {
   res.json({ success: true, added, wishlistCount: user.wishlist.length });
 });
 
+// @desc    Add products saved while signed out (guest wishlist) to the account
+// @route   POST /api/users/wishlist/merge   body: { productIds: [...] }
+// @access  Private
+exports.mergeWishlist = asyncHandler(async (req, res) => {
+  const ids = Array.isArray(req.body.productIds) ? req.body.productIds.map(String).slice(0, 100) : [];
+  const existing = await Product.find({ _id: { $in: ids.filter((id) => /^[a-f0-9]{24}$/i.test(id)) } }).select('_id');
+
+  const user = await User.findById(req.user._id);
+  existing.forEach((p) => {
+    if (!user.wishlist.some((id) => id.equals(p._id))) user.wishlist.push(p._id);
+  });
+  await user.save();
+  res.json({ success: true, wishlist: user.wishlist, wishlistCount: user.wishlist.length });
+});
+
 // ---------------- Admin ----------------
 
 // @desc    List all customers

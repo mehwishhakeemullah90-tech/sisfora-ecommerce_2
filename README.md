@@ -52,6 +52,16 @@ Visit:
 
 To wipe all demo data: `npm run seed:destroy`
 
+## 2b. Design system (2026 redesign — "Noir & Gold Atelier")
+
+- **Look:** black / gold / cream luxury theme, vertical side menu on desktop (slide-in drawer + bottom quick bar on phones), rotating announcement bar, dark page headers with breadcrumbs on every page.
+- **Motion (3D / depth):** `public/js/motion.js` — 3D tilt cards, pointer-driven hero scene with orbiting gold rings and floating products, scroll parallax, word-by-word headline reveal, magnetic buttons, animated gold cursor. Everything switches off automatically for visitors who ask their phone/computer for reduced motion.
+- **Fonts:** self-hosted in `public/fonts/` (Lora + Poppins) — no extra request to Google, faster on mobile data.
+- **Images:** consistent studio renders in `public/images/sisfora/` (same backdrop, size and lighting). Regenerate with `python scripts/generate-product-renders.py public/images/sisfora` (needs Python + Playwright).
+  To switch the existing demo Skincare products in the database to these images run `npm run images:studio` — it never replaces photos uploaded through the Admin Panel.
+- **Clean logo:** `public/images/brand/imagesisfora.png` (and the `sisfora-*` variants) no longer has the stray sparkle or the AI watermark.
+- **One place to edit:** header, side menu, footer, contact email/phone, social links, live categories, promo pop-up and Tawk.to chat all come from `config/storefront.js` + `public/js/layout.js`.
+
 ## 3. Project Structure
 
 ```

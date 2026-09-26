@@ -3,8 +3,9 @@
 // Renders and manages the /cart page: line items, quantity changes,
 // coupon application, and order summary totals.
 // -----------------------------------------------------------------------
-const SF_SHIPPING_FLAT = 5.99;
-const SF_FREE_SHIPPING_THRESHOLD = 50;
+// Shipping charges come from config/storefront.js (via /js/site-config.js)
+const SF_SHIPPING_FLAT = (window.SF_SITE && SF_SITE.shippingFlatRate) || 5.99;
+const SF_FREE_SHIPPING_THRESHOLD = (window.SF_SITE && SF_SITE.freeShippingThreshold) || 50;
 
 let sfAppliedCoupon = null; // { code, discountAmount }
 
@@ -47,6 +48,9 @@ function sfRenderCartPage() {
   emptyState.classList.add('d-none');
   cartContent.classList.remove('d-none');
   tbody.innerHTML = cart.map(sfCartRowHTML).join('');
+  const itemCount = cart.reduce((sum, i) => sum + i.quantity, 0);
+  const countEl = document.getElementById('cartItemCount');
+  if (countEl) countEl.textContent = `${itemCount} item${itemCount === 1 ? '' : 's'}`;
   sfRecalculateTotals();
 }
 
@@ -54,7 +58,7 @@ function sfRecalculateTotals() {
   const subtotal = sfCartSubtotal();
   const discount = sfAppliedCoupon ? sfAppliedCoupon.discountAmount : 0;
   const afterDiscount = Math.max(0, subtotal - discount);
-  // Free shipping only when the order meets the threshold (>= $50).
+  // Free shipping only when the order meets the threshold (config/storefront.js).
   // The cart content section is hidden when the cart is empty, so afterDiscount
   // will never be 0 from an empty cart here — only from a full-discount coupon,
   // which should still be charged shipping per the server-side logic.

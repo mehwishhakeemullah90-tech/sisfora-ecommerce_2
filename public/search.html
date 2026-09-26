@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XHQGVF2SBW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XHQGVF2SBW');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Search | Sisfora</title>
+  <meta name="description" content="Search the Sisfora collection." />
+  <meta name="theme-color" content="#0f0c0a" />
+  <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <div id="sfHeader"></div>
+  <script src="/js/site-config.js"></script>
+  <script src="/js/layout.js"></script>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="breadcrumb-sf mb-2"><a href="/">Home</a> / <span class="text-dark">Search</span></p>
+        <h1 class="section-title mb-4">Search</h1>
+        <form id="searchPageForm" class="sf-search-page-form" role="search" action="/search" method="GET">
+          <i class="bi bi-search"></i>
+          <input type="search" name="q" id="searchPageInput" placeholder="Search for serums, cleansers, moisturizers..." autocomplete="off" aria-label="Search products" autofocus />
+        </form>
+        <div id="searchSuggestions" class="sf-search-chips mt-3"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p id="searchStatus" class="text-muted small mb-4"></p>
+        <div class="row g-4" id="searchResultsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="sfFooter"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/wishlist.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/product.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/motion.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 // controllers/couponController.js
 const asyncHandler = require('../middleware/asyncHandler');
 const Coupon = require('../models/Coupon');
+const { formatPrice } = require('../utils/currency');
 
 // @desc    Validate & apply a coupon code against a subtotal
 // @route   POST /api/coupons/apply
@@ -15,7 +16,7 @@ exports.applyCoupon = asyncHandler(async (req, res) => {
   if (subtotal < coupon.minOrderAmount) {
     return res.status(400).json({
       success: false,
-      message: `This coupon requires a minimum order of $${coupon.minOrderAmount.toFixed(2)}`,
+      message: `This coupon requires a minimum order of ${formatPrice(coupon.minOrderAmount)}`,
     });
   }
 
